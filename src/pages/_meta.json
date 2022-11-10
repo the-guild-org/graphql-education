@@ -1,0 +1,14 @@
+{
+  "index": {
+    "title": "Index",
+    "type": "page",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "tutorials": {
+    "title": "Tutorials",
+    "type": "page"
+  }
+}

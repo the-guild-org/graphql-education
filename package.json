@@ -1,0 +1,25 @@
+{
+  "name": "graphql-education",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "lint": "prettier -c .",
+    "start": "next"
+  },
+  "dependencies": {
+    "@theguild/components": "^4.3.2",
+    "clsx": "^1.2.1",
+    "next": "^12.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.6.0"
+  },
+  "devDependencies": {
+    "@theguild/tailwind-config": "^0.2.1",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
+  }
+}
