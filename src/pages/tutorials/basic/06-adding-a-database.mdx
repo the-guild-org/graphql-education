@@ -1,4 +1,4 @@
-import { Callout, PackageCmd } from '@theguild/components'
+import { Callout, PackageCmd } from '@theguild/components';
 
 # Adding a Database
 
@@ -141,23 +141,23 @@ Create a new file in the `src/` directory called `script.ts` and add the followi
 
 ```ts filename="src/script.ts"
 // 1
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
 // 2
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 // 3
 async function main() {
-  const allLinks = await prisma.link.findMany()
-  console.log(allLinks)
+  const allLinks = await prisma.link.findMany();
+  console.log(allLinks);
 }
 
 // 4
 main()
   // 5
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });
 ```
 
 Let's break down what's going on here with the numbered comments:
@@ -191,9 +191,9 @@ First, it helps us understand that `.create()` is the operation we need (just sc
 const newLink = await prisma.link.create({
   data: {
     description: 'Fullstack tutorial for GraphQL',
-    url: 'www.howtographql.com'
-  }
-})
+    url: 'www.howtographql.com',
+  },
+});
 ```
 
 ![You successfully queried the database with Prisma Client](https://i.imgur.com/AUAtnxZ.png)

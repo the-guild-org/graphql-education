@@ -1,4 +1,4 @@
-import { Callout, PackageCmd } from '@theguild/components'
+import { Callout, PackageCmd } from '@theguild/components';
 
 # Project Setup
 
@@ -34,7 +34,7 @@ In your project directory, install the packages required to run a TypeScript pro
 
 <PackageCmd
   packages={[
-    '-D --save-exact typescript @types/node ts-node ts-node-dev cross-env'
+    '-D --save-exact typescript @types/node ts-node ts-node-dev cross-env',
   ]}
 />
 
@@ -83,7 +83,7 @@ This will allow you to run the following scripts in your project directory:
 Now create the root entry point for your project, by creating a file under `src/main.ts` with the following:
 
 ```ts filename="src/main.ts"
-console.log('Hello World!')
+console.log('Hello World!');
 ```
 
 And to run your server in watch mode, run in your terminal:

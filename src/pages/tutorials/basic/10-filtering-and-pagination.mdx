@@ -1,4 +1,4 @@
-import { Callout } from '@theguild/components'
+import { Callout } from '@theguild/components';
 
 # Filtering and Pagination
 
@@ -40,21 +40,21 @@ const resolvers = {
     async feed(
       parent: unknown,
       args: { filterNeedle?: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const where = args.filterNeedle
         ? {
             OR: [
               { description: { contains: args.filterNeedle } },
-              { url: { contains: args.filterNeedle } }
-            ]
+              { url: { contains: args.filterNeedle } },
+            ],
           }
-        : {}
+        : {};
 
-      return context.prisma.link.findMany({ where })
-    }
-  }
-}
+      return context.prisma.link.findMany({ where });
+    },
+  },
+};
 ```
 
 If no `filterNeedle` argument value is provided, then the `where` object will be just an empty object and no filtering conditions will be applied by Prisma Client when it resolves the data for the `Query.links` field.
@@ -127,25 +127,25 @@ const resolvers = {
     async feed(
       parent: unknown,
       args: { filterNeedle?: string; skip?: number; take?: number },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const where = args.filterNeedle
         ? {
             OR: [
               { description: { contains: args.filterNeedle } },
-              { url: { contains: args.filterNeedle } }
-            ]
+              { url: { contains: args.filterNeedle } },
+            ],
           }
-        : {}
+        : {};
 
       return context.prisma.link.findMany({
         where,
         skip: args.skip,
-        take: args.take
-      })
-    }
-  }
-}
+        take: args.take,
+      });
+    },
+  },
+};
 ```
 
 All that's changing here is that the invocation of the `links` query now receives two additional arguments which might be carried by the incoming `args` object. Again, Prisma will take care of the rest.
@@ -182,21 +182,21 @@ Adjust the current schema resolver implementation according to the following.
   <summary>v2</summary>
 
 ```ts
-import { GraphQLYogaError } from '@graphql-yoga/node'
+import { GraphQLYogaError } from '@graphql-yoga/node';
 // ... other code ...
 
 const applyTakeConstraints = (params: {
-  min: number
-  max: number
-  value: number
+  min: number;
+  max: number;
+  value: number;
 }) => {
   if (params.value < params.min || params.value > params.max) {
     throw new GraphQLYogaError(
-      `'take' argument value '${params.value}' is outside the valid range of '${params.min}' to '${params.max}'.`
-    )
+      `'take' argument value '${params.value}' is outside the valid range of '${params.min}' to '${params.max}'.`,
+    );
   }
-  return params.value
-}
+  return params.value;
+};
 
 const resolvers = {
   // ... other resolvers maps ...
@@ -205,31 +205,31 @@ const resolvers = {
     async feed(
       parent: unknown,
       args: { filterNeedle?: string; skip?: number; take?: number },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const where = args.filterNeedle
         ? {
             OR: [
               { description: { contains: args.filterNeedle } },
-              { url: { contains: args.filterNeedle } }
-            ]
+              { url: { contains: args.filterNeedle } },
+            ],
           }
-        : {}
+        : {};
 
       const take = applyTakeConstraints({
         min: 1,
         max: 50,
-        value: args.take ?? 30
-      })
+        value: args.take ?? 30,
+      });
 
       return context.prisma.link.findMany({
         where,
         skip: args.skip,
-        take
-      })
-    }
-  }
-}
+        take,
+      });
+    },
+  },
+};
 ```
 
 </details>
@@ -239,20 +239,20 @@ const resolvers = {
 
 ```ts
 // ... other code ...
-import { GraphQLError } from 'graphql'
+import { GraphQLError } from 'graphql';
 
 const applyTakeConstraints = (params: {
-  min: number
-  max: number
-  value: number
+  min: number;
+  max: number;
+  value: number;
 }) => {
   if (params.value < params.min || params.value > params.max) {
     throw new GraphQLError(
-      `'take' argument value '${params.value}' is outside the valid range of '${params.min}' to '${params.max}'.`
-    )
+      `'take' argument value '${params.value}' is outside the valid range of '${params.min}' to '${params.max}'.`,
+    );
   }
-  return params.value
-}
+  return params.value;
+};
 
 const resolvers = {
   // ... other resolvers maps ...
@@ -261,31 +261,31 @@ const resolvers = {
     async feed(
       parent: unknown,
       args: { filterNeedle?: string; skip?: number; take?: number },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const where = args.filterNeedle
         ? {
             OR: [
               { description: { contains: args.filterNeedle } },
-              { url: { contains: args.filterNeedle } }
-            ]
+              { url: { contains: args.filterNeedle } },
+            ],
           }
-        : {}
+        : {};
 
       const take = applyTakeConstraints({
         min: 1,
         max: 50,
-        value: args.take ?? 30
-      })
+        value: args.take ?? 30,
+      });
 
       return context.prisma.link.findMany({
         where,
         skip: args.skip,
-        take
-      })
-    }
-  }
-}
+        take,
+      });
+    },
+  },
+};
 ```
 
 </details>

@@ -15,19 +15,19 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const comment = await context.prisma.comment.create({
         data: {
           body: args.body,
-          linkId: parseInt(args.linkId)
-        }
-      })
+          linkId: parseInt(args.linkId),
+        },
+      });
 
-      return comment
-    }
-  }
-}
+      return comment;
+    },
+  },
+};
 ```
 
 Execute the following GraphQL operation on GraphiQL:
@@ -130,7 +130,7 @@ Add the following catch handler for mapping a foreign key error into a `GraphQLY
 
 ```ts
 // ... other imports ...
-import { GraphQLYogaError } from '@graphql-yoga/node'
+import { GraphQLYogaError } from '@graphql-yoga/node';
 // ... other imports ...
 
 const resolvers = {
@@ -140,14 +140,14 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const comment = await context.prisma.comment
         .create({
           data: {
             body: args.body,
-            linkId: parseInt(args.linkId)
-          }
+            linkId: parseInt(args.linkId),
+          },
         })
         .catch((err: unknown) => {
           if (
@@ -156,17 +156,17 @@ const resolvers = {
           ) {
             return Promise.reject(
               new GraphQLYogaError(
-                `Cannot post comment on non-existing link with id '${args.linkId}'.`
-              )
-            )
+                `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+              ),
+            );
           }
-          return Promise.reject(err)
-        })
+          return Promise.reject(err);
+        });
 
-      return comment
-    }
-  }
-}
+      return comment;
+    },
+  },
+};
 ```
 
 The error code `P2003` indicates a foreign key constraint error. You can learn more about it in [the Prisma documentation](https://prisma.io/docs/reference/api-reference/error-reference#p2003).
@@ -183,7 +183,7 @@ Add the following catch handler for mapping a foreign key error into a `GraphQLE
 
 ```ts
 // ... other imports ...
-import { GraphQLError } from 'graphql'
+import { GraphQLError } from 'graphql';
 // ... other imports ...
 
 const resolvers = {
@@ -193,14 +193,14 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const comment = await context.prisma.comment
         .create({
           data: {
             body: args.body,
-            linkId: parseInt(args.linkId)
-          }
+            linkId: parseInt(args.linkId),
+          },
         })
         .catch((err: unknown) => {
           if (
@@ -209,17 +209,17 @@ const resolvers = {
           ) {
             return Promise.reject(
               new GraphQLError(
-                `Cannot post comment on non-existing link with id '${args.linkId}'.`
-              )
-            )
+                `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+              ),
+            );
           }
-          return Promise.reject(err)
-        })
+          return Promise.reject(err);
+        });
 
-      return comment
-    }
-  }
-}
+      return comment;
+    },
+  },
+};
 ```
 
 The error code `P2003` indicates a foreign key constraint error. You can learn more about it in [the Prisma documentation](https://prisma.io/docs/reference/api-reference/error-reference#p2003).
@@ -369,14 +369,14 @@ Add the following code to the `src/schema.ts` file.
 
 ```ts filename="src/schema.ts"
 // ... other code ...
-import { GraphQLYogaError } from '@graphql-yoga/node'
+import { GraphQLYogaError } from '@graphql-yoga/node';
 
 const parseIntSafe = (value: string): number | null => {
   if (/^(\d+)$/.test(value)) {
-    return parseInt(value, 10)
+    return parseInt(value, 10);
   }
-  return null
-}
+  return null;
+};
 
 const resolvers = {
   // ... other resolver maps ...
@@ -385,40 +385,40 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
-      const linkId = parseIntSafe(args.linkId)
+      const linkId = parseIntSafe(args.linkId);
       if (linkId === null) {
         return Promise.reject(
           new GraphQLYogaError(
-            `Cannot post comment on non-existing link with id '${args.linkId}'.`
-          )
-        )
+            `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+          ),
+        );
       }
 
       const comment = await context.prisma.comment
         .create({
           data: {
             body: args.body,
-            linkId
-          }
+            linkId,
+          },
         })
         .catch((err: unknown) => {
           if (err instanceof PrismaClientKnownRequestError) {
             if (err.code === 'P2003') {
               return Promise.reject(
                 new GraphQLYogaError(
-                  `Cannot post comment on non-existing link with id '${args.linkId}'.`
-                )
-              )
+                  `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+                ),
+              );
             }
           }
-          return Promise.reject(err)
-        })
-      return comment
-    }
-  }
-}
+          return Promise.reject(err);
+        });
+      return comment;
+    },
+  },
+};
 ```
 
 </details>
@@ -428,14 +428,14 @@ const resolvers = {
 
 ```ts filename="src/schema.ts"
 // ... other code ...
-import { GraphQLError } from 'graphql'
+import { GraphQLError } from 'graphql';
 
 const parseIntSafe = (value: string): number | null => {
   if (/^(\d+)$/.test(value)) {
-    return parseInt(value, 10)
+    return parseInt(value, 10);
   }
-  return null
-}
+  return null;
+};
 
 const resolvers = {
   // ... other resolver maps ...
@@ -444,40 +444,40 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
-      const linkId = parseIntSafe(args.linkId)
+      const linkId = parseIntSafe(args.linkId);
       if (linkId === null) {
         return Promise.reject(
           new GraphQLError(
-            `Cannot post comment on non-existing link with id '${args.linkId}'.`
-          )
-        )
+            `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+          ),
+        );
       }
 
       const comment = await context.prisma.comment
         .create({
           data: {
             body: args.body,
-            linkId
-          }
+            linkId,
+          },
         })
         .catch((err: unknown) => {
           if (err instanceof PrismaClientKnownRequestError) {
             if (err.code === 'P2003') {
               return Promise.reject(
                 new GraphQLError(
-                  `Cannot post comment on non-existing link with id '${args.linkId}'.`
-                )
-              )
+                  `Cannot post comment on non-existing link with id '${args.linkId}'.`,
+                ),
+              );
             }
           }
-          return Promise.reject(err)
-        })
-      return comment
-    }
-  }
-}
+          return Promise.reject(err);
+        });
+      return comment;
+    },
+  },
+};
 ```
 
 </details>

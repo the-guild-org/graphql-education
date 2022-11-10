@@ -1,4 +1,4 @@
-import { Callout } from '@theguild/components'
+import { Callout } from '@theguild/components';
 
 # A Simple Query
 
@@ -30,7 +30,7 @@ const typeDefinitions = /* GraphQL */ `
     description: String!
     url: String!
   }
-`
+`;
 ```
 
 Pretty straightforward, right? You're defining a new `Link` object type that represents the links that can be posted to Hacker
@@ -53,33 +53,33 @@ In `src/schema.ts`, add a new list with dummy data as well and update the `resol
 ```ts filename="src/schema.ts"
 // 1
 type Link = {
-  id: string
-  url: string
-  description: string
-}
+  id: string;
+  url: string;
+  description: string;
+};
 
 // 2
 const links: Link[] = [
   {
     id: 'link-0',
     url: 'https://graphql-yoga.com',
-    description: 'The easiest way of setting up a GraphQL server'
-  }
-]
+    description: 'The easiest way of setting up a GraphQL server',
+  },
+];
 
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
     // 3
-    feed: () => links
+    feed: () => links,
   },
   // 4
   Link: {
     id: (parent: Link) => parent.id,
     description: (parent: Link) => parent.description,
-    url: (parent: Link) => parent.url
-  }
-}
+    url: (parent: Link) => parent.url,
+  },
+};
 ```
 
 Let's walk through the numbered comments again:

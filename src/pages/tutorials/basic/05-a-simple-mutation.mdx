@@ -25,7 +25,7 @@ const typeDefinitions = /* GraphQL */ `
     description: String!
     url: String!
   }
-`
+`;
 ```
 
 ## Implementing the Resolver Function
@@ -36,42 +36,42 @@ Next, update the `resolvers` functions to look as follows:
 
 ```ts
 type Link = {
-  id: string
-  url: string
-  description: string
-}
+  id: string;
+  url: string;
+  description: string;
+};
 
 const links: Link[] = [
   {
     id: 'link-0',
     url: 'www.howtographql.com',
-    description: 'Fullstack tutorial for GraphQL'
-  }
-]
+    description: 'Fullstack tutorial for GraphQL',
+  },
+];
 
 const resolvers = {
   Query: {
     info: () => `This is the API of a Hackernews Clone`,
-    feed: () => links
+    feed: () => links,
   },
   Mutation: {
     postLink: (parent: unknown, args: { description: string; url: string }) => {
       // 1
-      let idCount = links.length
+      let idCount = links.length;
 
       // 2
       const link: Link = {
         id: `link-${idCount}`,
         description: args.description,
-        url: args.url
-      }
+        url: args.url,
+      };
 
-      links.push(link)
+      links.push(link);
 
-      return link
-    }
-  }
-}
+      return link;
+    },
+  },
+};
 ```
 
 First off, note that you're entirely removing the `Link` object type resolver map (as explained at the very end of the last section).

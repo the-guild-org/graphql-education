@@ -106,10 +106,10 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
-    ) {}
-  }
-}
+      context: GraphQLContext,
+    ) {},
+  },
+};
 ```
 
 This is the skeleton of your new field resolver. As you might notice, it looks a lot familiar to the `Mutation.postLink` field resolver function. Since it will write to the database, the implementation will also look pretty familiar!
@@ -124,19 +124,19 @@ const resolvers = {
     async postCommentOnLink(
       parent: unknown,
       args: { linkId: string; body: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       const newComment = await context.prisma.comment.create({
         data: {
           linkId: parseInt(args.linkId),
-          body: args.body
-        }
-      })
+          body: args.body,
+        },
+      });
 
-      return newComment
-    }
-  }
-}
+      return newComment;
+    },
+  },
+};
 ```
 
 You pass two arguments for creating the new comment to the `comment.create` call.
@@ -241,11 +241,11 @@ const resolvers = {
     async comment(
       parent: unknown,
       args: { id: string },
-      context: GraphQLContext
-    ) {}
-  }
+      context: GraphQLContext,
+    ) {},
+  },
   // ... other resolver maps ...
-}
+};
 ```
 
 Within the resolver, you want to fetch the comment by its id.
@@ -260,15 +260,15 @@ const resolvers = {
     async comment(
       parent: unknown,
       args: { id: string },
-      context: GraphQLContext
+      context: GraphQLContext,
     ) {
       return context.prisma.comment.findUnique({
-        where: { id: parseInt(args.id) }
-      })
-    }
-  }
+        where: { id: parseInt(args.id) },
+      });
+    },
+  },
   // ... other resolver maps ...
-}
+};
 ```
 
 Similar to our mutation resolver, we first need to parse the integer value of the `id` variable value before using the `comment.findUnique` function for finding one single record with that specific id.
@@ -355,13 +355,13 @@ const resolvers = {
     comments(parent: Link, args: {}, context: GraphQLContext) {
       return context.prisma.comment.findMany({
         where: {
-          linkId: parent.id
-        }
-      })
-    }
-  }
+          linkId: parent.id,
+        },
+      });
+    },
+  },
   // ... other resolver maps ...
-}
+};
 ```
 
 As explained before, the first resolver function argument is always the parent argument. In the case of the context of a `Link` object type resolver, it is the type of the `Link` model as exported from the `@prisma/client` package.

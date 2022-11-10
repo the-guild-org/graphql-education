@@ -1,4 +1,4 @@
-import { Callout, PackageCmd } from '@theguild/components'
+import { Callout, PackageCmd } from '@theguild/components';
 
 # Getting Started
 
@@ -50,7 +50,7 @@ const typeDefinitions = /* GraphQL */ `
   type Query {
     hello: String!
   }
-`
+`;
 ```
 
 These are our type definitions that describe what data can be retrieved from the schema.
@@ -62,13 +62,13 @@ const typeDefinitions = /* GraphQL */ `
   type Query {
     hello: String!
   }
-`
+`;
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello World!'
-  }
-}
+    hello: () => 'Hello World!',
+  },
+};
 ```
 
 As you can see the resolver map follows the same structure as the type definitions.
@@ -78,24 +78,24 @@ The typename (`Query`) is an object in which the fields (`hello`) are functions 
 Now you still need to glue together the type definitions and the resolver map.
 
 ```ts
-import { makeExecutableSchema } from '@graphql-tools/schema'
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const typeDefinitions = /* GraphQL */ `
   type Query {
     hello: String!
   }
-`
+`;
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello World!'
-  }
-}
+    hello: () => 'Hello World!',
+  },
+};
 
 export const schema = makeExecutableSchema({
   resolvers: [resolvers],
-  typeDefs: [typeDefinitions]
-})
+  typeDefs: [typeDefinitions],
+});
 ```
 
 In the code snippet above, you've created or used the following variables:
@@ -127,25 +127,25 @@ To query our local schema, even without any fancy GraphQL client or even a Graph
 Update the code in `src/main.ts` to contain the following snippet:
 
 ```ts filename="src/main.ts"
-import { execute, parse } from 'graphql'
-import { schema } from './schema'
+import { execute, parse } from 'graphql';
+import { schema } from './schema';
 
 async function main() {
   const myQuery = parse(/* GraphQL */ `
     query {
       hello
     }
-  `)
+  `);
 
   const result = await execute({
     schema,
-    document: myQuery
-  })
+    document: myQuery,
+  });
 
-  console.log(result)
+  console.log(result);
 }
 
-main()
+main();
 ```
 
 Now, try to run our project again (either with `npm run dev` or `npm run start`), you should see in the output log the following:
