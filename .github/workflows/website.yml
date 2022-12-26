@@ -1,0 +1,40 @@
+name: Website
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.full_name == github.repository || github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: the-guild-org/shared-config/setup@main
+        with:
+          nodeVersion: 18
+          packageManager: yarn
+
+      - name: Build and Deploy
+        uses: the-guild-org/shared-config/website-cf@main
+        env:
+          NEXT_BASE_PATH: ${{ github.ref == 'refs/heads/main' && '/graphql/education' || '' }}
+          SITE_URL: ${{ github.ref == 'refs/heads/main' && 'https://the-guild.dev/graphql/education' || '' }}
+        with:
+          cloudflareApiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflareAccountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          projectName: graphql-education
+          prId: ${{ github.event.pull_request.number }}
+          websiteDirectory: ./
+          buildScript: pnpm build
+          artifactDir: ./out
