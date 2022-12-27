@@ -1,14 +1,3 @@
-# Get Started
-
-Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated modules for convenience and efficiency.
-
-The education modules are split into 4 different parts: the [database](/database), [schema](/schema), [server](/server) and [client](/client).
-
-## Data model
-
-All of the education modules are designed to the following data model. The [schema.graphql](https://github.com/the-guild-org/graphql-education/blob/main/schema.graphql) looks like this:
-
-```graphql file="schema.graphql"
 type Query {
   """
   The currently authenticated user.
@@ -76,11 +65,3 @@ input UpdateTaskInput {
 input DeleteTaskInput {
   id: ID!
 }
-```
-
-## Ports
-
-Some of the modules are exposed and communicated with over the network. All elements of modules will bind to the same ports for convenience:
-
-- [Database](/database) uses the port **50000** ([http://localhost:50000](http://localhost:50000))
-- [Server](/server) uses the port **50005** ([http://localhost:50005](http://localhost:50005))

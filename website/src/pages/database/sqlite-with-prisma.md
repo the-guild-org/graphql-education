@@ -33,7 +33,7 @@ This creates a new `prisma` directory with your Prisma schema file and configure
 
 ## Model your data
 
-Edit the newly created [prisma/schema.prisma](https://github.com/the-guild-org/graphql-education/tree/modules/examples/database/sqlite-with-prisma/prisma/schema.prisma) file and add the relevant data model:
+Edit the newly created [prisma/schema.prisma](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/sqlite-with-prisma/prisma/schema.prisma) file and add the relevant data model:
 
 ```prisma filename="prisma/schema.prisma"
 model User {
