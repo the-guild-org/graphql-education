@@ -71,9 +71,9 @@ model Post {
 
 Using Docker, we'll create a Postgres instance that we'll use to connect with Prisma.
 
-Start by creating a [docker-compose.yml](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/docker-compose.yml) file for configuring Postgres.
+Start by creating a [docker-compose.yaml](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/docker-compose.yaml) file for configuring Postgres.
 
-```yml filename="docker-compose.yml"
+```yaml filename="docker-compose.yaml"
 services:
   postgres:
     image: postgres:15
