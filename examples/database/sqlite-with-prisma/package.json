@@ -1,4 +1,8 @@
 {
   "private": true,
-  "name": "@database/sqlite-with-prisma"
+  "name": "@database/sqlite-with-prisma",
+  "dependencies": {
+    "@prisma/client": "^4.8.0",
+    "prisma": "^4.8.0"
+  }
 }
