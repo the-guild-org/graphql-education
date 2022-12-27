@@ -1,22 +1,16 @@
 import { Callout } from '@theguild/components';
 
-# Connecting the Server and Database with Prisma Client
+# From Prisma
 
-In this section, you're going to learn how to connect your GraphQL server to your database using [Prisma](https://prisma.io), which provides the interface to your database. This connection is implemented via [Prisma Client](https://prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+After you have set up a [database with Prisma](/database/prisma), you need to create a schema that is necessary for connecting the database to the server.
 
-## Wiring up Your GraphQL Schema with Prisma Client
+In this section, you're going to learn how to connect your GraphQL server to your [Prisma database](/database/prisma). The schema is implemented with the help of [Prisma Client](https://prisma.io/docs/reference/tools-and-interfaces/prisma-client).
+
+## The GraphQL `context` resolver argument
 
 The first thing you need to do is import your generated Prisma Client library and wire up the GraphQL server so that you can access the database queries that your new Prisma Client exposes.
 
-### The GraphQL `context` resolver argument
-
-Remember how we said earlier that all GraphQL resolver functions _always_ receive four arguments? To accomplish this step, you'll need to get to know another one – the `context` argument!
-
-The `context` argument is a plain JavaScript object that every resolver in the resolver chain can access and read from.
-The context is usually constructed for each executed GraphQL operation.
-You will attach an instance of Prisma Client to the `context` for convenient access inside your resolvers via the `context` argument!
-
-That's all a bit theoretical, so let's see how it looks in action 💻.
+The `context` argument is a plain JavaScript object that every resolver in the resolver chain can access and read from. The context is usually constructed for each executed GraphQL operation. You will attach an instance of Prisma Client to the `context` for convenient access inside your resolvers via the `context` argument.
 
 You'll start by creating a new file called `src/context.ts` to handle our GraphQL `context` creation.
 
@@ -62,8 +56,8 @@ import { createContext } from './context';
 function main() {
   const yoga = createYoga({ schema, context: createContext });
   const server = createServer(yoga);
-  server.listen(4000, () => {
-    console.info('Server is running on http://localhost:4000/graphql');
+  server.listen(50005, () => {
+    console.info('Server is running on http://localhost:50005/graphql');
   });
 }
 
@@ -209,55 +203,18 @@ So, to summarize, Prisma Client exposes a CRUD API for the models in your data m
 
 You may also have noticed that `newLink` is an object of type `Promise`. This is because all Prisma CRUD operations are asynchronous. This is not a problem as Fastify Server is capable of detecting, and automatically resolving any `Promise` object that is returned from resolver functions.
 
-## Testing the New Implementation
-
-With these code changes, you can now go ahead and test if the new implementation with a database works as expected. As usual, run the following command in your terminal to start the GraphQL server (`npm run dev`, or `npm start`)
-
-Then, open GraphiQL on `http://localhost:4000/graphql`. You can send the same `feed` query operation and `post` operation mutation as before. However, the difference is that this time the submitted links will be
-persisted in your SQLite database. Therefore, if you restart the server, the `feed` query will keep returning the same links.
-
-Open GraphiQL and try to run the `feed` query and the `postLink` mutation:
-
-```graphql
-query {
-  feed {
-    id
-    url
-    description
-  }
-}
-```
-
-```graphql
-mutation {
-  postLink(
-    url: "www.prisma.io"
-    description: "Prisma replaces traditional ORMs"
-  ) {
-    id
-  }
-}
-```
-
 ## Exploring Your Data in Prisma Studio
 
 Prisma ships with a powerful database GUI where you can interact with your data: [Prisma Studio](https://github.com/prisma/studio).
 
 Prisma Studio is different from a typical database GUI (such as [TablePlus](https://tableplus.com/)) in that it provides a layer of abstraction which allows you to see your data represented as it is in your Prisma data model.
 
-This is one of the several ways that Prisma bridges the gap between how you structure and interact with your data in your application and how it is structured and represented in the
-underlying database. One major benefit of this is that it helps you to build intuition and understanding of these two linked but separate layers over time.
+This is one of the several ways that Prisma bridges the gap between how you structure and interact with your data in your application and how it is structured and represented in the underlying database. One major benefit of this is that it helps you to build intuition and understanding of these two linked but separate layers over time.
 
-Let's run Prisma Studio and see it in action!
-
-Run the following command in your terminal:
+Run the following command in your terminal to start the studio:
 
 ```sh
 npx prisma studio
 ```
 
-Running the command should open a tab in your browser automatically (running on `http://localhost:5555`) where you will see the following interface. Notice that you see a tab for your `Link` model and can also explore all models by hovering on the far left menu:
-
-![see a tab for your Link model](https://i.imgur.com/SRIzETY.png)
-
-![hovering on the far left menu](https://i.imgur.com/JSHElJ2.png)
+Running the command should open a tab in your browser automatically on [http://localhost:5555](http://localhost:5555) where you will see the studio's interface.
