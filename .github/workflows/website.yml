@@ -37,5 +37,5 @@ jobs:
           projectName: graphql-education
           prId: ${{ github.event.pull_request.number }}
           websiteDirectory: ./website
-          buildScript: pnpm --filter=website build
-          artifactDir: ./website/dist
+          buildScript: pnpm build
+          artifactDir: ./dist
