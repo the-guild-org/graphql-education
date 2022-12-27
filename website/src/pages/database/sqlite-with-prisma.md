@@ -17,10 +17,10 @@ Initialise a project and provide the necessary fields:
 npm init
 ```
 
-Install Prisma and the client:
+Install Prisma:
 
 ```sh
-npm i prisma @prisma/client
+npm i prisma
 ```
 
 Initialise Prisma with SQLite:
