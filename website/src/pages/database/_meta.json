@@ -1,4 +1,4 @@
 {
   "introduction": "Introduction",
-  "sqlite-with-prisma": "SQLite with Prisma"
+  "postgres-with-prisma": "Postgres with Prisma"
 }

@@ -9,7 +9,6 @@
   },
   "get-started": "Get Started",
   "database": "Database",
-  "schema": "Schema",
   "server": "Server",
   "client": "Client"
 }

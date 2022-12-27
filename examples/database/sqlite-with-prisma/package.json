@@ -1,7 +1,0 @@
-{
-  "private": true,
-  "name": "@database/sqlite-with-prisma",
-  "dependencies": {
-    "prisma": "^4.8.0"
-  }
-}
