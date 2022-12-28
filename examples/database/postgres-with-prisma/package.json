@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "@database/postgres-with-prisma",
+  "dependencies": {
+    "@prisma/client": "^4.8.0",
+    "graphql": "^16.6.0",
+    "prisma": "^4.8.0"
+  }
+}

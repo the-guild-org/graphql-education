@@ -1,0 +1,43 @@
+import { PackageCmd, Tabs, Tab, Callout } from '@theguild/components';
+
+# graphql-http
+
+[graphql-http](https://the-guild.dev/graphql/yoga-server) is a batteries-included cross-platform [GraphQL over HTTP spec-compliant](https://github.com/enisdenjo/graphql-http/tree/master/implementations/graphql-yoga) GraphQL server powered by [Envelop](https://envelop.dev) and [GraphQL Tools](https://graphql-tools.com) that runs anywhere; focused on easy setup, performance and great developer experience.
+
+## Installation
+
+<PackageCmd packages={['graphql graphql-http']} />
+
+## Use
+
+Connect to the [server](/server) and execute operations.
+
+```js
+import { createClient } from 'graphql-http';
+
+const client = createClient({
+  url: 'http://localhost:50005/graphql',
+});
+
+(async () => {
+  let cancel = () => {
+    /* abort the request if it is in-flight */
+  };
+
+  const result = await new Promise((resolve, reject) => {
+    let result;
+    cancel = client.subscribe(
+      {
+        query: '{ hello }',
+      },
+      {
+        next: (data) => (result = data),
+        error: reject,
+        complete: () => resolve(result),
+      },
+    );
+  });
+
+  expect(result).toEqual({ hello: 'world' });
+})();
+```
