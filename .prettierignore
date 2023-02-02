@@ -1,3 +1,4 @@
 tsconfig.tsbuildinfo
 pnpm-lock.yaml
 .next
+generated.d.ts
