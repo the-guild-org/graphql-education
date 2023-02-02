@@ -1,1 +1,1 @@
-../../../website/src/pages/database/sqlite-with-prisma.md
+../../../website/src/pages/database/postgres-with-prisma.md
