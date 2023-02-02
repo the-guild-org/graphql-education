@@ -2,6 +2,12 @@
 
 Your GraphQL API can connect to any kind of data source, such as a remote REST (or even GraphQL) API or database.
 
+## Schema
+
+The [same GraphQL schema](/get-started#schema) will be model for each of the database implementation.
+
+Furthermore, every database implementation that follows has a resulting `schema.ts` file that is used to communicate GraphQL to the data source.
+
 ## Port
 
 All databases in the [database](/database) module use the port **50000** ([http://localhost:50000](http://localhost:50000)).

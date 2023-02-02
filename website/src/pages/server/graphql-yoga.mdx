@@ -1,16 +1,16 @@
-import { PackageCmd, Tabs, Tab, Callout } from '@theguild/components';
-
 # GraphQL Yoga
 
 [GraphQL Yoga](https://the-guild.dev/graphql/yoga-server) is a batteries-included cross-platform [GraphQL over HTTP spec-compliant](https://github.com/enisdenjo/graphql-http/tree/master/implementations/graphql-yoga) GraphQL server powered by [Envelop](https://envelop.dev) and [GraphQL Tools](https://graphql-tools.com) that runs anywhere; focused on easy setup, performance and great developer experience.
 
 ## Installation
 
-<PackageCmd packages={['graphql graphql-yoga']} />
+```sh
+npm i graphql graphql-yoga
+```
 
 ## Start
 
-Provide the created GraphQL schema to Yoga and liftoff! 🚀
+Provide the [database](/database/introduction) GraphQL schema to Yoga and liftoff! 🚀
 
 ```js
 import { createServer } from 'node:http';
