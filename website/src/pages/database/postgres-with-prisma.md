@@ -137,7 +137,7 @@ Now we will configure codegen to generate the TypeScript resolvers to `generated
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: '<path/to/schema.graphql>',
+  schema: '<get-started>/schema.graphql',
   generates: {
     'generated.d.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
