@@ -6,7 +6,7 @@ const config: CodegenConfig = {
     'generated.d.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
       config: {
-        // easier type mappings because the Prisma Client uses "type" for enums as well
+        // Prisma Client uses "type" for enums as well
         enumsAsTypes: true,
       },
     },
