@@ -202,7 +202,7 @@ const resolvers: Resolvers<GraphQLContext> = {
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: [require('path/to/schema.graphql')],
+  typeDefs: [require('<get-started>/schema.graphql')],
   resolvers: [resolvers],
 });
 ```
