@@ -8,18 +8,20 @@ type Query {
   """
   task(id: ID!): Task
   """
-  Retrieve all available tasks.
+  Retrieve available tasks. Optionally perform a fulltext search using the `searchText` argument.
   """
-  allTasks: [Task!]!
+  filterTasks(searchText: String): [Task!]!
 }
 
 type Mutation {
+  login(username: String!, password: String!): User!
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): Task!
 }
 
 type Subscription {
+  taskCreated: Task!
   taskChanged(id: ID!): Task!
 }
 
@@ -27,6 +29,10 @@ type User {
   id: ID!
   name: String!
   email: String!
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
   """
   All tasks that have this user set as the assignee.
   """
@@ -41,6 +47,11 @@ enum TaskStatus {
 
 type Task {
   id: ID!
+  createdBy: User!
+  """
+  Private tasks can be viewed and modified only by the asignee or the user who created it.
+  """
+  private: Boolean!
   assignee: User
   status: TaskStatus!
   title: String!
