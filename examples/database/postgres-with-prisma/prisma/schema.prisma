@@ -8,10 +8,12 @@ generator client {
 }
 
 model User {
-  id            String @id @default(uuid())
-  email         String @unique
-  name          String
-  assignedTasks Task[]
+  id    String @id @default(uuid())
+  email String @unique
+  name  String
+
+  createdTasks  Task[] @relation("createdTasks")
+  assignedTasks Task[] @relation("asignedTasks")
 }
 
 enum TaskStatus {
@@ -21,9 +23,16 @@ enum TaskStatus {
 }
 
 model Task {
-  id          String     @id @default(uuid())
-  assignee    User       @relation(fields: [userId], references: [id])
-  userId      String
+  id String @id @default(uuid())
+
+  createdByUserId String
+  createdBy       User   @relation("createdTasks", fields: [createdByUserId], references: [id])
+
+  private Boolean @default(false)
+
+  asigneeUserId String?
+  assignee      User?   @relation("asignedTasks", fields: [asigneeUserId], references: [id])
+
   status      TaskStatus
   title       String
   description String?
