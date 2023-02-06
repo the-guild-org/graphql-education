@@ -10,9 +10,9 @@ npm i graphql graphql-yoga
 
 ## Start
 
-Provide the [database](/database/introduction) GraphQL schema to Yoga and liftoff! 🚀
+Provide the [database](/database/introduction) GraphQL schema to Yoga.
 
-```js
+```ts filename="index.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
 import { schema } from '<database>/schema.ts';
@@ -27,6 +27,12 @@ const server = createServer(yoga);
 server.listen(50005, () => {
   console.info('Server is running on http://localhost:50005/graphql');
 });
+```
+
+And run it:
+
+```sh
+npx tsx index.ts
 ```
 
 Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see Yoga in action.
