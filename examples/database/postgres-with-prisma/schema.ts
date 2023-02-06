@@ -15,6 +15,10 @@ export function createContext(): GraphQLContext {
 
 const resolvers: Resolvers<GraphQLContext> = {
   Query: {
+    // TODO: identify
+    me() {
+      return null;
+    },
     task(_, args, ctx) {
       return ctx.prisma.task.findUniqueOrThrow({
         where: {
@@ -22,7 +26,65 @@ const resolvers: Resolvers<GraphQLContext> = {
         },
       });
     },
+    filterTasks(_, args, ctx) {
+      if (!args.searchText) {
+        return ctx.prisma.task.findMany();
+      }
+      return ctx.prisma.task.findMany({
+        where: {
+          OR: [
+            {
+              title: {
+                contains: args.searchText,
+              },
+            },
+            {
+              description: {
+                contains: args.searchText,
+              },
+            },
+          ],
+        },
+      });
+    },
   },
+  User: {
+    createdTasks(parent, _, ctx) {
+      return ctx.prisma.task.findMany({
+        where: {
+          createdByUserId: parent.id,
+        },
+      });
+    },
+    assignedTasks(parent, _, ctx) {
+      return ctx.prisma.task.findMany({
+        where: {
+          asigneeUserId: parent.id,
+        },
+      });
+    },
+  },
+  Task: {
+    createdBy(parent, _, ctx) {
+      return ctx.prisma.user.findUniqueOrThrow({
+        where: {
+          id: parent.createdByUserId,
+        },
+      });
+    },
+    assignee(parent, _, ctx) {
+      if (!parent.asigneeUserId) {
+        return null;
+      }
+      return ctx.prisma.user.findUniqueOrThrow({
+        where: {
+          id: parent.asigneeUserId,
+        },
+      });
+    },
+  },
+  // TODO: mutations
+  // TODO: subscriptions
 };
 
 export const schema = makeExecutableSchema({
