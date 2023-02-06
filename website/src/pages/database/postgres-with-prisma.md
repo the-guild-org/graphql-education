@@ -9,6 +9,7 @@ Combined with [Postgres](https://www.postgresql.org/) as the database layer. It 
 
 - [Node.js](https://nodejs.org/) LTS or higher
 - [Docker](https://www.docker.com/)
+- [TypeScript](https://www.typescriptlang.org/) knowledge
 
 ## Setup
 
