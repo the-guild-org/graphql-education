@@ -8,8 +8,11 @@ const config: CodegenConfig = {
       config: {
         // Prisma Client uses "type" for enums as well
         enumsAsTypes: true,
-        // TODO: solve recursive relations more elegantly
-        defaultMapper: 'Partial<{T}>',
+        // expect resolvers to return Prisma generated types
+        mappers: {
+          User: '@prisma/client#User as UserModel',
+          Task: '@prisma/client#Task as TaskModel',
+        },
       },
     },
   },

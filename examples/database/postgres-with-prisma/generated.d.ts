@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { User as UserModel, Task as TaskModel } from '@prisma/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -194,33 +195,33 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
-  CreateTaskInput: ResolverTypeWrapper<Partial<CreateTaskInput>>;
-  DeleteTaskInput: ResolverTypeWrapper<Partial<DeleteTaskInput>>;
-  ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CreateTaskInput: CreateTaskInput;
+  DeleteTaskInput: DeleteTaskInput;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
-  Task: ResolverTypeWrapper<Partial<Task>>;
-  TaskStatus: ResolverTypeWrapper<Partial<TaskStatus>>;
-  UpdateTaskInput: ResolverTypeWrapper<Partial<UpdateTaskInput>>;
-  User: ResolverTypeWrapper<Partial<User>>;
+  Task: ResolverTypeWrapper<TaskModel>;
+  TaskStatus: TaskStatus;
+  UpdateTaskInput: UpdateTaskInput;
+  User: ResolverTypeWrapper<UserModel>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Boolean: Partial<Scalars['Boolean']>;
-  CreateTaskInput: Partial<CreateTaskInput>;
-  DeleteTaskInput: Partial<DeleteTaskInput>;
-  ID: Partial<Scalars['ID']>;
+  Boolean: Scalars['Boolean'];
+  CreateTaskInput: CreateTaskInput;
+  DeleteTaskInput: DeleteTaskInput;
+  ID: Scalars['ID'];
   Mutation: {};
   Query: {};
-  String: Partial<Scalars['String']>;
+  String: Scalars['String'];
   Subscription: {};
-  Task: Partial<Task>;
-  UpdateTaskInput: Partial<UpdateTaskInput>;
-  User: Partial<User>;
+  Task: TaskModel;
+  UpdateTaskInput: UpdateTaskInput;
+  User: UserModel;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
