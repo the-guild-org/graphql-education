@@ -33,6 +33,14 @@ importers:
       '@graphql-codegen/typescript-operations': 2.5.13_graphql@16.6.0
       '@graphql-codegen/typescript-resolvers': 2.7.13_graphql@16.6.0
 
+  examples/server/graphql-http:
+    specifiers:
+      graphql: ^16.6.0
+      graphql-http: ^1.13.0
+    dependencies:
+      graphql: 16.6.0
+      graphql-http: 1.13.0_graphql@16.6.0
+
   examples/server/graphql-yoga:
     specifiers:
       graphql: ^16.6.0
@@ -4104,6 +4112,15 @@ packages:
       - encoding
       - utf-8-validate
     dev: true
+
+  /graphql-http/1.13.0_graphql@16.6.0:
+    resolution: {integrity: sha512-3Ia3ql9k+i/GvjNucwRdqdbumLeyJ8Zame4IhniMy/974t+Dy2mDnF08fOCKwXJwd3ErmzhYS/ZyvcXiX4v8wg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      graphql: '>=0.11 <=16'
+    dependencies:
+      graphql: 16.6.0
+    dev: false
 
   /graphql-request/5.1.0_graphql@16.6.0:
     resolution: {integrity: sha512-0OeRVYigVwIiXhNmqnPDt+JhMzsjinxHE7TVy3Lm6jUzav0guVcL0lfSbi6jVTRAxcbwgyr6yrZioSHxf9gHzw==}

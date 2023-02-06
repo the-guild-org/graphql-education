@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "@server/graphql-http",
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-http": "^1.13.0"
+  }
+}
