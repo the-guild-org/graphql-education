@@ -194,33 +194,33 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CreateTaskInput: CreateTaskInput;
-  DeleteTaskInput: DeleteTaskInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
+  Boolean: ResolverTypeWrapper<Partial<Scalars['Boolean']>>;
+  CreateTaskInput: ResolverTypeWrapper<Partial<CreateTaskInput>>;
+  DeleteTaskInput: ResolverTypeWrapper<Partial<DeleteTaskInput>>;
+  ID: ResolverTypeWrapper<Partial<Scalars['ID']>>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<Partial<Scalars['String']>>;
   Subscription: ResolverTypeWrapper<{}>;
-  Task: ResolverTypeWrapper<Task>;
-  TaskStatus: TaskStatus;
-  UpdateTaskInput: UpdateTaskInput;
-  User: ResolverTypeWrapper<User>;
+  Task: ResolverTypeWrapper<Partial<Task>>;
+  TaskStatus: ResolverTypeWrapper<Partial<TaskStatus>>;
+  UpdateTaskInput: ResolverTypeWrapper<Partial<UpdateTaskInput>>;
+  User: ResolverTypeWrapper<Partial<User>>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Boolean: Scalars['Boolean'];
-  CreateTaskInput: CreateTaskInput;
-  DeleteTaskInput: DeleteTaskInput;
-  ID: Scalars['ID'];
+  Boolean: Partial<Scalars['Boolean']>;
+  CreateTaskInput: Partial<CreateTaskInput>;
+  DeleteTaskInput: Partial<DeleteTaskInput>;
+  ID: Partial<Scalars['ID']>;
   Mutation: {};
   Query: {};
-  String: Scalars['String'];
+  String: Partial<Scalars['String']>;
   Subscription: {};
-  Task: Task;
-  UpdateTaskInput: UpdateTaskInput;
-  User: User;
+  Task: Partial<Task>;
+  UpdateTaskInput: Partial<UpdateTaskInput>;
+  User: Partial<User>;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
