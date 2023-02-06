@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { PrismaClient } from '@prisma/client';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { Resolvers } from './generated';
@@ -25,6 +26,6 @@ const resolvers: Resolvers<GraphQLContext> = {
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: [require('../../../schema.graphql')],
+  typeDefs: [fs.readFileSync('../../../schema.graphql').toString()],
   resolvers: [resolvers],
 });
