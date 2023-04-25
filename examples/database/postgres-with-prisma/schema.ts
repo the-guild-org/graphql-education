@@ -5,9 +5,9 @@ import { Resolvers } from './generated';
 
 const prisma = new PrismaClient();
 
-export interface GraphQLContext {
+export type GraphQLContext = {
   prisma: PrismaClient;
-}
+};
 
 export function createContext(): GraphQLContext {
   return { prisma };
