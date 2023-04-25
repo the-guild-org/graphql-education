@@ -78,7 +78,7 @@ model Task {
 
 Using Docker, we'll create a Postgres instance that we'll use to connect with Prisma.
 
-Start by creating a [docker-compose.yaml](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/docker-compose.yaml) file for configuring Postgres.
+Start by creating a [docker-compose.yaml](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/docker-compose.yaml) file in the same directory as our `.env` for configuring Postgres.
 
 ```yaml filename="docker-compose.yaml"
 services:
@@ -95,7 +95,7 @@ services:
 After having configured Postgres, you start the instance by simply running:
 
 ```sh
-docker compose up -d
+docker compose up
 ```
 
 ## Apply the Prisma Schema
