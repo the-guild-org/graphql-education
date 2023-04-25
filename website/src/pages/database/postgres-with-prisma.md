@@ -29,19 +29,19 @@ npm i prisma @prisma/client
 
 We'll use a dotenv file named [.env](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/.env) to store the relevant connection and database configuration parameters.
 
-```sh filename=".env"
+```sh filename="examples/database/postgres-with-prisma/.env"
 DATABASE_USER=user
 DATABASE_PASSWORD=password
 DATABASE_PORT=50000
 DATABASE_DB=kanban
-DATABASE_URL="postgresql://$DATABASE_USER:$DATABASE_PASSWORD@localhost:$DATABASE_PORT/$DATABASE_DB"
+DATABASE_URL="postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@localhost:${DATABASE_PORT}/${DATABASE_DB}"
 ```
 
 ## Create the Prisma Schema
 
 Create a file [prisma/schema.prisma](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/prisma/schema.prisma) file, describe the datasource and add the relevant data model:
 
-```prisma filename="prisma/schema.prisma"
+```prisma filename="examples/database/postgres-with-prisma/prisma/schema.prisma"
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -52,10 +52,21 @@ generator client {
 }
 
 model User {
-  id            String @id @default(uuid())
-  email         String @unique
-  name          String
-  assignedTasks Task[]
+  id       String @id @default(uuid())
+  email    String @unique
+  name     String
+  password String
+
+  sessions Session[]
+
+  createdTasks  Task[] @relation("createdTasks")
+  assignedTasks Task[] @relation("asignedTasks")
+}
+
+model Session {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 enum TaskStatus {
@@ -65,9 +76,16 @@ enum TaskStatus {
 }
 
 model Task {
-  id          String     @id @default(uuid())
-  assignee    User       @relation(fields: [userId], references: [id])
-  userId      String
+  id String @id @default(uuid())
+
+  createdByUserId String
+  createdBy       User   @relation("createdTasks", fields: [createdByUserId], references: [id])
+
+  private Boolean @default(false)
+
+  asigneeUserId String?
+  assignee      User?   @relation("asignedTasks", fields: [asigneeUserId], references: [id])
+
   status      TaskStatus
   title       String
   description String?
@@ -80,13 +98,14 @@ Using Docker, we'll create a Postgres instance that we'll use to connect with Pr
 
 Start by creating a [docker-compose.yaml](https://github.com/the-guild-org/graphql-education/blob/main/examples/database/postgres-with-prisma/docker-compose.yaml) file in the same directory as our `.env` for configuring Postgres.
 
-```yaml filename="docker-compose.yaml"
+```yaml filename="examples/database/postgres-with-prisma/docker-compose.yaml"
 services:
   postgres:
     image: postgres:15
     environment:
       - POSTGRES_USER=$DATABASE_USER
       - POSTGRES_PASSWORD=$DATABASE_PASSWORD
+      - PGPORT=$DATABASE_PORT
       - POSTGRES_DB=$DATABASE_DB
     ports:
       - $DATABASE_PORT:$DATABASE_PORT
@@ -134,11 +153,11 @@ npm i @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescri
 
 Now we will configure codegen to generate the TypeScript resolvers to `generated.d.ts` using [schema.graphql](/get-started#schema) as the source:
 
-```ts filename="codegen.ts"
+```ts filename="examples/database/postgres-with-prisma/codegen.ts"
 import { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: '<get-started>/schema.graphql',
+  schema: '../../../schema.graphql',
   generates: {
     'generated.d.ts': {
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
@@ -180,27 +199,49 @@ The final step is to create the actual GraphQL schema and assemble the data retr
 This `schema.ts` file will later on be used by a [server](/server/introduction) to
 serve the contents of the database.
 
-```ts filename="schema.ts"
+```ts filename="examples/database/postgres-with-prisma/schema.ts"
 import fs from 'fs';
 import { PrismaClient } from '@prisma/client';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { Resolvers } from './generated';
+import { GraphQLError } from 'graphql';
 
 const prisma = new PrismaClient();
 
-export type GraphQLContext = {
+export type DatabaseContext = {
   prisma: PrismaClient;
 };
 
-export function createContext(): GraphQLContext {
-  return { prisma };
+export type ServerContext = {
+  sessionId: string | null;
+  setSessionId: (sessionId: string) => void;
+};
+
+export type GraphQLContext = DatabaseContext & ServerContext;
+
+export async function createContext(
+  servCtx: ServerContext,
+): Promise<GraphQLContext> {
+  return {
+    ...servCtx,
+    prisma,
+  };
 }
 
 const resolvers: Resolvers<GraphQLContext> = {
   Query: {
-    // TODO: identify
-    me() {
-      return null;
+    async me(_0, _1, ctx) {
+      if (!ctx.sessionId) {
+        return null;
+      }
+      const session = await ctx.prisma.session.findUnique({
+        where: { id: ctx.sessionId },
+        select: { user: true },
+      });
+      if (!session) {
+        return null;
+      }
+      return session.user;
     },
     task(_, args, ctx) {
       return ctx.prisma.task.findUniqueOrThrow({
@@ -266,12 +307,50 @@ const resolvers: Resolvers<GraphQLContext> = {
       });
     },
   },
-  // TODO: mutations
+  Mutation: {
+    async register(_, args, ctx) {
+      const user = await ctx.prisma.user.create({
+        data: {
+          ...args.input,
+          // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
+          password: args.input.password,
+        },
+      });
+      ctx.setSessionId(
+        (
+          await ctx.prisma.session.create({
+            data: { userId: user.id },
+            select: { id: true },
+          })
+        ).id,
+      );
+      return user;
+    },
+    async login(_, args, ctx) {
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: args.email },
+      });
+      // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
+      if (user?.password !== args.password) {
+        throw new GraphQLError('Wrong credentials!');
+      }
+      ctx.setSessionId(
+        (
+          await ctx.prisma.session.create({
+            data: { userId: user.id },
+            select: { id: true },
+          })
+        ).id,
+      );
+      return user;
+    },
+    // TODO: other mutations
+  },
   // TODO: subscriptions
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: [fs.readFileSync('<get-started>/schema.graphql').toString()],
+  typeDefs: [fs.readFileSync('../../../schema.graphql').toString()],
   resolvers: [resolvers],
 });
 ```
