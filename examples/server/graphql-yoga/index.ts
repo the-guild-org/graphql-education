@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { schema, createContext } from '<database>/schema.ts';
+import { schema, createContext } from '@database/postgres-with-prisma/schema';
 
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga({ schema, context: createContext });

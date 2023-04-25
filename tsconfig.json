@@ -10,8 +10,13 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "useUnknownInCatchVariables": false,
-    "checkJs": true
+    "checkJs": true,
+    "paths": {
+      "@database/postgres-with-prisma/schema": [
+        "./examples/database/postgres-with-prisma/schema.ts"
+      ]
+    }
   },
-  "include": ["website"],
+  "include": ["website", "examples"],
   "exclude": ["*/**/node_modules", "*/**/dist"]
 }

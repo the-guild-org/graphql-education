@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/node';
-import { schema, createContext } from '<database>/schema.ts';
+import { schema, createContext } from '@database/postgres-with-prisma/schema';
 
 // Create the GraphQL over HTTP Node request handler
 const handler = createHandler({ schema, context: createContext });
