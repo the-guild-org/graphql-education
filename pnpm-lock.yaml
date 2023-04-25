@@ -38,11 +38,16 @@ importers:
 
   examples/server/graphql-http:
     specifiers:
+      '@types/cookie': ^0.5.1
+      cookie: ^0.5.0
       graphql: ^16.6.0
       graphql-http: ^1.13.0
     dependencies:
+      cookie: 0.5.0
       graphql: 16.6.0
       graphql-http: 1.13.0_graphql@16.6.0
+    devDependencies:
+      '@types/cookie': 0.5.1
 
   examples/server/graphql-yoga:
     specifiers:
