@@ -12,6 +12,7 @@
     "useUnknownInCatchVariables": false,
     "checkJs": true,
     "paths": {
+      "@database/utils": ["./examples/database/utils"],
       "@database/postgres-with-prisma/schema": [
         "./examples/database/postgres-with-prisma/schema.ts"
       ]

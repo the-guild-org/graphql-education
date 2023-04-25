@@ -33,6 +33,9 @@ importers:
       '@graphql-codegen/typescript-operations': 2.5.13_graphql@16.6.0
       '@graphql-codegen/typescript-resolvers': 2.7.13_graphql@16.6.0
 
+  examples/database/utils:
+    specifiers: {}
+
   examples/server/graphql-http:
     specifiers:
       graphql: ^16.6.0
