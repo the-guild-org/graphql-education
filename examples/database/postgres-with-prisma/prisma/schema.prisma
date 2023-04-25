@@ -13,8 +13,16 @@ model User {
   name     String
   password String
 
+  sessions Session[]
+
   createdTasks  Task[] @relation("createdTasks")
   assignedTasks Task[] @relation("asignedTasks")
+}
+
+model Session {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 enum TaskStatus {

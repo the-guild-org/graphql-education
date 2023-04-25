@@ -6,19 +6,40 @@ import { GraphQLError } from 'graphql';
 
 const prisma = new PrismaClient();
 
-export type GraphQLContext = {
+export type DatabaseContext = {
   prisma: PrismaClient;
 };
 
-export function createContext(): GraphQLContext {
-  return { prisma };
+export type ServerContext = {
+  sessionId: string | null;
+  setSessionId: (sessionId: string) => void;
+};
+
+export type GraphQLContext = DatabaseContext & ServerContext;
+
+export async function createContext(
+  servCtx: ServerContext,
+): Promise<GraphQLContext> {
+  return {
+    ...servCtx,
+    prisma,
+  };
 }
 
 const resolvers: Resolvers<GraphQLContext> = {
   Query: {
-    // TODO: identify
-    me() {
-      return null;
+    async me(_0, _1, ctx) {
+      if (!ctx.sessionId) {
+        return null;
+      }
+      const session = await ctx.prisma.session.findUnique({
+        where: { id: ctx.sessionId },
+        select: { user: true },
+      });
+      if (!session) {
+        return null;
+      }
+      return session.user;
     },
     task(_, args, ctx) {
       return ctx.prisma.task.findUniqueOrThrow({
@@ -85,14 +106,23 @@ const resolvers: Resolvers<GraphQLContext> = {
     },
   },
   Mutation: {
-    register(_, args, ctx) {
-      return ctx.prisma.user.create({
+    async register(_, args, ctx) {
+      const user = await ctx.prisma.user.create({
         data: {
           ...args.input,
           // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
           password: args.input.password,
         },
       });
+      ctx.setSessionId(
+        (
+          await ctx.prisma.session.create({
+            data: { userId: user.id },
+            select: { id: true },
+          })
+        ).id,
+      );
+      return user;
     },
     async login(_, args, ctx) {
       const user = await ctx.prisma.user.findUnique({
@@ -102,6 +132,14 @@ const resolvers: Resolvers<GraphQLContext> = {
       if (user?.password !== args.password) {
         throw new GraphQLError('Wrong credentials!');
       }
+      ctx.setSessionId(
+        (
+          await ctx.prisma.session.create({
+            data: { userId: user.id },
+            select: { id: true },
+          })
+        ).id,
+      );
       return user;
     },
     // TODO: other mutations
