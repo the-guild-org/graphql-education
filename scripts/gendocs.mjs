@@ -2,6 +2,11 @@ import { globIterate } from 'glob';
 import fs from 'fs/promises';
 import path from 'path';
 
+const replace = {
+  '../../../schema.graphql': '<get-started>/schema.graphql',
+  '@database/postgres-with-prisma/schema': '@database/<slug>/schema',
+};
+
 async function main() {
   for await (const page of globIterate('website/src/pages/**/*.md?(x)')) {
     console.log(`Inspecting page ${page}...`);
@@ -23,20 +28,17 @@ async function main() {
       }
 
       console.log(
-        `\t\tInjecting source to codeblock #${i} with filename ${filename}...`,
+        `\t\tGenerating codeblock #${i} with filename ${filename}...`,
       );
 
       try {
         const source = await fs.readFile(filename);
         const ext = path.extname(filename).substring(1);
 
-        await fs.writeFile(
-          page,
-          (contents = contents.replace(
-            codeblock,
-            // appending a newline after the source is not necessary because of prettier
-            `\`\`\`${ext || 'sh'} filename="${filename}"\n${source}\`\`\``,
-          )),
+        contents = contents.replace(
+          codeblock,
+          // appending a newline after the source is not necessary because of prettier
+          `\`\`\`${ext || 'sh'} filename="${filename}"\n${source}\`\`\``,
         );
       } catch (err) {
         if (err.code === 'ENOENT') {
@@ -47,6 +49,12 @@ async function main() {
         throw err;
       }
     }
+
+    for (const [searchValue, replaceValue] of Object.entries(replace)) {
+      contents = contents.replace(searchValue, replaceValue);
+    }
+
+    await fs.writeFile(page, contents);
   }
 }
 

@@ -15,7 +15,7 @@ Provide the [database](/database/introduction) GraphQL schema.
 ```ts filename="examples/server/graphql-yoga/index.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { schema, createContext } from '@database/postgres-with-prisma/schema';
+import { schema, createContext } from '@database/<slug>/schema';
 import * as cookie from 'cookie';
 
 const SESSION_ID_COOKIE_KEY = 'graphql.education.sid';
