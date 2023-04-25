@@ -7,10 +7,12 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "lint": "prettier -c ."
+    "lint": "prettier -c .",
+    "gendocs": "node scripts/gendocs.mjs"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "glob": "^10.2.2",
     "prettier": "^2.7.1",
     "typescript": "^4.8.4"
   }
