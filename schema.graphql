@@ -14,7 +14,8 @@ type Query {
 }
 
 type Mutation {
-  login(username: String!, password: String!): User!
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): Task!
@@ -58,6 +59,12 @@ type Task {
   status: TaskStatus!
   title: String!
   description: String
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  password: String!
 }
 
 input CreateTaskInput {

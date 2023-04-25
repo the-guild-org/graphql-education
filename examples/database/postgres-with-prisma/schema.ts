@@ -2,6 +2,7 @@ import fs from 'fs';
 import { PrismaClient } from '@prisma/client';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { Resolvers } from './generated';
+import { GraphQLError } from 'graphql';
 
 const prisma = new PrismaClient();
 
@@ -83,7 +84,28 @@ const resolvers: Resolvers<GraphQLContext> = {
       });
     },
   },
-  // TODO: mutations
+  Mutation: {
+    register(_, args, ctx) {
+      return ctx.prisma.user.create({
+        data: {
+          ...args.input,
+          // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
+          password: args.input.password,
+        },
+      });
+    },
+    async login(_, args, ctx) {
+      const user = await ctx.prisma.user.findUnique({
+        where: { email: args.email },
+      });
+      // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
+      if (user?.password !== args.password) {
+        throw new GraphQLError('Wrong credentials!');
+      }
+      return user;
+    },
+    // TODO: other mutations
+  },
   // TODO: subscriptions
 };
 
