@@ -121,7 +121,6 @@ export type User = {
   assignedTasks: Array<Task>;
   /** All tasks that have been created by this user. */
   createdTasks: Array<Task>;
-  email: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -258,7 +257,6 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   assignedTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
   createdTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
