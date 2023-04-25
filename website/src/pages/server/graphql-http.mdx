@@ -12,7 +12,7 @@ npm i graphql graphql-http
 
 Provide the [database](/database/introduction) GraphQL schema.
 
-```ts filename="index.ts"
+```ts filename="examples/server/graphql-http/index.ts"
 import { createServer } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/node';
 import { schema, createContext } from '@database/<slug>/schema.ts';

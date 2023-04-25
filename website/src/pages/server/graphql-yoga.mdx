@@ -12,7 +12,7 @@ npm i graphql graphql-yoga
 
 Provide the [database](/database/introduction) GraphQL schema.
 
-```ts filename="index.ts"
+```ts filename="examples/server/graphql-yoga/index.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
 import { schema, createContext } from '@database/<slug>/schema.ts';
