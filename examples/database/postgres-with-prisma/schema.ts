@@ -29,7 +29,7 @@ export async function createContext(
 
 const events = {
   taskCreated: createPubSub<{ taskCreated: Task }>(),
-  taskChanges: createPubSub<{ taskChanges: Task }>(),
+  taskChanged: createPubSub<{ taskChanged: Task }>(),
 };
 
 const resolvers: Resolvers<GraphQLContext> = {
