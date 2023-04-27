@@ -1,3 +1,12 @@
+# Utils
+
+A collection of tools useful for databases that are in common. This module is refered throught the guides when importing from `@database/utils`.
+
+## PubSub
+
+In-memory pubsub system that implements modern async iterators. Basically a replacement for [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions).
+
+```ts filename="examples/database/utils/pubsub.ts"
 export interface Generator<T> {
   iter: AsyncIterableIterator<T>;
   produce(val: T): void;
@@ -79,3 +88,4 @@ export function createPubSub<T>() {
     },
   };
 }
+```
