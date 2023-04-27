@@ -201,10 +201,11 @@ serve the contents of the database.
 
 ```ts filename="examples/database/postgres-with-prisma/schema.ts"
 import fs from 'fs';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Task } from '@prisma/client';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { Resolvers } from './generated';
 import { GraphQLError } from 'graphql';
+import { createPubSub } from '@database/utils';
 
 const prisma = new PrismaClient();
 
@@ -227,6 +228,11 @@ export async function createContext(
     prisma,
   };
 }
+
+const events = {
+  taskCreated: createPubSub<{ taskCreated: Task }>(),
+  taskChanges: createPubSub<{ taskChanges: Task }>(),
+};
 
 const resolvers: Resolvers<GraphQLContext> = {
   Query: {
@@ -344,9 +350,46 @@ const resolvers: Resolvers<GraphQLContext> = {
       );
       return user;
     },
+    async createTask(_, { input }, ctx) {
+      const session = ctx.sessionId
+        ? await ctx.prisma.session.findUnique({
+            where: { id: ctx.sessionId },
+            select: { user: true },
+          })
+        : null;
+      if (!session) {
+        throw new GraphQLError('Unauthorized');
+      }
+      const task = await ctx.prisma.task.create({
+        data: {
+          title: input.title,
+          assignee: {
+            connect: {
+              id: input.assignee,
+            },
+          },
+          status: input.status || ('TODO' as const),
+          createdBy: {
+            connect: {
+              id: session.user.id,
+            },
+          },
+        },
+      });
+      events.taskCreated.pub({ taskCreated: task });
+      return task;
+    },
     // TODO: other mutations
   },
-  // TODO: subscriptions
+  Subscription: {
+    taskCreated: {
+      subscribe() {
+        // TODO: check if allowed
+        return events.taskCreated.sub();
+      },
+    },
+    // TODO: other subscriptions
+  },
 };
 
 export const schema = makeExecutableSchema({
