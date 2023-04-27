@@ -1,5 +1,5 @@
 export interface Generator<T> {
-  gen: AsyncGenerator<T, void, T>;
+  iter: AsyncIterableIterator<T>;
   produce(val: T): void;
 }
 
@@ -14,7 +14,7 @@ function createGenerator<T>(): Generator<T> {
     },
   };
 
-  const gen = (async function* gen() {
+  const iter = (async function* iter() {
     for (;;) {
       if (!pending.length) {
         // only wait if there are no pending messages available
@@ -36,7 +36,7 @@ function createGenerator<T>(): Generator<T> {
     }
   })();
 
-  gen.throw = async (err) => {
+  iter.throw = async (err) => {
     if (!deferred.done) {
       deferred.done = true;
       deferred.error = err;
@@ -45,7 +45,7 @@ function createGenerator<T>(): Generator<T> {
     return { done: true, value: undefined };
   };
 
-  gen.return = async () => {
+  iter.return = async () => {
     if (!deferred.done) {
       deferred.done = true;
       deferred.resolve();
@@ -54,7 +54,7 @@ function createGenerator<T>(): Generator<T> {
   };
 
   return {
-    gen,
+    iter,
     produce(val) {
       pending.push(val);
       deferred.resolve();
@@ -69,14 +69,14 @@ export function createPubSub<T>() {
       producers.forEach((next) => next(val));
     },
     sub() {
-      const { gen, produce } = createGenerator<T>();
+      const { iter, produce } = createGenerator<T>();
       producers.push(produce);
-      const origReturn = gen.return;
-      gen.return = () => {
+      const origReturn = iter.return;
+      iter.return = () => {
         producers.splice(producers.indexOf(produce), 1);
-        return origReturn();
+        return origReturn!();
       };
-      return gen;
+      return iter;
     },
   };
 }
