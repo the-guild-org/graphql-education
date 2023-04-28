@@ -34,7 +34,7 @@ const events = {
 
 const resolvers: Resolvers<GraphQLContext> = {
   Query: {
-    async me(_0, _1, ctx) {
+    async me(_parent, _args, ctx) {
       if (!ctx.sessionId) {
         return null;
       }
@@ -47,14 +47,14 @@ const resolvers: Resolvers<GraphQLContext> = {
       }
       return session.user;
     },
-    task(_, args, ctx) {
+    task(_parent, args, ctx) {
       return ctx.prisma.task.findUniqueOrThrow({
         where: {
           id: args.id,
         },
       });
     },
-    filterTasks(_, args, ctx) {
+    filterTasks(_parent, args, ctx) {
       if (!args.searchText) {
         return ctx.prisma.task.findMany();
       }
@@ -112,7 +112,7 @@ const resolvers: Resolvers<GraphQLContext> = {
     },
   },
   Mutation: {
-    async register(_, args, ctx) {
+    async register(_parent, args, ctx) {
       const user = await ctx.prisma.user.create({
         data: {
           ...args.input,
@@ -130,7 +130,7 @@ const resolvers: Resolvers<GraphQLContext> = {
       );
       return user;
     },
-    async login(_, args, ctx) {
+    async login(_parent, args, ctx) {
       const user = await ctx.prisma.user.findUnique({
         where: { email: args.email },
       });
@@ -148,7 +148,7 @@ const resolvers: Resolvers<GraphQLContext> = {
       );
       return user;
     },
-    async createTask(_, { input }, ctx) {
+    async createTask(_parent, { input }, ctx) {
       const session = ctx.sessionId
         ? await ctx.prisma.session.findUnique({
             where: { id: ctx.sessionId },
