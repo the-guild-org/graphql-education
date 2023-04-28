@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "name": "@database/postgres-with-postgraphile",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
+    "graphql": "^15.8.0",
+    "pg": "^8.10.0",
+    "postgraphile": "^4.13.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.6.6"
+  }
+}

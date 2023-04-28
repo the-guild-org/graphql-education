@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=$DATABASE_USER
+      - POSTGRES_PASSWORD=$DATABASE_PASSWORD
+      - PGPORT=$DATABASE_PORT
+      - POSTGRES_DB=$DATABASE_DB
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    ports:
+      - $DATABASE_PORT:$DATABASE_PORT

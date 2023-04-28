@@ -15,6 +15,9 @@
       "@database/utils": ["./examples/database/utils"],
       "@database/postgres-with-prisma/schema": [
         "./examples/database/postgres-with-prisma/schema.ts"
+      ],
+      "@database/postgres-with-postgraphile/schema": [
+        "./examples/database/postgres-with-postgraphile/schema.ts"
       ]
     }
   },
