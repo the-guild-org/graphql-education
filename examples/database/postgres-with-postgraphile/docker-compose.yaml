@@ -7,6 +7,7 @@ services:
       - PGPORT=$DATABASE_PORT
       - POSTGRES_DB=$DATABASE_DB
     volumes:
-      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
     ports:
       - $DATABASE_PORT:$DATABASE_PORT

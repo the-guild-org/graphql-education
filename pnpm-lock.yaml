@@ -16,15 +16,19 @@ importers:
 
   examples/database/postgres-with-postgraphile:
     specifiers:
+      '@graphile-contrib/pg-simplify-inflector': ^6.1.0
       '@types/pg': ^8.6.6
       dotenv: ^16.0.3
       dotenv-expand: ^10.0.0
+      graphile-build: ^4.13.0
       graphql: ^15.8.0
       pg: ^8.10.0
       postgraphile: ^4.13.0
     dependencies:
+      '@graphile-contrib/pg-simplify-inflector': 6.1.0
       dotenv: 16.0.3
       dotenv-expand: 10.0.0
+      graphile-build: 4.13.0_graphql@15.8.0
       graphql: 15.8.0
       pg: 8.10.0
       postgraphile: 4.13.0
@@ -933,6 +937,10 @@ packages:
       giscus: 1.2.6
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@graphile-contrib/pg-simplify-inflector/6.1.0:
+    resolution: {integrity: sha512-3eI2FP4ulu/fxwkJBNXhR6XEzqVz4wJWFr4LfeyUNNArUtLFx0DpP6YdcARCYgwLExFcIQNE8fnul3JKiciYIw==}
     dev: false
 
   /@graphile/lru/4.11.0:
