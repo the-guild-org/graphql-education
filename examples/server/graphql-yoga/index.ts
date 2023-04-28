@@ -1,6 +1,11 @@
 import { createServer } from 'node:http';
-import { createYoga } from 'graphql-yoga';
-import { schema, createContext } from '@database/postgres-with-prisma/schema';
+import { createYoga, Plugin } from 'graphql-yoga';
+import {
+  createSchema,
+  createContext,
+  execute,
+  subscribe,
+} from '@database/postgres-with-postgraphile/schema';
 import * as cookie from 'cookie';
 
 const SESSION_ID_COOKIE_KEY = 'graphql.education.sid';
@@ -8,7 +13,7 @@ const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga({
-  schema,
+  schema: createSchema,
   context: ({ request }) => {
     const { [SESSION_ID_COOKIE_KEY]: sessionId } = cookie.parse(
       String(request.headers.get('cookie')),
@@ -22,6 +27,12 @@ const yoga = createYoga({
   },
   plugins: [
     {
+      onExecute({ setExecuteFn }) {
+        setExecuteFn(execute);
+      },
+      onSubscribe({ setSubscribeFn }) {
+        setSubscribeFn(subscribe);
+      },
       onResponse({ request, response }) {
         // TODO: use hmac to sign the session id making sure it originated from us
         const sessionId = SESSION_REQUEST_TO_ID_MAP.get(request);
@@ -38,7 +49,7 @@ const yoga = createYoga({
           );
         }
       },
-    },
+    } as Plugin,
   ],
 });
 

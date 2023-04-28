@@ -1,6 +1,12 @@
 import { createServer, IncomingMessage } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/node';
-import { schema, createContext } from '@database/postgres-with-prisma/schema';
+import {
+  createSchema,
+  createContext,
+  execute,
+  // TODO: implement subscriptions
+  // subscribe,
+} from '@database/postgres-with-postgraphile/schema';
 import * as cookie from 'cookie';
 
 const SESSION_ID_COOKIE_KEY = 'graphql.education.sid';
@@ -8,7 +14,7 @@ const SESSION_REQUEST_TO_ID_MAP = new WeakMap<IncomingMessage, string>();
 
 // Create the GraphQL over HTTP Node request handler
 const handler = createHandler({
-  schema,
+  schema: createSchema,
   context: (req) => {
     const { [SESSION_ID_COOKIE_KEY]: sessionId } = cookie.parse(
       String(req.raw.headers.cookie),
@@ -20,6 +26,7 @@ const handler = createHandler({
       },
     });
   },
+  execute,
 });
 
 // Create a HTTP server using the listner on `/graphql`

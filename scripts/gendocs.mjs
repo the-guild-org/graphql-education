@@ -5,6 +5,7 @@ import path from 'path';
 const replace = {
   '../../../schema.graphql': '<get-started>/schema.graphql',
   '@database/postgres-with-prisma/schema': '@database/<slug>/schema',
+  '@database/postgres-with-postgraphile/schema': '@database/<slug>/schema',
 };
 
 async function main() {

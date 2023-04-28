@@ -6,11 +6,7 @@ import {
   createPostGraphileSchema,
   withPostGraphileContext,
 } from 'postgraphile';
-import {
-  execute as graphqlExecute,
-  ExecutionArgs,
-  GraphQLSchema,
-} from 'graphql';
+import { GraphQLSchema, execute as graphqlExecute } from 'graphql';
 import { NodePlugin } from 'graphile-build';
 import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector';
 
@@ -64,8 +60,13 @@ export async function createSchema() {
 }
 
 const pgPool = new Pool({ connectionString: DATABASE_URL });
-export function execute({ contextValue, ...args }: ExecutionArgs) {
-  const ctx: GraphQLContext = contextValue;
+export const execute: typeof graphqlExecute = (args) => {
+  if (args instanceof GraphQLSchema) {
+    throw new Error(
+      'Legacy GraphQL execution with spread arguments is not supported!',
+    );
+  }
+  const ctx: GraphQLContext = args.contextValue;
   return withPostGraphileContext(
     {
       pgPool,
@@ -78,8 +79,10 @@ export function execute({ contextValue, ...args }: ExecutionArgs) {
       // Do NOT use context outside of this function.
       return await graphqlExecute({
         ...args,
-        contextValue: { ...ctx, ...pgCtx },
+        contextValue: { ...args.contextValue, ...pgCtx },
       });
     },
   );
-}
+};
+// TODO: implement subscriptions
+export const subscribe = execute;
