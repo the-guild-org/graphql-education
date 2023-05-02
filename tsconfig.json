@@ -18,7 +18,8 @@
       ],
       "@database/postgres-with-postgraphile/schema": [
         "./examples/database/postgres-with-postgraphile/schema.ts"
-      ]
+      ],
+      "@server/utils": ["./examples/server/utils"]
     }
   },
   "include": ["website", "examples"],
