@@ -58,3 +58,22 @@ create function filter_tasks(
     title ilike '%' || search_text || '%'
   )
 $$ language sql stable;
+
+--
+
+create function notify_task_created()
+returns trigger as $$
+begin
+  perform pg_notify('task_created', new.id::text);
+  return null;
+end
+$$ language plpgsql stable;
+create trigger task_created_trigger
+  after insert on task
+  for each row
+  execute procedure notify_task_created();
+
+-- create trigger task_changed_trigger
+--   after update on task
+--   for each row
+--   execute procedure ?;

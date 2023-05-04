@@ -8,6 +8,7 @@
     "graphile-build": "^4.13.0",
     "graphql": "^15.8.0",
     "pg": "^8.10.0",
+    "pg-pubsub": "^0.8.1",
     "postgraphile": "^4.13.0"
   },
   "devDependencies": {

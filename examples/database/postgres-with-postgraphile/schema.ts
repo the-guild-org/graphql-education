@@ -6,11 +6,18 @@ import {
   createPostGraphileSchema,
   withPostGraphileContext,
 } from 'postgraphile';
-import { GraphQLSchema, execute as graphqlExecute } from 'graphql';
+import {
+  GraphQLSchema,
+  execute as graphqlExecute,
+  subscribe as graphqlSubscribe,
+} from 'graphql';
 import { NodePlugin } from 'graphile-build';
 import PgSimplifyInflector from '@graphile-contrib/pg-simplify-inflector';
+import PgPubSub from 'pg-pubsub';
 
 import { SessionPlugin } from './SessionPlugin';
+
+import { TaskSubscriptionsPlugin } from './TaskSubscriptionsPlugin';
 
 const env = dotenv.config({ path: path.join(__dirname, '.env') });
 dotenvExpand.expand(env);
@@ -18,6 +25,7 @@ const DATABASE_URL = process.env.DATABASE_URL || 'postgres:///';
 
 export type DatabaseContext = {
   pgOwnerPool: Pool;
+  pgSubscribe: (channel: string) => Promise<AsyncIterableIterator<string>>;
 };
 
 export type ServerContext = {
@@ -31,9 +39,65 @@ const pgOwnerPool = new Pool({ connectionString: DATABASE_URL });
 export async function createContext(
   servCtx: ServerContext,
 ): Promise<GraphQLContext> {
+  const pgPubSub = new PgPubSub(DATABASE_URL);
   return {
     ...servCtx,
     pgOwnerPool,
+    async pgSubscribe(channel) {
+      const state = {
+        payloads: [] as string[],
+        error: null as unknown,
+        done: false,
+        resolve: () => {
+          // noop
+        },
+      };
+
+      function listener(payload: string) {
+        state.payloads.push(payload);
+        state.resolve();
+      }
+
+      await pgPubSub.addChannel(channel, listener);
+
+      pgPubSub.once('error', (err) => {
+        pgPubSub.removeChannel(channel, listener);
+        state.error = err;
+        state.resolve();
+      });
+
+      const iter = (async function* iter() {
+        for (;;) {
+          while (state.payloads.length) {
+            yield state.payloads.shift()!;
+          }
+          if (state.error) {
+            throw state.error;
+          }
+          if (state.done) {
+            return;
+          }
+          await new Promise<void>((resolve) => (state.resolve = resolve));
+        }
+      })();
+      iter.throw = async (err) => {
+        if (!state.done) {
+          state.done = true;
+          state.error = err;
+          state.resolve();
+        }
+        return { done: true, value: undefined };
+      };
+      iter.return = async () => {
+        if (!state.done) {
+          state.done = true;
+          state.resolve();
+        }
+        return { done: true, value: undefined };
+      };
+
+      return iter;
+    },
   };
 }
 
@@ -54,8 +118,12 @@ export async function createSchema() {
         simpleCollections: 'only',
         // disable the global object identifier plugin because our IDs are globally unique
         skipPlugins: [NodePlugin],
-        // simpler inflection for shorter names
-        appendPlugins: [PgSimplifyInflector, SessionPlugin],
+        appendPlugins: [
+          // simpler inflection for shorter names
+          PgSimplifyInflector,
+          SessionPlugin,
+          TaskSubscriptionsPlugin,
+        ],
       }));
 }
 
@@ -84,5 +152,28 @@ export const execute: typeof graphqlExecute = (args) => {
     },
   );
 };
-// TODO: implement subscriptions
-export const subscribe = execute;
+export const subscribe: typeof graphqlSubscribe = (args) => {
+  if (args instanceof GraphQLSchema) {
+    throw new Error(
+      'Legacy GraphQL subscription with spread arguments is not supported!',
+    );
+  }
+  const ctx: GraphQLContext = args.contextValue;
+  return withPostGraphileContext(
+    {
+      pgPool,
+      pgSettings: {
+        role: ctx.sessionId ? 'auth_user' : 'anon_user',
+        'session.id': ctx.sessionId,
+      },
+    },
+    // @ts-expect-error async iterator is allowed here too
+    async (pgCtx) => {
+      // Do NOT use context outside of this function.
+      return await graphqlSubscribe({
+        ...args,
+        contextValue: { ...args.contextValue, ...pgCtx },
+      });
+    },
+  );
+};

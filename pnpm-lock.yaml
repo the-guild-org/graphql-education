@@ -23,6 +23,7 @@ importers:
       graphile-build: ^4.13.0
       graphql: ^15.8.0
       pg: ^8.10.0
+      pg-pubsub: ^0.8.1
       postgraphile: ^4.13.0
     dependencies:
       '@graphile-contrib/pg-simplify-inflector': 6.1.0
@@ -31,6 +32,7 @@ importers:
       graphile-build: 4.13.0_graphql@15.8.0
       graphql: 15.8.0
       pg: 8.10.0
+      pg-pubsub: 0.8.1
       postgraphile: 4.13.0
     devDependencies:
       '@types/pg': 8.6.6
@@ -6242,6 +6244,11 @@ packages:
     resolution: {integrity: sha512-r5o/V/ORTA6TmUnyWZR9nCj1klXCO2CEKNRlVuJptZe85QuhFayC7WeMic7ndayT5IRIR0S0xFxFi2ousartlQ==}
     dev: false
 
+  /pg-format/1.0.4:
+    resolution: {integrity: sha512-YyKEF78pEA6wwTAqOUaHIN/rWpfzzIuMh9KdAhc3rSLQ/7zkRFcCgYBAEGatDstLyZw4g0s9SNICmaTGnBVeyw==}
+    engines: {node: '>=4.0'}
+    dev: false
+
   /pg-int8/1.0.1:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
@@ -6256,6 +6263,18 @@ packages:
 
   /pg-protocol/1.6.0:
     resolution: {integrity: sha512-M+PDm637OY5WM307051+bsDia5Xej6d9IR4GwJse1qA1DIhiKlksvrneZOYQq42OM+spubpcNYEo2FcKQrDk+Q==}
+
+  /pg-pubsub/0.8.1:
+    resolution: {integrity: sha512-b/EHOwCrag4isghc4XgRipeAjfgyNg1DiL3Dwwh1Ojp91Lriltn5eg2nSWjBe4pzcFzhTM6HiB7LOG9NN1nx5g==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    dependencies:
+      pg: 8.10.0
+      pg-format: 1.0.4
+      pony-cause: 2.1.9
+      promised-retry: 0.5.0
+    transitivePeerDependencies:
+      - pg-native
+    dev: false
 
   /pg-sql2/4.13.0_pg@8.10.0:
     resolution: {integrity: sha512-9sUlAR+FCuOPezS+2cQCSRUEmnyYrT929DiceZIsINk4R54hCGSh1OTWIP4gbAZeUMTYeEXnwTfnnEOupLYTRQ==}
@@ -6322,6 +6341,16 @@ packages:
   /pluralize/7.0.0:
     resolution: {integrity: sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==}
     engines: {node: '>=4'}
+    dev: false
+
+  /pony-cause/1.1.1:
+    resolution: {integrity: sha512-PxkIc/2ZpLiEzQXu5YRDOUgBlfGYBY8156HY5ZcRAwwonMk5W/MrJP2LLkG/hF7GEQzaHo2aS7ho6ZLCOvf+6g==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
+  /pony-cause/2.1.9:
+    resolution: {integrity: sha512-DIWdKGa0CSu5W1ooX1bcw4jQ+Fo++sgee0v1iczO7epT/suU/s2XBA8JDMl+8zkXZkjyfHfPaEngFwK5L3D9pg==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /postcss-calc/8.2.4_postcss@8.4.20:
@@ -6794,6 +6823,13 @@ packages:
     dependencies:
       asap: 2.0.6
     dev: true
+
+  /promised-retry/0.5.0:
+    resolution: {integrity: sha512-jbYvN6UGE+/3E1g0JmgDPchUc+4VI4cBaPjdr2Lso22xfFqut2warEf6IhWuhPJKbJYVOQAyCt2Jx+01ORCItg==}
+    engines: {node: ^14.17.0 || >=16.0.0}
+    dependencies:
+      pony-cause: 1.1.1
+    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
