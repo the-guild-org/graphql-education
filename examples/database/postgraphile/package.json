@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@database/postgres-with-postgraphile",
+  "name": "@database/postgraphile",
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
     "dotenv": "^16.0.3",

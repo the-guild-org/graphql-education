@@ -6,7 +6,7 @@ import {
   createContext,
   execute,
   subscribe,
-} from '@database/postgres-with-postgraphile/schema';
+} from '@database/postgraphile/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
