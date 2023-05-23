@@ -204,7 +204,7 @@ import { createPubSub } from '@database/utils';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { PrismaClient, Task } from '@prisma/client';
 import fs from 'fs';
-import { GraphQLError, GraphQLSchema } from 'graphql';
+import { GraphQLError } from 'graphql';
 import { Resolvers } from './generated';
 
 const prisma = new PrismaClient();
@@ -234,8 +234,7 @@ const events = {
   taskChanged: createPubSub<{ taskChanged: Task }>(),
 };
 
-let schema: GraphQLSchema;
-export function createSchema() {
+export function buildSchema() {
   const resolvers: Resolvers<GraphQLContext> = {
     Query: {
       async me(_parent, _args, ctx) {
@@ -393,12 +392,10 @@ export function createSchema() {
       // TODO: other subscriptions
     },
   };
-  return schema
-    ? schema
-    : (schema = makeExecutableSchema({
-        typeDefs: [fs.readFileSync('../../../schema.graphql').toString()],
-        resolvers: [resolvers],
-      }));
+  return makeExecutableSchema({
+    typeDefs: [fs.readFileSync('../../../schema.graphql').toString()],
+    resolvers: [resolvers],
+  });
 }
 
 export { execute } from 'graphql';

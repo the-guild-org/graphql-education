@@ -255,30 +255,27 @@ export async function createContext(
   };
 }
 
-let schema: GraphQLSchema;
-export async function createSchema() {
-  return schema
-    ? schema
-    : (schema = await createPostGraphileSchema(DATABASE_URL, 'public', {
-        graphileBuildOptions: {
-          // avoid appending list suffix to setof functions
-          pgOmitListSuffix: true,
-        },
-        // none of our setof returning functions will contain nulls
-        setofFunctionsContainNulls: false,
-        // exclude fields, queries and mutations that are not available to the authenticated user
-        ignoreRBAC: false,
-        // we dont need relay style connections
-        simpleCollections: 'only',
-        // disable the global object identifier plugin because our IDs are globally unique
-        skipPlugins: [NodePlugin],
-        appendPlugins: [
-          // simpler inflection for shorter names
-          PgSimplifyInflector,
-          SessionPlugin,
-          TaskSubscriptionsPlugin,
-        ],
-      }));
+export async function buildSchema() {
+  return await createPostGraphileSchema(DATABASE_URL, 'public', {
+    graphileBuildOptions: {
+      // avoid appending list suffix to setof functions
+      pgOmitListSuffix: true,
+    },
+    // none of our setof returning functions will contain nulls
+    setofFunctionsContainNulls: false,
+    // exclude fields, queries and mutations that are not available to the authenticated user
+    ignoreRBAC: false,
+    // we dont need relay style connections
+    simpleCollections: 'only',
+    // disable the global object identifier plugin because our IDs are globally unique
+    skipPlugins: [NodePlugin],
+    appendPlugins: [
+      // simpler inflection for shorter names
+      PgSimplifyInflector,
+      SessionPlugin,
+      TaskSubscriptionsPlugin,
+    ],
+  });
 }
 
 const pgPool = new Pool({ connectionString: DATABASE_URL });

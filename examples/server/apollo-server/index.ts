@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
 import {
-  createSchema,
+  buildSchema,
   createContext,
   execute,
   // TODO: implement subscriptions
@@ -9,10 +9,8 @@ import {
 } from '@database/postgraphile/schema';
 
 (async () => {
-  const schema = await createSchema();
-
   const server = new ApolloServer({
-    schema,
+    schema: await buildSchema(),
     executor: async ({
       schema,
       context: contextValue,
