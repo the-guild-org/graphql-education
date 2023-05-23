@@ -20,7 +20,7 @@ jobs:
           node-version: 18
           cache: yarn
       - name: Install
-        run: yarn
+        run: yarn install --immutable
       - name: Type check
         run: yarn type-check
 
@@ -36,6 +36,6 @@ jobs:
           node-version: 18
           cache: yarn
       - name: Install
-        run: yarn
+        run: yarn install --immutable
       - name: Lint
         run: yarn lint
