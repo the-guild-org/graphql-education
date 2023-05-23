@@ -1,5 +1,8 @@
 **/.DS_Store
 node_modules
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
 .vscode
 .next
 tsconfig.tsbuildinfo

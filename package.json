@@ -1,15 +1,19 @@
 {
   "private": true,
   "name": "graphql-education",
+  "packageManager": "yarn@3.5.1",
   "engines": {
-    "node": "18",
-    "pnpm": "7"
+    "node": "18"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
     "lint": "prettier -c .",
     "gendocs": "node scripts/gendocs.mjs"
   },
+  "workspaces": [
+    "website",
+    "examples/**/*"
+  ],
   "devDependencies": {
     "@types/node": "^18.11.18",
     "glob": "^10.2.2",
