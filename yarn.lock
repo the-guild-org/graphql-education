@@ -10847,14 +10847,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"singleton-graphql@workspace:examples/graphql":
-  version: 0.0.0-use.local
-  resolution: "singleton-graphql@workspace:examples/graphql"
-  dependencies:
-    graphql: ^15.8.0
-  languageName: unknown
-  linkType: soft
-
 "sirv@npm:^1.0.7":
   version: 1.0.19
   resolution: "sirv@npm:1.0.19"
