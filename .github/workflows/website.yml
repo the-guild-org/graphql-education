@@ -16,16 +16,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Set up node
+        uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
-
-      - name: Setup
-        uses: the-guild-org/shared-config/setup@main
-        with:
-          nodeVersion: 18
-          packageManager: yarn
-
-      - name: Build and Deploy
+          node-version: 18
+          cache: yarn
+      - name: Install
+        run: yarn install --immutable
+      - name: Deploy
         uses: the-guild-org/shared-config/website-cf@main
         env:
           NEXT_BASE_PATH: ${{ github.ref == 'refs/heads/main' && '/graphql/education' || '' }}
