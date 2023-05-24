@@ -3,7 +3,7 @@
   "name": "@database/postgres-with-prisma",
   "scripts": {
     "postinstall": "yarn prisma generate",
-    "graphql:generate": "graphql-codegen"
+    "gengql": "graphql-codegen"
   },
   "dependencies": {
     "@graphql-tools/schema": "^9.0.15",
