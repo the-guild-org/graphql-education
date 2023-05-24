@@ -1,1 +1,0 @@
-../../../website/src/pages/database/postgres-with-prisma.md
