@@ -16,10 +16,7 @@ Provide the [database](/database/introduction) GraphQL schema.
 import { createServer, IncomingMessage } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/node';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
-import {
-  buildSchema,
-  createContext,
-} from '@database/<slug>/schema';
+import { buildSchema, createContext } from '@database/<slug>/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<IncomingMessage, string>();
 
