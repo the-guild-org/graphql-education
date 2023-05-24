@@ -1,6 +1,5 @@
 {
   "introduction": "Introduction",
   "utils": "Utils",
-  "postgraphile": "PostGraphile",
   "postgres-with-prisma": "Postgres with Prisma"
 }
