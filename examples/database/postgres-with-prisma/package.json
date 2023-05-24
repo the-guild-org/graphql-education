@@ -2,7 +2,7 @@
   "private": true,
   "name": "@database/postgres-with-prisma",
   "scripts": {
-    "postinstall": "npx prisma generate",
+    "postinstall": "yarn prisma generate",
     "graphql:generate": "graphql-codegen"
   },
   "dependencies": {
