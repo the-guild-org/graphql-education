@@ -32,7 +32,7 @@ const events = {
   taskChanged: createPubSub<{ taskChanged: Task }>(),
 };
 
-export function buildSchema() {
+export async function buildSchema() {
   const resolvers: Resolvers<GraphQLContext> = {
     Query: {
       async me(_parent, _args, ctx) {
@@ -195,6 +195,3 @@ export function buildSchema() {
     resolvers: [resolvers],
   });
 }
-
-export { execute } from 'graphql';
-export { subscribe } from 'graphql';

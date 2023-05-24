@@ -5,7 +5,7 @@
     "start": "tsx ."
   },
   "dependencies": {
-    "graphql": "^15.8.0",
+    "graphql": "^16.6.0",
     "graphql-http": "^1.13.0"
   },
   "devDependencies": {

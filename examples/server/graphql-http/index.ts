@@ -4,15 +4,11 @@ import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
 import {
   buildSchema,
   createContext,
-  execute,
-  // TODO: implement subscriptions
-  // subscribe,
-} from '@database/postgraphile/schema';
+} from '@database/postgres-with-prisma/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<IncomingMessage, string>();
 
 (async () => {
-  // Create the GraphQL over HTTP Node request handler
   const handler = createHandler({
     schema: await buildSchema(),
     context: (req) =>
@@ -22,10 +18,8 @@ const SESSION_REQUEST_TO_ID_MAP = new WeakMap<IncomingMessage, string>();
           SESSION_REQUEST_TO_ID_MAP.set(req.raw, sessionId);
         },
       }),
-    execute,
   });
 
-  // Create a HTTP server using the listner on `/graphql`
   const server = createServer((req, res) => {
     if (req.url?.startsWith('/graphql')) {
       const sessionId = SESSION_REQUEST_TO_ID_MAP.get(req);

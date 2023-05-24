@@ -1,12 +1,13 @@
 {
   "private": true,
-  "name": "@server/graphql-yoga",
+  "name": "@server/mercurius",
   "scripts": {
     "start": "tsx ."
   },
   "dependencies": {
+    "fastify": "^4.17.0",
     "graphql": "^16.6.0",
-    "graphql-yoga": "^3.5.1"
+    "mercurius": "^13.0.0"
   },
   "devDependencies": {
     "tsx": "^3.12.7"

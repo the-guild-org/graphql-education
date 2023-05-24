@@ -3,28 +3,11 @@ import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
 import {
   buildSchema,
   createContext,
-  execute,
-  // TODO: implement subscriptions
-  // subscribe,
-} from '@database/postgraphile/schema';
+} from '@database/postgres-with-prisma/schema';
 
 (async () => {
   const server = new ApolloServer({
     schema: await buildSchema(),
-    executor: async ({
-      schema,
-      context: contextValue,
-      operationName,
-      document,
-      request: { variables: variableValues },
-    }) =>
-      execute({
-        schema,
-        contextValue,
-        operationName,
-        document,
-        variableValues,
-      }),
     context: ({ req, res }) =>
       createContext({
         sessionId: sessionIdFromCookie(req.headers.cookie),
