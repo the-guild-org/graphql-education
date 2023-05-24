@@ -7,3 +7,4 @@ node_modules
 .next
 tsconfig.tsbuildinfo
 dist
+**/prisma/migrations
