@@ -1132,6 +1132,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@database/common@workspace:examples/database/common":
+  version: 0.0.0-use.local
+  resolution: "@database/common@workspace:examples/database/common"
+  languageName: unknown
+  linkType: soft
+
 "@database/mongodb-with-typegraphql@workspace:examples/database/mongodb-with-typegraphql":
   version: 0.0.0-use.local
   resolution: "@database/mongodb-with-typegraphql@workspace:examples/database/mongodb-with-typegraphql"
@@ -1158,12 +1164,6 @@ __metadata:
     "@prisma/client": ^4.13.0
     graphql: ^16.6.0
     prisma: ^4.13.0
-  languageName: unknown
-  linkType: soft
-
-"@database/utils@workspace:examples/database/utils":
-  version: 0.0.0-use.local
-  resolution: "@database/utils@workspace:examples/database/utils"
   languageName: unknown
   linkType: soft
 

@@ -1,4 +1,4 @@
-import { createPubSub } from '@database/utils';
+import { createPubSub } from '@database/common';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { PrismaClient, Task } from '@prisma/client';
 import fs from 'fs';

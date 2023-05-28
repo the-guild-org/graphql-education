@@ -200,7 +200,7 @@ This `schema.ts` file will later on be used by a [server](/server/introduction) 
 serve the contents of the database.
 
 ```ts filename="examples/database/postgres-with-prisma/schema.ts"
-import { createPubSub } from '@database/utils';
+import { createPubSub } from '@database/common';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { PrismaClient, Task } from '@prisma/client';
 import fs from 'fs';
