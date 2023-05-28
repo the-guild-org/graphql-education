@@ -1,0 +1,10 @@
+services:
+  mongodb:
+    # image: mongodb/mongodb-community-server:6.0-ubi8
+    image: mongo:6.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DATABASE_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$DATABASE_PASSWORD
+      - MONGO_INITDB_DATABASE=$DATABASE_DB
+    ports:
+      - $DATABASE_PORT:27017

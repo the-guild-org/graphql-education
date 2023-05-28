@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "@database/mongodb-with-typegraphql",
+  "scripts": {
+    "gengql": "graphql-codegen"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "mongodb": "^5.5.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^4.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.0"
+  }
+}
