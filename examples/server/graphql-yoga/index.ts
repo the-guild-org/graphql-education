@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
+import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import {
   buildSchema,
   createContext,

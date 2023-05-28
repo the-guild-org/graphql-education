@@ -205,17 +205,13 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { PrismaClient, Task } from '@prisma/client';
 import fs from 'fs';
 import { GraphQLError } from 'graphql';
+import { ServerContext } from '@server/common';
 import { Resolvers } from './generated';
 
 const prisma = new PrismaClient();
 
 export type DatabaseContext = {
   prisma: PrismaClient;
-};
-
-export type ServerContext = {
-  sessionId: string | null;
-  setSessionId: (sessionId: string) => void;
 };
 
 export type GraphQLContext = DatabaseContext & ServerContext;

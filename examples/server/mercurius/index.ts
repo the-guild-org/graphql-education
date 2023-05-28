@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import mercurius from 'mercurius';
-import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
+import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import {
   buildSchema,
   createContext,

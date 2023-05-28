@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
+import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import {
   buildSchema,
   createContext,

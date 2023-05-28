@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@server/utils",
+  "name": "@server/common",
   "dependencies": {
     "cookie": "^0.5.0"
   },

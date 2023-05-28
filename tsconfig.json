@@ -19,7 +19,7 @@
       "@database/postgraphile/schema": [
         "./examples/database/postgraphile/schema.ts"
       ],
-      "@server/utils": ["./examples/server/utils"]
+      "@server/common": ["./examples/server/common"]
     }
   },
   "include": ["website", "examples"],

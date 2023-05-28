@@ -1,6 +1,6 @@
 import { createServer, IncomingMessage } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/node';
-import { sessionIdFromCookie, sessionIdToCookie } from '@server/utils';
+import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import {
   buildSchema,
   createContext,

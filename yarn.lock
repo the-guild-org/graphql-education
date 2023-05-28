@@ -3410,6 +3410,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@server/common@workspace:examples/server/common":
+  version: 0.0.0-use.local
+  resolution: "@server/common@workspace:examples/server/common"
+  dependencies:
+    "@types/cookie": ^0.5.1
+    cookie: ^0.5.0
+  languageName: unknown
+  linkType: soft
+
 "@server/graphql-http@workspace:examples/server/graphql-http":
   version: 0.0.0-use.local
   resolution: "@server/graphql-http@workspace:examples/server/graphql-http"
@@ -3438,15 +3447,6 @@ __metadata:
     graphql: ^16.6.0
     mercurius: ^13.0.0
     tsx: ^3.12.7
-  languageName: unknown
-  linkType: soft
-
-"@server/utils@workspace:examples/server/utils":
-  version: 0.0.0-use.local
-  resolution: "@server/utils@workspace:examples/server/utils"
-  dependencies:
-    "@types/cookie": ^0.5.1
-    cookie: ^0.5.0
   languageName: unknown
   linkType: soft
 
