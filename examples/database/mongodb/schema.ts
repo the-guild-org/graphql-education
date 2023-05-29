@@ -53,10 +53,14 @@ export async function buildSchema() {
       },
       filterTasks(_parent, args, ctx) {
         if (!args.searchText) {
-          return ctx.mongodb.task.find().toArray();
+          return ctx.mongodb.task
+            .find()
+            .map(({ _id, ...task }) => ({ id: _id, ...task }))
+            .toArray();
         }
         return ctx.mongodb.task
           .find({ $text: { $search: args.searchText } })
+          .map(({ _id, ...task }) => ({ id: _id, ...task }))
           .toArray();
       },
     },
