@@ -12,14 +12,8 @@
     "useUnknownInCatchVariables": false,
     "checkJs": true,
     "paths": {
-      "@database/common": ["./examples/database/common"],
-      "@database/postgres-with-prisma/schema": [
-        "./examples/database/postgres-with-prisma/schema.ts"
-      ],
-      "@database/postgraphile/schema": [
-        "./examples/database/postgraphile/schema.ts"
-      ],
-      "@server/common": ["./examples/server/common"]
+      "@database/*": ["./examples/database/*"],
+      "@server/*": ["./examples/server/*"]
     }
   },
   "include": ["website", "examples"],
