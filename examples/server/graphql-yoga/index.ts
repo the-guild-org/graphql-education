@@ -1,10 +1,7 @@
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
-import {
-  buildSchema,
-  createContext,
-} from '@database/postgres-with-prisma/schema';
+import { buildSchema, createContext } from '@database/mongodb/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 

@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
+import { User as UserModel, Task as TaskModel } from './mongodb';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -114,11 +115,10 @@ export type Task = {
   title: Scalars['String']['output'];
 };
 
-export enum TaskStatus {
-  Done = 'DONE',
-  InProgress = 'IN_PROGRESS',
-  Todo = 'TODO'
-}
+export type TaskStatus =
+  | 'DONE'
+  | 'IN_PROGRESS'
+  | 'TODO';
 
 export type UpdateTaskInput = {
   assignee: Scalars['ID']['input'];
@@ -220,10 +220,10 @@ export type ResolversTypes = {
   RegisterInput: RegisterInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
-  Task: ResolverTypeWrapper<Task>;
+  Task: ResolverTypeWrapper<TaskModel>;
   TaskStatus: TaskStatus;
   UpdateTaskInput: UpdateTaskInput;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserModel>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -237,9 +237,9 @@ export type ResolversParentTypes = {
   RegisterInput: RegisterInput;
   String: Scalars['String']['output'];
   Subscription: {};
-  Task: Task;
+  Task: TaskModel;
   UpdateTaskInput: UpdateTaskInput;
-  User: User;
+  User: UserModel;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
