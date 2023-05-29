@@ -1,5 +1,6 @@
 {
   "introduction": "Introduction",
   "utils": "Utils",
+  "mongodb": "MongoDB",
   "postgres-with-prisma": "Postgres with Prisma"
 }
