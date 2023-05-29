@@ -1,6 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 
 // TODO: have just one .env
 dotenv.config({ path: path.join(__dirname, '.env') });
@@ -23,15 +23,15 @@ export interface User {
 export const user = db.collection<User>('user');
 
 export interface Session {
-  userId: string;
+  userId: ObjectId;
 }
 export const session = db.collection<Session>('session');
 
 export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
 export interface Task {
-  createdByUserId: string;
+  createdByUserId: ObjectId;
   private: boolean;
-  asigneeUserId: string | null;
+  asigneeUserId: ObjectId | null;
   status: TaskStatus;
   title: string;
   description: string | null;

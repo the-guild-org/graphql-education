@@ -4,6 +4,7 @@ import { ServerContext } from '@server/common';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { Resolvers } from './generated';
 import { GraphQLError } from 'graphql';
+import { ObjectId } from 'mongodb';
 
 export type DatabaseContext = {
   mongodb: typeof mongodb;
@@ -28,15 +29,27 @@ export async function buildSchema() {
           return null;
         }
         const session = await ctx.mongodb.session.findOne({
-          id: ctx.sessionId,
+          _id: new ObjectId(ctx.sessionId),
         });
         if (!session) {
           return null;
         }
-        return ctx.mongodb.user.findOne({ id: session.userId });
+        const user = await ctx.mongodb.user.findOne({
+          _id: new ObjectId(session.userId),
+        });
+        if (!user) {
+          return null;
+        }
+        return { id: user._id, ...user };
       },
-      task(_parent, args, ctx) {
-        return ctx.mongodb.task.findOne({ id: String(args.id) });
+      async task(_parent, args, ctx) {
+        const task = await ctx.mongodb.task.findOne({
+          _id: new ObjectId(args.id),
+        });
+        if (!task) {
+          return null;
+        }
+        return { id: task._id, ...task };
       },
       filterTasks(_parent, args, ctx) {
         if (!args.searchText) {
@@ -54,15 +67,17 @@ export async function buildSchema() {
           // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
           password: input.password,
         });
-        const user = await ctx.mongodb.user.findOne({ id: userId });
+        const user = await ctx.mongodb.user.findOne({
+          _id: new ObjectId(userId),
+        });
         if (!user) {
           throw new Error('User not properly inserted');
         }
         const { insertedId: sessionId } = await ctx.mongodb.session.insertOne({
-          userId: userId.toString(),
+          userId: user._id,
         });
         ctx.setSessionId(sessionId.toString());
-        return user;
+        return { id: user._id, ...user };
       },
       async login(_parent, args, ctx) {
         const user = await ctx.mongodb.user.findOne({
@@ -73,14 +88,17 @@ export async function buildSchema() {
           throw new GraphQLError('Wrong credentials!');
         }
         const { insertedId: sessionId } = await ctx.mongodb.session.insertOne({
-          userId: user._id.toString(),
+          userId: user._id,
         });
         ctx.setSessionId(sessionId.toString());
-        return user;
+        return { id: user._id, ...user };
       },
       async createTask(_parent, { input }, ctx) {
+        if (!ctx.sessionId) {
+          throw new GraphQLError('Unauthorized');
+        }
         const session = await ctx.mongodb.session.findOne({
-          id: ctx.sessionId,
+          _id: new ObjectId(ctx.sessionId),
         });
         if (!session) {
           throw new GraphQLError('Unauthorized');
@@ -90,7 +108,8 @@ export async function buildSchema() {
             title: input.title,
             description: input.description || null,
             createdByUserId: session.userId,
-            asigneeUserId: String(input.assignee),
+            // TODO: validate that the asignee exists
+            asigneeUserId: new ObjectId(input.assignee),
             status: input.status || 'TODO',
             private: input.private,
           },
@@ -102,7 +121,7 @@ export async function buildSchema() {
         }
         // TODO: subscriptions
         // events.taskCreated.pub({ taskCreated: task });
-        return task;
+        return { id: task._id, ...task };
       },
       // TODO: other mutations
     },
