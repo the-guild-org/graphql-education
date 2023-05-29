@@ -1138,14 +1138,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@database/mongodb-with-typegraphql@workspace:examples/database/mongodb-with-typegraphql":
+"@database/mongodb@workspace:examples/database/mongodb":
   version: 0.0.0-use.local
-  resolution: "@database/mongodb-with-typegraphql@workspace:examples/database/mongodb-with-typegraphql"
+  resolution: "@database/mongodb@workspace:examples/database/mongodb"
   dependencies:
     "@graphql-codegen/cli": ^4.0.0
     "@graphql-codegen/typescript": ^4.0.0
     "@graphql-codegen/typescript-operations": ^4.0.0
     "@graphql-codegen/typescript-resolvers": ^4.0.0
+    "@graphql-tools/schema": ^10.0.0
     dotenv: ^16.0.3
     graphql: ^16.6.0
     mongodb: ^5.5.0
