@@ -6,7 +6,7 @@ A collection of database tools/utilities that are in common with all implementat
 
 In-memory pubsub system that implements modern async iterators. Basically a replacement for [graphql-subscriptions](https://github.com/apollographql/graphql-subscriptions).
 
-```ts filename="examples/database/utils/pubsub.ts"
+```ts filename="examples/database/common/pubsub.ts"
 export interface Generator<T> {
   iter: AsyncIterableIterator<T>;
   produce(val: T): void;
