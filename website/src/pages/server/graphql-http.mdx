@@ -14,7 +14,7 @@ Provide the [database](/database/introduction) GraphQL schema.
 
 ```ts filename="examples/server/graphql-http/index.ts"
 import { createServer, IncomingMessage } from 'node:http';
-import { createHandler } from 'graphql-http/lib/use/node';
+import { createHandler } from 'graphql-http/lib/use/http';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import { buildSchema, createContext } from '@database/<slug>/schema';
 
