@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@server/common",
+  "type": "module",
   "dependencies": {
     "cookie": "^0.5.0"
   },

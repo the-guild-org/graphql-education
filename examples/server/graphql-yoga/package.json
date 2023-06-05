@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@server/graphql-yoga",
+  "type": "module",
   "scripts": {
     "start": "tsx ."
   },

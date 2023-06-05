@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@database/mongodb",
+  "type": "module",
   "scripts": {
     "gengql": "graphql-codegen"
   },

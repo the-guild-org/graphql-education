@@ -6,21 +6,19 @@ import {
   createContext,
 } from '@database/postgres-with-prisma/schema';
 
-(async () => {
-  const server = new ApolloServer({
-    schema: await buildSchema(),
-  });
+const server = new ApolloServer({
+  schema: await buildSchema(),
+});
 
-  await startStandaloneServer(server, {
-    listen: { port: 50005 },
-    context: ({ req, res }) =>
-      createContext({
-        sessionId: sessionIdFromCookie(req.headers.cookie),
-        setSessionId(sessionId) {
-          res.setHeader('set-cookie', sessionIdToCookie(sessionId));
-        },
-      }),
-  });
+await startStandaloneServer(server, {
+  listen: { port: 50005 },
+  context: ({ req, res }) =>
+    createContext({
+      sessionId: sessionIdFromCookie(req.headers.cookie),
+      setSessionId(sessionId) {
+        res.setHeader('set-cookie', sessionIdToCookie(sessionId));
+      },
+    }),
+});
 
-  console.info('Server is running on http://localhost:50005/graphql');
-})();
+console.info('Server is running on http://localhost:50005/graphql');

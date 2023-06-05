@@ -1,4 +1,5 @@
 {
   "private": true,
-  "name": "@database/common"
+  "name": "@database/common",
+  "type": "module"
 }

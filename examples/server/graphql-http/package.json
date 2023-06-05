@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@server/graphql-http",
+  "type": "module",
   "scripts": {
     "start": "tsx ."
   },

@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@server/mercurius",
+  "type": "module",
   "scripts": {
     "start": "tsx ."
   },

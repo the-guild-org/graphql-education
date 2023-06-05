@@ -64,6 +64,41 @@ export async function buildSchema() {
           .toArray();
       },
     },
+    // User: {
+    //   createdTasks(parent, _, ctx) {
+    //     return ctx.prisma.task.findMany({
+    //       where: {
+    //         createdByUserId: parent.id,
+    //       },
+    //     });
+    //   },
+    //   assignedTasks(parent, _, ctx) {
+    //     return ctx.prisma.task.findMany({
+    //       where: {
+    //         asigneeUserId: parent.id,
+    //       },
+    //     });
+    //   },
+    // },
+    // Task: {
+    //   createdBy(parent, _, ctx) {
+    //     return ctx.prisma.user.findUniqueOrThrow({
+    //       where: {
+    //         id: parent.createdByUserId,
+    //       },
+    //     });
+    //   },
+    //   assignee(parent, _, ctx) {
+    //     if (!parent.asigneeUserId) {
+    //       return null;
+    //     }
+    //     return ctx.prisma.user.findUniqueOrThrow({
+    //       where: {
+    //         id: parent.asigneeUserId,
+    //       },
+    //     });
+    //   },
+    // },
     Mutation: {
       async register(_parent, { input }, ctx) {
         const { insertedId: userId } = await ctx.mongodb.user.insertOne({

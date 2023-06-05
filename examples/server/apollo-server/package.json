@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@server/apollo-server",
+  "type": "module",
   "scripts": {
     "start": "tsx ."
   },

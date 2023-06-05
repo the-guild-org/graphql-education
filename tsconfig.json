@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es2017",
+    "module": "es2022",
+    "target": "es2022",
     "jsx": "preserve",
     "strict": true,
     "noUnusedLocals": true,

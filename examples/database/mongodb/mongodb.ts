@@ -1,6 +1,9 @@
+import url from 'url';
 import path from 'path';
 import dotenv from 'dotenv';
 import { MongoClient, ObjectId } from 'mongodb';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 // TODO: have just one .env
 dotenv.config({ path: path.join(__dirname, '.env') });

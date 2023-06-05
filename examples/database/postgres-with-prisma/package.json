@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@database/postgres-with-prisma",
+  "type": "module",
   "scripts": {
     "postinstall": "yarn prisma generate",
     "gengql": "graphql-codegen"
