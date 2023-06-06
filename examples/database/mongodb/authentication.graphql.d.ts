@@ -18,9 +18,8 @@ export type Scalars = {
 };
 
 export type CreateTaskInput = {
-  assignee: Scalars['ID']['input'];
+  assignee?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  private: Scalars['Boolean']['input'];
   status?: TaskStatus;
   title: Scalars['String']['input'];
 };
@@ -90,23 +89,12 @@ export type RegisterInput = {
   password: Scalars['String']['input'];
 };
 
-export type Subscription = {
-  __typename?: 'Subscription';
-  taskChanged: Task;
-  taskCreated: Task;
-};
-
-
-export type SubscriptionTaskChangedArgs = {
-  id: Scalars['ID']['input'];
-};
-
 export type Task = {
   __typename?: 'Task';
   assignee?: Maybe<User>;
   assigneeUserId?: Maybe<Scalars['ID']['output']>;
+  /** The authenticated user that created this task. */
   createdBy: User;
-  createdByUserId: Scalars['ID']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   /** Private tasks can be viewed and modified only by the assignee or the user who created it. */
@@ -121,10 +109,9 @@ export type TaskStatus =
   | 'TODO';
 
 export type UpdateTaskInput = {
-  assignee: Scalars['ID']['input'];
+  assignee?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
-  private: Scalars['Boolean']['input'];
   status: TaskStatus;
   title: Scalars['String']['input'];
 };
@@ -219,7 +206,6 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   RegisterInput: RegisterInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  Subscription: ResolverTypeWrapper<{}>;
   Task: ResolverTypeWrapper<TaskModel>;
   TaskStatus: TaskStatus;
   UpdateTaskInput: UpdateTaskInput;
@@ -236,7 +222,6 @@ export type ResolversParentTypes = {
   Query: {};
   RegisterInput: RegisterInput;
   String: Scalars['String']['output'];
-  Subscription: {};
   Task: TaskModel;
   UpdateTaskInput: UpdateTaskInput;
   User: UserModel;
@@ -256,16 +241,10 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   task?: Resolver<Maybe<ResolversTypes['Task']>, ParentType, ContextType, RequireFields<QueryTaskArgs, 'id'>>;
 };
 
-export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
-  taskChanged?: SubscriptionResolver<ResolversTypes['Task'], "taskChanged", ParentType, ContextType, RequireFields<SubscriptionTaskChangedArgs, 'id'>>;
-  taskCreated?: SubscriptionResolver<ResolversTypes['Task'], "taskCreated", ParentType, ContextType>;
-};
-
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
   assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   private?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -286,7 +265,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Subscription?: SubscriptionResolvers<ContextType>;
   Task?: TaskResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

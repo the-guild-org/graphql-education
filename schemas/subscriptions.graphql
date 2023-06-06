@@ -1,0 +1,6 @@
+#import "basic.graphql"
+
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
+}

@@ -1,9 +1,5 @@
 type Query {
   """
-  The currently authenticated user.
-  """
-  me: User
-  """
   Retrieve a task by its ID.
   """
   task(id: ID!): Task
@@ -14,26 +10,15 @@ type Query {
 }
 
 type Mutation {
-  login(email: String!, password: String!): User!
-  register(input: RegisterInput!): User!
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): Task!
-}
-
-type Subscription {
-  taskCreated: Task!
-  taskChanged(id: ID!): Task!
 }
 
 type User {
   id: ID!
   name: String!
   email: String!
-  """
-  All tasks that have been created by this user.
-  """
-  createdTasks: [Task!]!
   """
   All tasks that have this user set as the assignee.
   """
@@ -48,8 +33,6 @@ enum TaskStatus {
 
 type Task {
   id: ID!
-  createdByUserId: ID!
-  createdBy: User!
   """
   Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
@@ -61,15 +44,8 @@ type Task {
   description: String
 }
 
-input RegisterInput {
-  name: String!
-  email: String!
-  password: String!
-}
-
 input CreateTaskInput {
-  private: Boolean!
-  assignee: ID!
+  assignee: ID
   status: TaskStatus! = TODO
   title: String!
   description: String
@@ -77,8 +53,7 @@ input CreateTaskInput {
 
 input UpdateTaskInput {
   id: ID!
-  private: Boolean!
-  assignee: ID!
+  assignee: ID
   status: TaskStatus!
   title: String!
   description: String

@@ -1,0 +1,33 @@
+#import "basic.graphql"
+
+extend type Query {
+  """
+  The currently authenticated user.
+  """
+  me: User
+}
+
+extend type Mutation {
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+extend type User {
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
+}
+
+extend type Task {
+  """
+  The authenticated user that created this task.
+  """
+  createdBy: User!
+}
