@@ -1,0 +1,110 @@
+# Get Started
+
+Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated modules for convenience and efficiency.
+
+You're expected to have elementery knowledge about [Docker](https://www.docker.com/), [Node.js](https://nodejs.org/), [GraphQL](https://roadmap.sh/graphql) and [TypeScript](https://www.typescriptlang.org/).
+
+The education modules are split into 3 different parts: the [database](/database/introduction), [server](/server/introduction) and [client](/client/introduction).
+
+## Schema
+
+All of the education modules are designed to the following data model. The [schema.graphql](https://github.com/the-guild-org/graphql-education/blob/main/schema.graphql) looks like this:
+
+```graphql filename="schema.graphql"
+type Query {
+  """
+  The currently authenticated user.
+  """
+  me: User
+  """
+  Retrieve a task by its ID.
+  """
+  task(id: ID!): Task
+  """
+  Retrieve available tasks. Optionally perform a fulltext search using the `searchText` argument.
+  """
+  filterTasks(searchText: String): [Task!]!
+}
+
+type Mutation {
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(input: UpdateTaskInput!): Task!
+  deleteTask(input: DeleteTaskInput!): Task!
+}
+
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
+  """
+  All tasks that have this user set as the assignee.
+  """
+  assignedTasks: [Task!]!
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+type Task {
+  id: ID!
+  createdByUserId: ID!
+  createdBy: User!
+  """
+  Private tasks can be viewed and modified only by the asignee or the user who created it.
+  """
+  private: Boolean!
+  asigneeUserId: ID
+  assignee: User
+  status: TaskStatus!
+  title: String!
+  description: String
+}
+
+input RegisterInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input CreateTaskInput {
+  private: Boolean!
+  assignee: ID!
+  status: TaskStatus! = TODO
+  title: String!
+  description: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  private: Boolean!
+  assignee: ID!
+  status: TaskStatus!
+  title: String!
+  description: String
+}
+
+input DeleteTaskInput {
+  id: ID!
+}
+```
+
+## Ports
+
+Some of the modules are exposed and communicated with over the network. All elements of modules will bind to the same ports for convenience:
+
+- [Database](/database) uses the port **50000** ([http://localhost:50000](http://localhost:50000))
+- [Server](/server) uses the port **50005** ([http://localhost:50005](http://localhost:50005))

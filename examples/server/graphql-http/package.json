@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@server/graphql-http",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ."
+  },
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-http": "^1.13.0"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7"
+  }
+}

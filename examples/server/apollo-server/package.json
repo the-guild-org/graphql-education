@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@server/apollo-server",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ."
+  },
+  "dependencies": {
+    "@apollo/server": "^4.7.1",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7"
+  }
+}

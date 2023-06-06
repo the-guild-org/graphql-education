@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { FiGithub } from 'react-icons/fi';
+import { FiGithub, FiPlay } from 'react-icons/fi';
 import { Anchor } from '@theguild/components';
 
 const classes = {
@@ -20,12 +20,15 @@ export function Index() {
           The last GraphQL academy.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Anchor className={classes.button} href="/tutorials/basic">
-            Tutorials
+          <Anchor
+            className={clsx(classes.button, 'flex flex-row gap-2 items-center')}
+            href="/get-started"
+          >
+            <FiPlay /> Get Started
           </Anchor>
           <Anchor
             className={clsx(classes.button, 'flex flex-row gap-2 items-center')}
-            href="https://github.com/dotansimha/graphql-yoga"
+            href="https://github.com/the-guild-org/graphql-education"
           >
             <FiGithub /> GitHub
           </Anchor>

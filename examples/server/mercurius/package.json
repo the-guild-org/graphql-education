@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@server/mercurius",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ."
+  },
+  "dependencies": {
+    "fastify": "^4.17.0",
+    "graphql": "^16.6.0",
+    "mercurius": "^13.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7"
+  }
+}

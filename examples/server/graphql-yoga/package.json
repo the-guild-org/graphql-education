@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@server/graphql-yoga",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ."
+  },
+  "dependencies": {
+    "graphql": "^16.6.0",
+    "graphql-yoga": "^3.5.1"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7"
+  }
+}

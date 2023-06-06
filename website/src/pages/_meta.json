@@ -7,8 +7,8 @@
       "layout": "raw"
     }
   },
-  "tutorials": {
-    "title": "Tutorials",
-    "type": "page"
-  }
+  "get-started": "Get Started",
+  "database": "Database",
+  "server": "Server",
+  "client": "Client"
 }
