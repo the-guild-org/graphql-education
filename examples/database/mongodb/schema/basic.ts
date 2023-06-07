@@ -51,13 +51,15 @@ const resolvers: Resolvers<GraphQLContext> = {
       const { ok, value: task } = await ctx.mongodb.task.findOneAndUpdate(
         { _id: new ObjectId(input.id) },
         {
-          title: input.title,
-          description: input.description || null,
-          // TODO: validate that the asignee exists
-          asigneeUserId: input.assigneeUserId
-            ? new ObjectId(input.assigneeUserId)
-            : null,
-          status: input.status || 'TODO',
+          $set: {
+            title: input.title,
+            description: input.description || null,
+            // TODO: validate that the asignee exists
+            asigneeUserId: input.assigneeUserId
+              ? new ObjectId(input.assigneeUserId)
+              : null,
+            status: input.status || 'TODO',
+          },
         },
       );
       if (!ok) {
