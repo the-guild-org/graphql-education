@@ -2,7 +2,7 @@
 
 Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated modules for convenience and efficiency.
 
-You're expected to have elementery knowledge about [Docker](https://www.docker.com/), [Node.js](https://nodejs.org/), [GraphQL](https://roadmap.sh/graphql) and [TypeScript](https://www.typescriptlang.org/).
+You're expected to have elementary knowledge about [Docker](https://www.docker.com/), [Node.js](https://nodejs.org/), [GraphQL](https://roadmap.sh/graphql) and [TypeScript](https://www.typescriptlang.org/).
 
 The education modules are split into 3 different parts: the [database](/database/introduction), [server](/server/introduction) and [client](/client/introduction).
 
@@ -64,10 +64,10 @@ type Task {
   createdByUserId: ID!
   createdBy: User!
   """
-  Private tasks can be viewed and modified only by the asignee or the user who created it.
+  Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
   private: Boolean!
-  asigneeUserId: ID
+  assigneeUserId: ID
   assignee: User
   status: TaskStatus!
   title: String!

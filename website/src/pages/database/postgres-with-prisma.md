@@ -13,7 +13,7 @@ Combined with [Postgres](https://www.postgresql.org/) as the database layer. It 
 
 ## Setup
 
-Initialise a project and provide the necessary fields:
+Initialize a project and provide the necessary fields:
 
 ```sh
 npm init
@@ -60,7 +60,7 @@ model User {
   sessions Session[]
 
   createdTasks  Task[] @relation("createdTasks")
-  assignedTasks Task[] @relation("asignedTasks")
+  assignedTasks Task[] @relation("assignedTasks")
 }
 
 model Session {
@@ -83,8 +83,8 @@ model Task {
 
   private Boolean @default(false)
 
-  asigneeUserId String?
-  assignee      User?   @relation("asignedTasks", fields: [asigneeUserId], references: [id])
+  assigneeUserId String?
+  assignee      User?   @relation("assignedTasks", fields: [assigneeUserId], references: [id])
 
   status      TaskStatus
   title       String
@@ -286,7 +286,7 @@ export async function buildSchema() {
       assignedTasks(parent, _, ctx) {
         return ctx.prisma.task.findMany({
           where: {
-            asigneeUserId: parent.id,
+            assigneeUserId: parent.id,
           },
         });
       },
@@ -300,12 +300,12 @@ export async function buildSchema() {
         });
       },
       assignee(parent, _, ctx) {
-        if (!parent.asigneeUserId) {
+        if (!parent.assigneeUserId) {
           return null;
         }
         return ctx.prisma.user.findUniqueOrThrow({
           where: {
-            id: parent.asigneeUserId,
+            id: parent.assigneeUserId,
           },
         });
       },

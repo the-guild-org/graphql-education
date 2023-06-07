@@ -8,8 +8,14 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  type-check:
-    name: Type check
+  check:
+    strategy:
+      matrix:
+        check:
+          - format
+          - spell
+          - type
+    name: Check ${{ matrix.check }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,20 +28,4 @@ jobs:
       - name: Install
         run: yarn install --immutable
       - name: Type check
-        run: yarn type-check
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: yarn
-      - name: Install
-        run: yarn install --immutable
-      - name: Lint
-        run: yarn lint
+        run: yarn check:${{ matrix.check }}
