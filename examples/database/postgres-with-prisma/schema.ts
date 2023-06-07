@@ -47,7 +47,7 @@ export async function buildSchema() {
       task(_parent, args, ctx) {
         return ctx.prisma.task.findUniqueOrThrow({
           where: {
-            id: args.id,
+            id: String(args.id),
           },
         });
       },
@@ -84,7 +84,7 @@ export async function buildSchema() {
       assignedTasks(parent, _, ctx) {
         return ctx.prisma.task.findMany({
           where: {
-            assigneeUserId: parent.id,
+            assigneeUserId: String(parent.id),
           },
         });
       },
@@ -160,7 +160,7 @@ export async function buildSchema() {
             title: input.title,
             assignee: {
               connect: {
-                id: input.assignee,
+                id: String(input.assignee),
               },
             },
             status: input.status || ('TODO' as const),

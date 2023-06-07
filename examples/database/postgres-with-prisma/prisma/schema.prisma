@@ -16,7 +16,7 @@ model User {
   sessions Session[]
 
   createdTasks  Task[] @relation("createdTasks")
-  assignedTasks Task[] @relation("assignedTasks")
+  assigneeTasks Task[] @relation("assigneeTasks")
 }
 
 model Session {
@@ -39,8 +39,8 @@ model Task {
 
   private Boolean @default(false)
 
-  assignedUserId String?
-  assignee       User?   @relation("assignedTasks", fields: [assignedUserId], references: [id])
+  assigneeUserId String?
+  assignee       User?   @relation("assigneeTasks", fields: [assigneeUserId], references: [id])
 
   status      TaskStatus
   title       String

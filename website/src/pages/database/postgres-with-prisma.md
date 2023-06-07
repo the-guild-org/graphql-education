@@ -60,7 +60,7 @@ model User {
   sessions Session[]
 
   createdTasks  Task[] @relation("createdTasks")
-  assignedTasks Task[] @relation("assignedTasks")
+  assigneeTasks Task[] @relation("assigneeTasks")
 }
 
 model Session {
@@ -83,8 +83,8 @@ model Task {
 
   private Boolean @default(false)
 
-  assignedUserId String?
-  assignee       User?   @relation("assignedTasks", fields: [assignedUserId], references: [id])
+  assigneeUserId String?
+  assignee       User?   @relation("assigneeTasks", fields: [assigneeUserId], references: [id])
 
   status      TaskStatus
   title       String
@@ -165,9 +165,6 @@ const config: CodegenConfig = {
         // Prisma Client uses "type" for enums as well
         enumsAsTypes: true,
         // expect resolvers to return Prisma generated types
-        scalars: {
-          ID: 'string',
-        },
         mappers: {
           User: '@prisma/client#User as UserModel',
           Task: '@prisma/client#Task as TaskModel',
@@ -252,7 +249,7 @@ export async function buildSchema() {
       task(_parent, args, ctx) {
         return ctx.prisma.task.findUniqueOrThrow({
           where: {
-            id: args.id,
+            id: String(args.id),
           },
         });
       },
@@ -289,7 +286,7 @@ export async function buildSchema() {
       assignedTasks(parent, _, ctx) {
         return ctx.prisma.task.findMany({
           where: {
-            assigneeUserId: parent.id,
+            assigneeUserId: String(parent.id),
           },
         });
       },
