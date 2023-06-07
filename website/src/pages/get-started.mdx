@@ -80,6 +80,17 @@ input DeleteTaskInput {
 }
 ```
 
+### Subscriptions
+
+Extends on the [basic schema](#basic).
+
+```graphql filename="schema/subscriptions.graphql"
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
+}
+```
+
 ### Authentication
 
 Extends on the [basic schema](#basic).
@@ -129,17 +140,6 @@ extend type Task {
   Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
   private: Boolean!
-}
-```
-
-### Subscriptions
-
-Extends on the [basic schema](#basic). Or any of the other schemas.
-
-```graphql filename="schema/subscriptions.graphql"
-type Subscription {
-  taskCreated: Task!
-  taskChanged(id: ID!): Task!
 }
 ```
 
