@@ -48,12 +48,11 @@ enum TaskStatus {
 
 type Task {
   id: ID!
-  createdByUserId: ID!
-  createdBy: User!
   """
   Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
   private: Boolean!
+  assigneeUserId: ID
   assignee: User
   assigneeUserId: ID
   status: TaskStatus!
