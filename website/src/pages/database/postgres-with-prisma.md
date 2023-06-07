@@ -83,8 +83,8 @@ model Task {
 
   private Boolean @default(false)
 
-  assigneeUserId String?
-  assignee      User?   @relation("assignedTasks", fields: [assigneeUserId], references: [id])
+  assignedUserId String?
+  assignee       User?   @relation("assignedTasks", fields: [assignedUserId], references: [id])
 
   status      TaskStatus
   title       String
@@ -165,6 +165,9 @@ const config: CodegenConfig = {
         // Prisma Client uses "type" for enums as well
         enumsAsTypes: true,
         // expect resolvers to return Prisma generated types
+        scalars: {
+          ID: 'string',
+        },
         mappers: {
           User: '@prisma/client#User as UserModel',
           Task: '@prisma/client#Task as TaskModel',

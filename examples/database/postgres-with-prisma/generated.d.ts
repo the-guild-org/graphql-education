@@ -5,26 +5,28 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string | number; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
 };
 
 export type CreateTaskInput = {
-  assignee: Scalars['ID'];
-  description?: InputMaybe<Scalars['String']>;
-  private: Scalars['Boolean'];
+  assignee: Scalars['ID']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  private: Scalars['Boolean']['input'];
   status?: TaskStatus;
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
 };
 
 export type DeleteTaskInput = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type Mutation = {
@@ -48,8 +50,8 @@ export type MutationDeleteTaskArgs = {
 
 
 export type MutationLoginArgs = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 
@@ -74,18 +76,18 @@ export type Query = {
 
 
 export type QueryFilterTasksArgs = {
-  searchText?: InputMaybe<Scalars['String']>;
+  searchText?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryTaskArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type RegisterInput = {
-  email: Scalars['String'];
-  name: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Subscription = {
@@ -96,21 +98,21 @@ export type Subscription = {
 
 
 export type SubscriptionTaskChangedArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type Task = {
   __typename?: 'Task';
-  asigneeUserId?: Maybe<Scalars['ID']>;
   assignee?: Maybe<User>;
+  assigneeUserId?: Maybe<Scalars['ID']['output']>;
   createdBy: User;
-  createdByUserId: Scalars['ID'];
-  description?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /** Private tasks can be viewed and modified only by the asignee or the user who created it. */
-  private: Scalars['Boolean'];
+  createdByUserId: Scalars['ID']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  /** Private tasks can be viewed and modified only by the assignee or the user who created it. */
+  private: Scalars['Boolean']['output'];
   status: TaskStatus;
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
 };
 
 export type TaskStatus =
@@ -119,12 +121,12 @@ export type TaskStatus =
   | 'TODO';
 
 export type UpdateTaskInput = {
-  assignee: Scalars['ID'];
-  description?: InputMaybe<Scalars['String']>;
-  id: Scalars['ID'];
-  private: Scalars['Boolean'];
+  assignee: Scalars['ID']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['ID']['input'];
+  private: Scalars['Boolean']['input'];
   status: TaskStatus;
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
 };
 
 export type User = {
@@ -133,9 +135,9 @@ export type User = {
   assignedTasks: Array<Task>;
   /** All tasks that have been created by this user. */
   createdTasks: Array<Task>;
-  email: Scalars['String'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
 };
 
 
@@ -205,16 +207,18 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateTaskInput: CreateTaskInput;
   DeleteTaskInput: DeleteTaskInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   RegisterInput: RegisterInput;
-  String: ResolverTypeWrapper<Scalars['String']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   Subscription: ResolverTypeWrapper<{}>;
   Task: ResolverTypeWrapper<TaskModel>;
   TaskStatus: TaskStatus;
@@ -224,14 +228,14 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Boolean: Scalars['Boolean'];
+  Boolean: Scalars['Boolean']['output'];
   CreateTaskInput: CreateTaskInput;
   DeleteTaskInput: DeleteTaskInput;
-  ID: Scalars['ID'];
+  ID: Scalars['ID']['output'];
   Mutation: {};
   Query: {};
   RegisterInput: RegisterInput;
-  String: Scalars['String'];
+  String: Scalars['String']['output'];
   Subscription: {};
   Task: TaskModel;
   UpdateTaskInput: UpdateTaskInput;
@@ -258,8 +262,8 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
-  asigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

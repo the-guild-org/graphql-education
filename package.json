@@ -7,7 +7,7 @@
   },
   "scripts": {
     "check:type": "tsc --noEmit",
-    "check:spell": "cspell --gitignore **/*.{md,mdx}",
+    "check:spell": "cspell --gitignore **/*.{md,mdx,graphql}",
     "check:format": "prettier --check .",
     "format": "yarn format:check --write",
     "gendocs": "node scripts/gendocs.mjs"

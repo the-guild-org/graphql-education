@@ -51,10 +51,10 @@ type Task {
   createdByUserId: ID!
   createdBy: User!
   """
-  Private tasks can be viewed and modified only by the asignee or the user who created it.
+  Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
   private: Boolean!
-  asigneeUserId: ID
+  assigneeUserId: ID
   assignee: User
   status: TaskStatus!
   title: String!

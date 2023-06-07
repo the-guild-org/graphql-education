@@ -84,7 +84,7 @@ export async function buildSchema() {
       assignedTasks(parent, _, ctx) {
         return ctx.prisma.task.findMany({
           where: {
-            asigneeUserId: parent.id,
+            assigneeUserId: parent.id,
           },
         });
       },
@@ -98,12 +98,12 @@ export async function buildSchema() {
         });
       },
       assignee(parent, _, ctx) {
-        if (!parent.asigneeUserId) {
+        if (!parent.assigneeUserId) {
           return null;
         }
         return ctx.prisma.user.findUniqueOrThrow({
           where: {
-            id: parent.asigneeUserId,
+            id: parent.assigneeUserId,
           },
         });
       },

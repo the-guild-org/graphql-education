@@ -103,13 +103,13 @@ export type SubscriptionTaskChangedArgs = {
 
 export type Task = {
   __typename?: 'Task';
-  asigneeUserId?: Maybe<Scalars['ID']['output']>;
   assignee?: Maybe<User>;
+  assigneeUserId?: Maybe<Scalars['ID']['output']>;
   createdBy: User;
   createdByUserId: Scalars['ID']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  /** Private tasks can be viewed and modified only by the asignee or the user who created it. */
+  /** Private tasks can be viewed and modified only by the assignee or the user who created it. */
   private: Scalars['Boolean']['output'];
   status: TaskStatus;
   title: Scalars['String']['output'];
@@ -262,8 +262,8 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
-  asigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

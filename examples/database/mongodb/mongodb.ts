@@ -34,7 +34,7 @@ export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
 export interface Task {
   createdByUserId: ObjectId;
   private: boolean;
-  asigneeUserId: ObjectId | null;
+  assigneeUserId: ObjectId | null;
   status: TaskStatus;
   title: string;
   description: string | null;
