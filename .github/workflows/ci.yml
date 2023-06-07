@@ -27,5 +27,5 @@ jobs:
           cache: yarn
       - name: Install
         run: yarn install --immutable
-      - name: Type check
+      - name: Check
         run: yarn check:${{ matrix.check }}
