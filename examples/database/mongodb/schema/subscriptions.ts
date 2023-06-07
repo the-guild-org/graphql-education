@@ -3,15 +3,17 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ObjectId } from 'mongodb';
 import { GraphQLContext } from '.';
 import * as basic from './basic';
-import { Resolvers } from '../subscriptions.graphql';
+import { Resolvers, Task } from '../subscriptions.graphql';
 import { createPubSub } from '@database/common';
 import { GraphQLError } from 'graphql';
 
+// The tasks wont change from basic schema in terms of their structure.
 export interface DbTask extends basic.DbTask {}
 
+// Pub/sub events map for susbscriptions. You can see them in action below.
 const events = {
-  taskCreated: createPubSub<{ taskCreated: DbTask & { id: string } }>(),
-  taskChanged: createPubSub<{ taskChanged: DbTask & { id: string } }>(),
+  taskCreated: createPubSub<{ taskCreated: Task }>(),
+  taskChanged: createPubSub<{ taskChanged: Task }>(),
 };
 
 const resolvers: Resolvers<GraphQLContext> = {
@@ -33,7 +35,11 @@ const resolvers: Resolvers<GraphQLContext> = {
         throw new Error('Task not properly inserted');
       }
       events.taskCreated.pub({
-        taskCreated: { ...task, id: task._id.toString() },
+        taskCreated: {
+          ...task,
+          id: task._id.toString(),
+          assigneeUserId: task.assigneeUserId?.toString(),
+        },
       });
       return {
         ...task,
@@ -67,7 +73,11 @@ const resolvers: Resolvers<GraphQLContext> = {
         throw new GraphQLError('Task does not exist');
       }
       events.taskChanged.pub({
-        taskChanged: { ...task, id: task._id.toString() },
+        taskChanged: {
+          ...task,
+          id: task._id.toString(),
+          assigneeUserId: task.assigneeUserId?.toString(),
+        },
       });
       return {
         ...task,
@@ -79,13 +89,11 @@ const resolvers: Resolvers<GraphQLContext> = {
     },
   },
   Subscription: {
-    // @ts-expect-error why is `resolve` required?
     taskCreated: {
       subscribe() {
         return events.taskCreated.sub();
       },
     },
-    // @ts-expect-error why is `resolve` required?
     taskChanged: {
       subscribe() {
         return events.taskChanged.sub();
