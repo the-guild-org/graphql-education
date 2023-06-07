@@ -1,11 +1,11 @@
-import * as mongodb from '../mongodb';
+import { mongodb } from '../mongodb';
 import { ServerContext } from '@server/common';
 import { mergeSchemas } from '@graphql-tools/schema';
 import { BasicSchema } from './basic';
 import { AuthenticationSchema } from './authentication';
 
 export type DatabaseContext = {
-  mongodb: typeof mongodb;
+  db: typeof mongodb;
 };
 
 export type GraphQLContext = DatabaseContext & ServerContext;
@@ -15,7 +15,7 @@ export async function createContext(
 ): Promise<GraphQLContext> {
   return {
     ...servCtx,
-    mongodb,
+    db: mongodb,
   };
 }
 

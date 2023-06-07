@@ -28,4 +28,5 @@ extend type Task {
   The authenticated user that created this task.
   """
   createdBy: User!
+  createdByUserId: ID!
 }

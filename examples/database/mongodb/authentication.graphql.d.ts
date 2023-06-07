@@ -94,6 +94,7 @@ export type Task = {
   assigneeUserId?: Maybe<Scalars['ID']['output']>;
   /** The authenticated user that created this task. */
   createdBy: User;
+  createdByUserId: Scalars['ID']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   /** Private tasks can be viewed and modified only by the assignee or the user who created it. */
@@ -244,6 +245,7 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
   assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   private?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
