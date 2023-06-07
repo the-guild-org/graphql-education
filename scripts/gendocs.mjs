@@ -3,7 +3,13 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const replace = {
-  '../../../schema.graphql': '<get-started>/schema.graphql',
+  '../../../schema/basic.graphql': '<get-started>/basic.graphql',
+  '../../../schema/authentication.graphql':
+    '<get-started>/authentication.graphql',
+  '../../../schema/authorization.graphql':
+    '<get-started>/authorization.graphql',
+  '../../../schema/subscriptions.graphql':
+    '<get-started>/subscriptions.graphql',
   '@database/postgres-with-prisma/schema': '@database/<slug>/schema',
   '@database/postgraphile/schema': '@database/<slug>/schema',
 };
