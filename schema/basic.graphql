@@ -39,13 +39,14 @@ type Task {
   private: Boolean!
   assigneeUserId: ID
   assignee: User
+  assigneeUserId: ID
   status: TaskStatus!
   title: String!
   description: String
 }
 
 input CreateTaskInput {
-  assignee: ID
+  assigneeUserId: ID
   status: TaskStatus! = TODO
   title: String!
   description: String
@@ -53,7 +54,7 @@ input CreateTaskInput {
 
 input UpdateTaskInput {
   id: ID!
-  assignee: ID
+  assigneeUserId: ID
   status: TaskStatus!
   title: String!
   description: String

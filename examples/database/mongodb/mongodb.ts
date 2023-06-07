@@ -20,8 +20,6 @@ const db = client.db(process.env.DATABASE_DB);
 export interface User {
   name: string;
   email: string;
-  // TODO: storing plaintext passwords is a BAD IDEA! use bcrypt instead
-  password: string;
 }
 export const user = db.collection<User>('user');
 
@@ -33,8 +31,8 @@ export const session = db.collection<Session>('session');
 export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE';
 export interface Task {
   createdByUserId: ObjectId;
-  private: boolean;
   assigneeUserId: ObjectId | null;
+  asigneeUserId: ObjectId | null;
   status: TaskStatus;
   title: string;
   description: string | null;

@@ -4,11 +4,6 @@ const config: CodegenConfig = {
   config: {
     // Types are easier to handle compared to enums.
     enumsAsTypes: true,
-    // Expect resolvers to return MongoDB types.
-    mappers: {
-      User: './mongodb#User as UserModel',
-      Task: './mongodb#Task as TaskModel',
-    },
   },
   generates: {
     'basic.graphql.d.ts': {
