@@ -15,18 +15,30 @@ const resolvers: Resolvers<GraphQLContext> = {
       if (!task) {
         return null;
       }
-      return { ...task, id: task._id.toString() };
+      return {
+        ...task,
+        assigneeUserId: task.asigneeUserId?.toString(),
+        id: task._id.toString(),
+      };
     },
     filterTasks(_parent, args, ctx) {
       if (!args.searchText) {
         return ctx.mongodb.task
           .find()
-          .map(({ _id, ...task }) => ({ ...task, id: _id.toString() }))
+          .map(({ _id, ...task }) => ({
+            ...task,
+            assigneeUserId: task.asigneeUserId?.toString(),
+            id: _id.toString(),
+          }))
           .toArray();
       }
       return ctx.mongodb.task
         .find({ $text: { $search: args.searchText } })
-        .map(({ _id, ...task }) => ({ ...task, id: _id.toString() }))
+        .map(({ _id, ...task }) => ({
+          ...task,
+          assigneeUserId: task.asigneeUserId?.toString(),
+          id: _id.toString(),
+        }))
         .toArray();
     },
   },
@@ -45,7 +57,11 @@ const resolvers: Resolvers<GraphQLContext> = {
       if (!task) {
         throw new Error('Task not properly inserted');
       }
-      return { ...task, id: task._id.toString() };
+      return {
+        ...task,
+        assigneeUserId: task.asigneeUserId?.toString(),
+        id: task._id.toString(),
+      };
     },
     async updateTask(_parent, { input }, ctx) {
       const { ok, value: task } = await ctx.mongodb.task.findOneAndUpdate(
@@ -68,7 +84,11 @@ const resolvers: Resolvers<GraphQLContext> = {
       if (!task) {
         throw new GraphQLError('Task does not exist');
       }
-      return { ...task, id: task._id.toString() };
+      return {
+        ...task,
+        assigneeUserId: task.asigneeUserId?.toString(),
+        id: task._id.toString(),
+      };
     },
     async deleteTask(_parent, { input }, ctx) {
       const { ok, value: task } = await ctx.mongodb.task.findOneAndDelete({
@@ -80,14 +100,22 @@ const resolvers: Resolvers<GraphQLContext> = {
       if (!task) {
         throw new GraphQLError('Task does not exist');
       }
-      return { ...task, id: task._id.toString() };
+      return {
+        ...task,
+        assigneeUserId: task.asigneeUserId?.toString(),
+        id: task._id.toString(),
+      };
     },
   },
   User: {
     assignedTasks(parent, _args, ctx) {
       return ctx.mongodb.task
         .find({ asigneeUserId: new ObjectId(parent.id) })
-        .map(({ _id, ...task }) => ({ ...task, id: _id.toString() }))
+        .map(({ _id, ...task }) => ({
+          ...task,
+          assigneeUserId: task.asigneeUserId?.toString(),
+          id: _id.toString(),
+        }))
         .toArray();
     },
   },
@@ -105,8 +133,8 @@ const resolvers: Resolvers<GraphQLContext> = {
       return {
         ...user,
         id: user._id.toString(),
-        // will be populated by the User resolver
-        assignedTasks: undefined as any,
+        // will be populated by the User.assignedTasks resolver
+        assignedTasks: [],
       };
     },
   },
