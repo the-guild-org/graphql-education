@@ -21,7 +21,7 @@ import { buildSchema, createContext } from '@database/mongodb/schema';
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
 const yoga = createYoga({
-  schema: await buildSchema(),
+  schema: await buildSchema('<get-started>/<schema>'),
   context: ({ request }) =>
     createContext({
       sessionId: sessionIdFromCookie(request.headers.get('cookie')),

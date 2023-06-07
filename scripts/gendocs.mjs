@@ -2,17 +2,25 @@ import { globIterate } from 'glob';
 import fs from 'fs/promises';
 import path from 'path';
 
-const replace = {
-  '../../../schema/basic.graphql': '<get-started>/basic.graphql',
-  '../../../schema/authentication.graphql':
+/** @type {Map<RegExp|string, string>} */
+const replace = new Map([
+  ['../../../schema/basic.graphql', '<get-started>/basic.graphql'],
+  [
+    '../../../schema/authentication.graphql',
     '<get-started>/authentication.graphql',
-  '../../../schema/authorization.graphql':
+  ],
+  [
+    '../../../schema/authorization.graphql',
     '<get-started>/authorization.graphql',
-  '../../../schema/subscriptions.graphql':
+  ],
+  [
+    '../../../schema/subscriptions.graphql',
     '<get-started>/subscriptions.graphql',
-  '@database/postgres-with-prisma/schema': '@database/<slug>/schema',
-  '@database/postgraphile/schema': '@database/<slug>/schema',
-};
+  ],
+  ['@database/postgres-with-prisma/schema', '@database/<slug>/schema'],
+  ['@database/postgraphile/schema', '@database/<slug>/schema'],
+  [/buildSchema\(\'.*\'\)/g, "buildSchema('<get-started>/<schema>')"],
+]);
 
 async function main() {
   for await (const page of globIterate('website/src/pages/**/*.md?(x)')) {
@@ -57,7 +65,7 @@ async function main() {
       }
     }
 
-    for (const [searchValue, replaceValue] of Object.entries(replace)) {
+    for (const [searchValue, replaceValue] of replace.entries()) {
       contents = contents.replace(searchValue, replaceValue);
     }
 
