@@ -83,6 +83,8 @@ input DeleteTaskInput {
 
 ### Authentication
 
+Extends on the [basic schema](#basic).
+
 ```graphql filename="schema/authentication.graphql"
 extend type Query {
   """
@@ -120,6 +122,8 @@ extend type Task {
 
 ### Authorization
 
+Extends on the [authentication schema](#authentication).
+
 ```graphql filename="schema/authorization.graphql"
 extend type Task {
   """
@@ -130,6 +134,8 @@ extend type Task {
 ```
 
 ### Subscriptions
+
+Extends on the [basic schema](#basic). Or any of the other schemas.
 
 ```graphql filename="schema/subscriptions.graphql"
 type Subscription {
