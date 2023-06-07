@@ -20,8 +20,16 @@ export async function createContext(
   };
 }
 
-export async function buildSchema() {
-  return mergeSchemas({
-    schemas: [BasicSchema, SubscriptionsSchema, AuthenticationSchema],
-  });
+export async function buildSchema(
+  schema: 'basic' | 'subscriptions' | 'authentication',
+) {
+  return {
+    basic: BasicSchema,
+    subscriptions: mergeSchemas({
+      schemas: [BasicSchema, SubscriptionsSchema],
+    }),
+    authentication: mergeSchemas({
+      schemas: [BasicSchema, AuthenticationSchema],
+    }),
+  }[schema];
 }
