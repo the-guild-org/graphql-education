@@ -8,14 +8,12 @@ The education modules are split into 3 different parts: the [database](/database
 
 ## Schema
 
-All of the education modules are designed to the following data model. The [schema.graphql](https://github.com/the-guild-org/graphql-education/blob/main/schema.graphql) looks like this:
+All of the education modules chapters are based on the follogin data models.
 
-```graphql filename="schema.graphql"
+### Basic
+
+```graphql filename="schema/basic.graphql"
 type Query {
-  """
-  The currently authenticated user.
-  """
-  me: User
   """
   Retrieve a task by its ID.
   """
@@ -27,26 +25,15 @@ type Query {
 }
 
 type Mutation {
-  login(email: String!, password: String!): User!
-  register(input: RegisterInput!): User!
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): Task!
-}
-
-type Subscription {
-  taskCreated: Task!
-  taskChanged(id: ID!): Task!
 }
 
 type User {
   id: ID!
   name: String!
   email: String!
-  """
-  All tasks that have been created by this user.
-  """
-  createdTasks: [Task!]!
   """
   All tasks that have this user set as the assignee.
   """
@@ -67,11 +54,46 @@ type Task {
   Private tasks can be viewed and modified only by the assignee or the user who created it.
   """
   private: Boolean!
-  assigneeUserId: ID
   assignee: User
+  assigneeUserId: ID
   status: TaskStatus!
   title: String!
   description: String
+}
+
+input CreateTaskInput {
+  assigneeUserId: ID
+  status: TaskStatus! = TODO
+  title: String!
+  description: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  assigneeUserId: ID
+  status: TaskStatus!
+  title: String!
+  description: String
+}
+
+input DeleteTaskInput {
+  id: ID!
+}
+```
+
+### Authentication
+
+```graphql filename="schema/authentication.graphql"
+extend type Query {
+  """
+  The currently authenticated user.
+  """
+  me: User
+}
+
+extend type Mutation {
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
 }
 
 input RegisterInput {
@@ -80,25 +102,39 @@ input RegisterInput {
   password: String!
 }
 
-input CreateTaskInput {
-  private: Boolean!
-  assignee: ID!
-  status: TaskStatus! = TODO
-  title: String!
-  description: String
+extend type User {
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
 }
 
-input UpdateTaskInput {
-  id: ID!
-  private: Boolean!
-  assignee: ID!
-  status: TaskStatus!
-  title: String!
-  description: String
+extend type Task {
+  """
+  The authenticated user that created this task.
+  """
+  createdBy: User!
+  createdByUserId: ID!
 }
+```
 
-input DeleteTaskInput {
-  id: ID!
+### Authorization
+
+```graphql filename="schema/authorization.graphql"
+extend type Task {
+  """
+  Private tasks can be viewed and modified only by the asignee or the user who created it.
+  """
+  private: Boolean!
+}
+```
+
+### Subscriptions
+
+```graphql filename="schema/subscriptions.graphql"
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
 }
 ```
 
