@@ -12,15 +12,15 @@ const config: CodegenConfig = {
   },
   generates: {
     'basic.graphql.d.ts': {
-      schema: '../../../schemas/basic.graphql',
+      schema: '../../../schema/basic.graphql',
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
     'authentication.graphql.d.ts': {
-      schema: '../../../schemas/authentication.graphql',
+      schema: '../../../schema/authentication.graphql',
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
     'authorization.graphql.d.ts': {
-      schema: '../../../schemas/authorization.graphql',
+      schema: '../../../schema/authorization.graphql',
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },
