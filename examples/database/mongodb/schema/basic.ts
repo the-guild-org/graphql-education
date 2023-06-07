@@ -41,7 +41,7 @@ const resolvers: Resolvers<GraphQLContext> = {
           : null,
         status: input.status || 'TODO',
       });
-      const task = await ctx.mongodb.task.findOne({ id: insertedId });
+      const task = await ctx.mongodb.task.findOne({ _id: insertedId });
       if (!task) {
         throw new Error('Task not properly inserted');
       }
@@ -76,7 +76,7 @@ const resolvers: Resolvers<GraphQLContext> = {
         throw new Error('Task cannot be deleted');
       }
       if (!task) {
-        throw new Error('Task does not exist');
+        throw new GraphQLError('Task does not exist');
       }
       return { ...task, id: task._id.toString() };
     },
