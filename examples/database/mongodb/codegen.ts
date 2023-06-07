@@ -10,6 +10,13 @@ const config: CodegenConfig = {
       schema: '../../../schema/basic.graphql',
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
+    'subscriptions.graphql.d.ts': {
+      schema: [
+        '../../../schema/basic.graphql',
+        '../../../schema/subscriptions.graphql',
+      ],
+      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
+    },
     'authentication.graphql.d.ts': {
       schema: [
         '../../../schema/basic.graphql',
