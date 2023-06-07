@@ -22,6 +22,6 @@ export async function createContext(
 
 export async function buildSchema() {
   return mergeSchemas({
-    schemas: [BasicSchema, SubscriptionsSchema],
+    schemas: [BasicSchema, SubscriptionsSchema, AuthenticationSchema],
   });
 }
