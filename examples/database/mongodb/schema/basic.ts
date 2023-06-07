@@ -1,5 +1,4 @@
-import fs from 'fs';
-import path from 'path';
+import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ObjectId } from 'mongodb';
 import { GraphQLContext } from '.';
@@ -141,10 +140,6 @@ const resolvers: Resolvers<GraphQLContext> = {
 };
 
 export const BasicSchema = makeExecutableSchema({
-  typeDefs: [
-    fs
-      .readFileSync(path.join('..', '..', '..', 'schema', 'basic.graphql'))
-      .toString(),
-  ],
+  typeDefs: loadFilesSync('../../../schema/basic.graphql'),
   resolvers: [resolvers],
 });

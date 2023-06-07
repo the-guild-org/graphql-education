@@ -11,11 +11,10 @@ const config: CodegenConfig = {
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
     'authentication.graphql.d.ts': {
-      schema: '../../../schema/authentication.graphql',
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-    },
-    'authorization.graphql.d.ts': {
-      schema: '../../../schema/authorization.graphql',
+      schema: [
+        '../../../schema/basic.graphql',
+        '../../../schema/authentication.graphql',
+      ],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },

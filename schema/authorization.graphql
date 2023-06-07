@@ -1,5 +1,3 @@
-#import "authentication.graphql"
-
 extend type Task {
   """
   Private tasks can be viewed and modified only by the asignee or the user who created it.

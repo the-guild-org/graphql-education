@@ -2,6 +2,7 @@ import * as mongodb from '../mongodb';
 import { ServerContext } from '@server/common';
 import { mergeSchemas } from '@graphql-tools/schema';
 import { BasicSchema } from './basic';
+import { AuthenticationSchema } from './authentication';
 
 export type DatabaseContext = {
   mongodb: typeof mongodb;
@@ -19,5 +20,5 @@ export async function createContext(
 }
 
 export async function buildSchema() {
-  return mergeSchemas({ schemas: [BasicSchema] });
+  return mergeSchemas({ schemas: [BasicSchema, AuthenticationSchema] });
 }
