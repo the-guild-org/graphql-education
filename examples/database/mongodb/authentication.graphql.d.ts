@@ -97,8 +97,6 @@ export type Task = {
   createdByUserId: Scalars['ID']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
-  /** Private tasks can be viewed and modified only by the assignee or the user who created it. */
-  private: Scalars['Boolean']['output'];
   status: TaskStatus;
   title: Scalars['String']['output'];
 };
@@ -248,7 +246,6 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
   createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  private?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['TaskStatus'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

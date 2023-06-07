@@ -4,7 +4,7 @@ import { PrismaClient, Task } from '@prisma/client';
 import fs from 'fs';
 import { GraphQLError } from 'graphql';
 import { ServerContext } from '@server/common';
-import { Resolvers } from './generated';
+import { Resolvers } from './generated.graphql';
 
 const prisma = new PrismaClient();
 
