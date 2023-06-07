@@ -362,7 +362,7 @@ export async function buildSchema() {
             title: input.title,
             assignee: {
               connect: {
-                id: input.assignee,
+                id: String(input.assignee),
               },
             },
             status: input.status || ('TODO' as const),
