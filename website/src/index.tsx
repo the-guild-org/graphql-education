@@ -17,7 +17,7 @@ export function Index() {
           GraphQL Education
         </h1>
         <p className="max-w-screen-sm mx-auto mt-6 text-2xl text-gray-600 text-center dark:text-gray-400">
-          The last GraphQL academy.
+          The last GraphQL academy
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Anchor

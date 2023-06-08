@@ -7,7 +7,7 @@ export default defineConfig({
   logo: (
     <div>
       <h1 className="md:text-md text-sm font-medium">{siteName}</h1>
-      <h2 className="hidden text-xs sm:block">The last GraphQL academy.</h2>
+      <h2 className="hidden text-xs sm:block">The last GraphQL academy</h2>
     </div>
   ),
   main({ children }) {
