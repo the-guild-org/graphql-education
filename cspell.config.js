@@ -8,6 +8,7 @@ const config = {
     'codegen',
     'fulltext',
     'servCtx',
+    'theguild',
   ],
 };
 module.exports = config;

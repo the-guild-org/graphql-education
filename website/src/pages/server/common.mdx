@@ -1,3 +1,53 @@
+import { Callout } from '@theguild/components';
+
+# Common
+
+A collection of server tools/utilities that are in common with all implementations. This module is referred throughout the guides when importing from `@server/common`.
+
+## Server Context
+
+Every [database](/database/introduction) and [server](/server/introduction) implementation uses and provides respectively the given server context to the GraphQL execution.
+
+<Callout>
+  Only relevant when [authentication schema](/get-started#authentication) or
+  [authorization schema](/get-started#authorization) is used.
+</Callout>
+
+```ts filename="examples/server/common/context.ts"
+export type ServerContext = {
+  sessionId: string | null;
+  setSessionId: (sessionId: string) => void;
+};
+```
+
+## Cookie
+
+When authenticating users coming from the web browsers, we leverage HTTP cookies.
+
+> An HTTP cookie (web cookie, browser cookie) is a small piece of data that a server sends to a user's web browser. The browser may store the cookie and send it back to the same server with later requests. Typically, an HTTP cookie is used to tell if two requests come from the same browser—keeping a user logged in, for example. It remembers stateful information for the stateless HTTP protocol.
+
+[_\*MDN Web Docs_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+The way we will handle sessions is that the cookie will hold a session ID representing an entry in the database session table. In order to make sure that the session is created by a verified provider, we will sign and verify the cookie with HMAC.
+
+> Hash-based message authentication code (or HMAC) is a cryptographic authentication technique that uses a hash function and a secret key.
+>
+> With HMAC, you can achieve authentication and verify that data is correct and authentic with shared secrets, as opposed to approaches that use signatures and asymmetric cryptography.
+
+[_\*Okta Identity 101_](https://www.okta.com/identity-101/hmac/)
+
+To keep things simple and reusable, we will use the `cookie` npm package for parsing and serializing the cookies for HTTP. Install it by running:
+
+```sh npm2yarn
+npm i cookie
+```
+
+<Callout>
+  Only relevant when [authentication schema](/get-started#authentication) or
+  [authorization schema](/get-started#authorization) is used.
+</Callout>
+
+```ts filename="examples/server/common/cookie.ts"
 import { parse, serialize } from 'cookie';
 import { createHmac, timingSafeEqual } from 'crypto';
 
@@ -74,3 +124,4 @@ function sign(value: string, secret: string): string {
       .replace(/\=+$/, '') // strip equal signs
   );
 }
+```

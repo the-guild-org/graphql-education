@@ -9,6 +9,5 @@
   },
   "get-started": "Get Started",
   "database": "Database",
-  "server": "Server",
-  "client": "Client"
+  "server": "Server"
 }
