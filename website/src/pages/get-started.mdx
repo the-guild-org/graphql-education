@@ -1,8 +1,15 @@
+import { Callout } from '@theguild/components';
+
 # Get Started
 
 Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated modules for convenience and efficiency.
 
-You're expected to have elementary knowledge about [Docker](https://www.docker.com/), [Node.js](https://nodejs.org/), [GraphQL](https://roadmap.sh/graphql) and [TypeScript](https://www.typescriptlang.org/).
+You're expected to have at least elementary knowledge about:
+
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/)
+- [GraphQL](https://roadmap.sh/graphql)
+- [TypeScript](https://www.typescriptlang.org/)
 
 The education modules are split into 3 different parts: the [database](/database/introduction), [server](/server/introduction) and [client](/client/introduction).
 
@@ -79,7 +86,9 @@ input DeleteTaskInput {
 
 ### Subscriptions
 
-Extends on the [basic schema](#basic).
+Allows for real-time communication with the database notifying the consumer about certain changes. In this case, when a task is created or changed/updated.
+
+<Callout>Extends the [basic schema](#basic).</Callout>
 
 ```graphql filename="schema/subscriptions.graphql"
 type Subscription {
@@ -90,7 +99,11 @@ type Subscription {
 
 ### Authentication
 
-Extends on the [basic schema](#basic).
+When developing applications, you'll often be faced with the requirement of authenticating a user. Authentication means identifying who the resource consumer is.
+
+In addition to protecting resources, we can leverage the identity of the user to add more metadata to the database resources, like who created or changed what.
+
+<Callout>Extends the [basic schema](#basic).</Callout>
 
 ```graphql filename="schema/authentication.graphql"
 extend type Query {
@@ -129,7 +142,11 @@ extend type Task {
 
 ### Authorization
 
-Extends on the [authentication schema](#authentication).
+An authenticated a user can have further authorization requirements. These authorization policies often deal with who can see what and/or who can change what considering the resource details.
+
+In this specific case, a task marked as `private` can only be viewed by the user who created it and the assigned user. While, only the creator can change the task itself.
+
+<Callout>Extends the [authentication schema](#authentication).</Callout>
 
 ```graphql filename="schema/authorization.graphql"
 extend type Task {
