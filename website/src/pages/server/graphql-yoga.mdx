@@ -35,7 +35,7 @@ Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see 
 ```ts filename="examples/server/graphql-yoga/subscriptions.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { buildSchema } from '@database/mongodb/schema';
+import { buildSchema } from '@database/<slug>/schema';
 
 // Yoga already uses built-in support for GraphQL over SSE for subscriptions.
 const yoga = createYoga({
@@ -55,7 +55,7 @@ server.listen(50005, () => {
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
-import { buildSchema, createContext } from '@database/mongodb/schema';
+import { buildSchema, createContext } from '@database/<slug>/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 

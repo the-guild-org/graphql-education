@@ -6,22 +6,22 @@ import path from 'path';
 const replace = new Map([
   [/\'.*schema\/basic.graphql\'/, '<get-started>/basic.graphql'],
   [
-    /\'.*schema\/subscriptions.graphql\'/,
+    /\'.*schema\/subscriptions.graphql\'/g,
     '<get-started>/subscriptions.graphql',
   ],
   [
-    /\'.*schema\/authentication.graphql\'/,
+    /\'.*schema\/authentication.graphql\'/g,
     '<get-started>/authentication.graphql',
   ],
   [
-    /\'.*schema\/authorization.graphql\'/,
+    /\'.*schema\/authorization.graphql\'/g,
     '<get-started>/authorization.graphql',
   ],
   [
-    '../../../schema/subscriptions.graphql',
+    /\'.*schema\/subscriptions.graphql\'/g,
     '<get-started>/subscriptions.graphql',
   ],
-  [/@database\/.*\/schema/, '@database/<slug>/schema'],
+  [/@database\/.*\/schema/g, '@database/<slug>/schema'],
   [/buildSchema\(\'.*\'\)/g, "buildSchema('<get-started>/<schema>')"],
 ]);
 
