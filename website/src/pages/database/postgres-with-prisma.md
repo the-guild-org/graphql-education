@@ -15,13 +15,13 @@ Combined with [Postgres](https://www.postgresql.org/) as the database layer. It 
 
 Initialize a project and provide the necessary fields:
 
-```sh
+```sh npm2yarn
 npm init
 ```
 
 And install Prisma and [Prisma Client](https://www.prisma.io/docs/concepts/components/prisma-client):
 
-```sh
+```sh npm2yarn
 npm i prisma @prisma/client
 ```
 
@@ -147,7 +147,7 @@ We will use the great [graphql-codegen](https://the-guild.dev/graphql/codegen) l
 
 Start by installing the codegen and the necessary plugins;
 
-```sh
+```sh npm2yarn
 npm i @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations @graphql-codegen/typescript-resolvers
 ```
 
