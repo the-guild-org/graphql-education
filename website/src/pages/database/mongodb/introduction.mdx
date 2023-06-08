@@ -1,0 +1,54 @@
+# Introduction
+
+[MongoDB](https://www.mongodb.com/) is a document database designed for ease of application development and scaling.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) LTS or higher
+- [Docker](https://www.docker.com/)
+- [TypeScript](https://www.typescriptlang.org/) knowledge
+
+## Setup
+
+### Install
+
+In your project, install and provide the necessary fields:
+
+```sh npm2yarn
+npm i mongodb
+```
+
+### Environment
+
+We'll use a dotenv file named `.env` to store the relevant connection and database configuration parameters.
+
+```sh filename="examples/database/mongodb/.env"
+DATABASE_USER=user
+DATABASE_PASSWORD=password
+DATABASE_PORT=50000
+DATABASE_DB=kanban
+```
+
+## Start
+
+Using Docker, we'll create a MongoDB instance that we'll use.
+
+Start by creating a `docker-compose.yaml` file in the same directory as our `.env`.
+
+```yaml filename="examples/database/mongodb/docker-compose.yaml"
+services:
+  mongodb:
+    image: mongo:6.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DATABASE_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$DATABASE_PASSWORD
+      - MONGO_INITDB_DATABASE=$DATABASE_DB
+    ports:
+      - $DATABASE_PORT:27017
+```
+
+After having configured MongoDB, start the instance by simply running:
+
+```sh
+docker compose up
+```
