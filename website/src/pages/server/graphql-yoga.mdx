@@ -8,11 +8,50 @@
 npm i graphql graphql-yoga
 ```
 
-## Start
+## Schema
 
-Provide the [database](/database/introduction) GraphQL schema.
+### Basic
 
-```ts filename="examples/server/graphql-yoga/index.ts"
+```ts filename="examples/server/graphql-yoga/basic.ts"
+import { createServer } from 'node:http';
+import { createYoga } from 'graphql-yoga';
+import { buildSchema } from '@database/<slug>/schema';
+
+const yoga = createYoga({
+  schema: await buildSchema('<get-started>/<schema>'),
+});
+
+const server = createServer(yoga);
+
+server.listen(50005, () => {
+  console.info('Server is running on http://localhost:50005/graphql');
+});
+```
+
+Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see Yoga in action.
+
+### Subscriptions
+
+```ts filename="examples/server/graphql-yoga/subscriptions.ts"
+import { createServer } from 'node:http';
+import { createYoga } from 'graphql-yoga';
+import { buildSchema } from '@database/mongodb/schema';
+
+// Yoga already uses built-in support for GraphQL over SSE for subscriptions.
+const yoga = createYoga({
+  schema: await buildSchema('<get-started>/<schema>'),
+});
+
+const server = createServer(yoga);
+
+server.listen(50005, () => {
+  console.info('Server is running on http://localhost:50005/graphql');
+});
+```
+
+### Authentication
+
+```ts filename="examples/server/graphql-yoga/authentication.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
@@ -46,12 +85,6 @@ const server = createServer(yoga);
 server.listen(50005, () => {
   console.info('Server is running on http://localhost:50005/graphql');
 });
-```
-
-And run it:
-
-```sh
-npx tsx index.ts
 ```
 
 Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see Yoga in action.

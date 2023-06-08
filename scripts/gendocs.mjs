@@ -2,23 +2,26 @@ import { globIterate } from 'glob';
 import fs from 'fs/promises';
 import path from 'path';
 
-/** @type {Map<RegExp|string, string>} */
+/** @type {Map<RegExp | string, string>} */
 const replace = new Map([
-  ['../../../schema/basic.graphql', '<get-started>/basic.graphql'],
+  [/\'.*schema\/basic.graphql\'/, '<get-started>/basic.graphql'],
   [
-    '../../../schema/authentication.graphql',
+    /\'.*schema\/subscriptions.graphql\'/,
+    '<get-started>/subscriptions.graphql',
+  ],
+  [
+    /\'.*schema\/authentication.graphql\'/,
     '<get-started>/authentication.graphql',
   ],
   [
-    '../../../schema/authorization.graphql',
+    /\'.*schema\/authorization.graphql\'/,
     '<get-started>/authorization.graphql',
   ],
   [
     '../../../schema/subscriptions.graphql',
     '<get-started>/subscriptions.graphql',
   ],
-  ['@database/postgres-with-prisma/schema', '@database/<slug>/schema'],
-  ['@database/postgraphile/schema', '@database/<slug>/schema'],
+  [/@database\/.*\/schema/, '@database/<slug>/schema'],
   [/buildSchema\(\'.*\'\)/g, "buildSchema('<get-started>/<schema>')"],
 ]);
 
