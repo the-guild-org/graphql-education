@@ -1,7 +1,10 @@
 import { createServer, IncomingMessage } from 'node:http';
 import { createHandler } from 'graphql-http/lib/use/http';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
-import { buildSchema, createContext } from '@database/mongodb/schema';
+import {
+  buildSchema,
+  createContext,
+} from '@database/postgres-with-prisma/schema';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<IncomingMessage, string>();
 
