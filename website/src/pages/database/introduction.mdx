@@ -30,7 +30,9 @@ const BasicSchema: GraphQLSchema = await buildSchema('<get-started>/<schema>');
 import { GraphQLSchema } from 'graphql';
 import { buildSchema } from '@database/<slug>/schema';
 
-const SubscriptionsSchema: GraphQLSchema = await buildSchema('<get-started>/<schema>');
+const SubscriptionsSchema: GraphQLSchema = await buildSchema(
+  '<get-started>/<schema>',
+);
 ```
 
 ### [Authentication](/get-started#authentication)
@@ -39,7 +41,9 @@ const SubscriptionsSchema: GraphQLSchema = await buildSchema('<get-started>/<sch
 import { GraphQLSchema } from 'graphql';
 import { buildSchema } from '@database/<slug>/schema';
 
-const AuthenticationSchema: GraphQLSchema = await buildSchema('<get-started>/<schema>');
+const AuthenticationSchema: GraphQLSchema = await buildSchema(
+  '<get-started>/<schema>',
+);
 ```
 
 ### [Authorization](/get-started#authorization)
@@ -48,7 +52,9 @@ const AuthenticationSchema: GraphQLSchema = await buildSchema('<get-started>/<sc
 import { GraphQLSchema } from 'graphql';
 import { buildSchema } from '@database/<slug>/schema';
 
-const AuthorizationSchema: GraphQLSchema = await buildSchema('<get-started>/<schema>');
+const AuthorizationSchema: GraphQLSchema = await buildSchema(
+  '<get-started>/<schema>',
+);
 ```
 
 ## Port
