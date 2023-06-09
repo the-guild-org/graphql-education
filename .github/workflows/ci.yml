@@ -11,6 +11,7 @@ on:
 jobs:
   check:
     strategy:
+      fail-fast: false
       matrix:
         check:
           - format
