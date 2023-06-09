@@ -21,7 +21,7 @@ const replace = new Map([
     /\'.*schema\/subscriptions.graphql\'/g,
     '<get-started>/subscriptions.graphql',
   ],
-  [/@database\/.*\/schema/g, '@database/<slug>/schema'],
+  [/@database\/.*\/schema/g, '@database/<database>/schema'],
   [/buildSchema\(\'.*\'\)/g, "buildSchema('<schema>')"],
 ]);
 

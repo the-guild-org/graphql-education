@@ -19,7 +19,7 @@ Furthermore, every database implementation that follows has a resulting `schema.
 
 ```ts
 import { GraphQLSchema } from 'graphql';
-import { buildSchema } from '@database/<slug>/schema';
+import { buildSchema } from '@database/<database>/schema';
 
 const BasicSchema: GraphQLSchema = await buildSchema('<schema>');
 ```
@@ -28,7 +28,7 @@ const BasicSchema: GraphQLSchema = await buildSchema('<schema>');
 
 ```ts
 import { GraphQLSchema } from 'graphql';
-import { buildSchema } from '@database/<slug>/schema';
+import { buildSchema } from '@database/<database>/schema';
 
 const SubscriptionsSchema: GraphQLSchema = await buildSchema(
   '<get-started>/<schema>',
@@ -39,7 +39,7 @@ const SubscriptionsSchema: GraphQLSchema = await buildSchema(
 
 ```ts
 import { GraphQLSchema } from 'graphql';
-import { buildSchema } from '@database/<slug>/schema';
+import { buildSchema } from '@database/<database>/schema';
 
 const AuthenticationSchema: GraphQLSchema = await buildSchema(
   '<get-started>/<schema>',
@@ -50,7 +50,7 @@ const AuthenticationSchema: GraphQLSchema = await buildSchema(
 
 ```ts
 import { GraphQLSchema } from 'graphql';
-import { buildSchema } from '@database/<slug>/schema';
+import { buildSchema } from '@database/<database>/schema';
 
 const AuthorizationSchema: GraphQLSchema = await buildSchema(
   '<get-started>/<schema>',
