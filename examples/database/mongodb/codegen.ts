@@ -1,26 +1,16 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { schemaFile as basicSchemaFile } from '@schema/basic';
-import { schemaFile as subscriptionsSchemaFile } from '@schema/subscriptions';
-import { schemaFile as authenticationSchemaFile } from '@schema/authentication';
+import basic from './codegen.basic';
+import authentication from './codegen.authentication';
+import subscriptions from './codegen.subscriptions';
 
 const config: CodegenConfig = {
-  config: {
-    // Types are easier to handle compared to enums.
-    enumsAsTypes: true,
-  },
+  ...basic,
+  ...authentication,
+  ...subscriptions,
   generates: {
-    'schema/basic.graphql.d.ts': {
-      schema: basicSchemaFile,
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-    },
-    'schema/subscriptions.graphql.d.ts': {
-      schema: [basicSchemaFile, subscriptionsSchemaFile],
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-    },
-    'schema/authentication.graphql.d.ts': {
-      schema: [basicSchemaFile, authenticationSchemaFile],
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-    },
+    ...basic.generates,
+    ...authentication.generates,
+    ...subscriptions.generates,
   },
 };
 
