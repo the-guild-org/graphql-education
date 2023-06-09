@@ -15,16 +15,6 @@ type Mutation {
   deleteTask(input: DeleteTaskInput!): Task!
 }
 
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  """
-  All tasks that have this user set as the assignee.
-  """
-  assignedTasks: [Task!]!
-}
-
 enum TaskStatus {
   TODO
   IN_PROGRESS
@@ -33,15 +23,12 @@ enum TaskStatus {
 
 type Task {
   id: ID!
-  assigneeUserId: ID
-  assignee: User
   status: TaskStatus!
   title: String!
   description: String
 }
 
 input CreateTaskInput {
-  assigneeUserId: ID
   status: TaskStatus! = TODO
   title: String!
   description: String
@@ -49,7 +36,6 @@ input CreateTaskInput {
 
 input UpdateTaskInput {
   id: ID!
-  assigneeUserId: ID
   status: TaskStatus!
   title: String!
   description: String

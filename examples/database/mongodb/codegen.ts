@@ -1,4 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import { schemaFile as basicSchemaFile } from '@schema/basic';
+import { schemaFile as subscriptionsSchemaFile } from '@schema/subscriptions';
+import { schemaFile as authenticationSchemaFile } from '@schema/authentication';
 
 const config: CodegenConfig = {
   config: {
@@ -7,21 +10,15 @@ const config: CodegenConfig = {
   },
   generates: {
     'basic.graphql.d.ts': {
-      schema: '../../../schema/basic.graphql',
+      schema: basicSchemaFile,
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
     'subscriptions.graphql.d.ts': {
-      schema: [
-        '../../../schema/basic.graphql',
-        '../../../schema/subscriptions.graphql',
-      ],
+      schema: [basicSchemaFile, subscriptionsSchemaFile],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
     'authentication.graphql.d.ts': {
-      schema: [
-        '../../../schema/basic.graphql',
-        '../../../schema/authentication.graphql',
-      ],
+      schema: [basicSchemaFile, authenticationSchemaFile],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },

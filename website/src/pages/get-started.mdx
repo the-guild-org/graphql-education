@@ -29,7 +29,7 @@ All of the education modules chapters are based on the following data models.
 
 This schema showcases the basics of GraphQL and is used as the base for each of the following schemas.
 
-```graphql filename="schema/basic.graphql"
+```graphql filename="examples/schema/basic/schema.graphql"
 type Query {
   """
   Retrieve a task by its ID.
@@ -47,16 +47,6 @@ type Mutation {
   deleteTask(input: DeleteTaskInput!): Task!
 }
 
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  """
-  All tasks that have this user set as the assignee.
-  """
-  assignedTasks: [Task!]!
-}
-
 enum TaskStatus {
   TODO
   IN_PROGRESS
@@ -65,15 +55,12 @@ enum TaskStatus {
 
 type Task {
   id: ID!
-  assigneeUserId: ID
-  assignee: User
   status: TaskStatus!
   title: String!
   description: String
 }
 
 input CreateTaskInput {
-  assigneeUserId: ID
   status: TaskStatus! = TODO
   title: String!
   description: String
@@ -81,7 +68,6 @@ input CreateTaskInput {
 
 input UpdateTaskInput {
   id: ID!
-  assigneeUserId: ID
   status: TaskStatus!
   title: String!
   description: String
@@ -98,7 +84,7 @@ Allows for real-time communication with the database notifying the consumer abou
 
 <Callout>Extends the [basic schema](#basic).</Callout>
 
-```graphql filename="schema/subscriptions.graphql"
+```graphql filename="examples/schema/subscriptions/schema.graphql"
 type Subscription {
   taskCreated: Task!
   taskChanged(id: ID!): Task!
@@ -113,7 +99,7 @@ In addition to protecting resources, we can leverage the identity of the user to
 
 <Callout>Extends the [basic schema](#basic).</Callout>
 
-```graphql filename="schema/authentication.graphql"
+```graphql filename="examples/schema/authentication/schema.graphql"
 extend type Query {
   """
   The currently authenticated user.
@@ -126,13 +112,12 @@ extend type Mutation {
   register(input: RegisterInput!): User!
 }
 
-input RegisterInput {
-  name: String!
+type User {
+  id: ID!
+  """
+  A unique email address of the user.
+  """
   email: String!
-  password: String!
-}
-
-extend type User {
   """
   All tasks that have been created by this user.
   """
@@ -146,6 +131,11 @@ extend type Task {
   createdBy: User!
   createdByUserId: ID!
 }
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
 ```
 
 ### Authorization
@@ -156,10 +146,10 @@ In this specific case, a task marked as `private` can only be viewed by the user
 
 <Callout>Extends the [authentication schema](#authentication).</Callout>
 
-```graphql filename="schema/authorization.graphql"
+```graphql filename="examples/schema/authorization/schema.graphql"
 extend type Task {
   """
-  Private tasks can be viewed and modified only by the assignee or the user who created it.
+  Private tasks can be viewed and modified only by the user who created it.
   """
   private: Boolean!
 }

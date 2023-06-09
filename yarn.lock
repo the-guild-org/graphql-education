@@ -3370,6 +3370,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@schema/authentication@workspace:examples/schema/authentication":
+  version: 0.0.0-use.local
+  resolution: "@schema/authentication@workspace:examples/schema/authentication"
+  languageName: unknown
+  linkType: soft
+
+"@schema/authorization@workspace:examples/schema/authorization":
+  version: 0.0.0-use.local
+  resolution: "@schema/authorization@workspace:examples/schema/authorization"
+  languageName: unknown
+  linkType: soft
+
+"@schema/basic@workspace:examples/schema/basic":
+  version: 0.0.0-use.local
+  resolution: "@schema/basic@workspace:examples/schema/basic"
+  languageName: unknown
+  linkType: soft
+
+"@schema/subscriptions@workspace:examples/schema/subscriptions":
+  version: 0.0.0-use.local
+  resolution: "@schema/subscriptions@workspace:examples/schema/subscriptions"
+  languageName: unknown
+  linkType: soft
+
 "@server/apollo-server@workspace:examples/server/apollo-server":
   version: 0.0.0-use.local
   resolution: "@server/apollo-server@workspace:examples/server/apollo-server"

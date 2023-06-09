@@ -3,6 +3,9 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
 
+// Re-export MongoDB for ease of use.
+export * from 'mongodb';
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 // TODO: have just one .env

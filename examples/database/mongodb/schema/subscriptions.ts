@@ -1,11 +1,12 @@
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { ObjectId } from 'mongodb';
-import { GraphQLContext } from '.';
+import { mongodb, ObjectId } from '../mongodb';
 import * as basic from './basic';
 import { Resolvers, Task } from '../subscriptions.graphql';
 import { createPubSub } from '@database/common';
 import { GraphQLError } from 'graphql';
+import { schemaFile as basicSchemaFile } from '@schema/basic';
+import { schemaFile as subscriptionsSchemaFile } from '@schema/subscriptions';
 
 // The tasks wont change from basic schema in terms of their structure.
 export interface DbTask extends basic.DbTask {}
@@ -16,19 +17,17 @@ const events = {
   taskChanged: createPubSub<{ taskChanged: Task }>(),
 };
 
-const resolvers: Resolvers<GraphQLContext> = {
+const resolvers: Resolvers = {
   Mutation: {
-    async createTask(_parent, { input }, ctx) {
-      const { insertedId } = await ctx.db.collection<DbTask>('task').insertOne({
-        title: input.title,
-        description: input.description || null,
-        // TODO: validate that the assignee exists if provided
-        assigneeUserId: input.assigneeUserId
-          ? new ObjectId(input.assigneeUserId)
-          : null,
-        status: input.status || 'TODO',
-      });
-      const task = await ctx.db
+    async createTask(_parent, { input }) {
+      const { insertedId } = await mongodb
+        .collection<DbTask>('task')
+        .insertOne({
+          title: input.title,
+          description: input.description || null,
+          status: input.status || 'TODO',
+        });
+      const task = await mongodb
         .collection<DbTask>('task')
         .findOne({ _id: insertedId });
       if (!task) {
@@ -38,19 +37,15 @@ const resolvers: Resolvers<GraphQLContext> = {
         taskCreated: {
           ...task,
           id: task._id.toString(),
-          assigneeUserId: task.assigneeUserId?.toString(),
         },
       });
       return {
         ...task,
         id: task._id.toString(),
-        // will be populated by the Task.assignee resolver
-        assignee: null,
-        assigneeUserId: task.assigneeUserId?.toString(),
       };
     },
-    async updateTask(_parent, { input }, ctx) {
-      const { ok, value: task } = await ctx.db
+    async updateTask(_parent, { input }) {
+      const { ok, value: task } = await mongodb
         .collection<DbTask>('task')
         .findOneAndUpdate(
           { _id: new ObjectId(input.id) },
@@ -58,10 +53,6 @@ const resolvers: Resolvers<GraphQLContext> = {
             $set: {
               title: input.title,
               description: input.description || null,
-              // TODO: validate that the assignee exists
-              assigneeUserId: input.assigneeUserId
-                ? new ObjectId(input.assigneeUserId)
-                : null,
               status: input.status || 'TODO',
             },
           },
@@ -76,15 +67,11 @@ const resolvers: Resolvers<GraphQLContext> = {
         taskChanged: {
           ...task,
           id: task._id.toString(),
-          assigneeUserId: task.assigneeUserId?.toString(),
         },
       });
       return {
         ...task,
         id: task._id.toString(),
-        // will be populated by the Task.assignee resolver
-        assignee: null,
-        assigneeUserId: task.assigneeUserId?.toString(),
       };
     },
   },
@@ -103,9 +90,6 @@ const resolvers: Resolvers<GraphQLContext> = {
 };
 
 export const SubscriptionsSchema = makeExecutableSchema({
-  typeDefs: loadFilesSync([
-    '../../../schema/basic.graphql',
-    '../../../schema/subscriptions.graphql',
-  ]),
+  typeDefs: loadFilesSync([basicSchemaFile, subscriptionsSchemaFile]),
   resolvers: [resolvers],
 });

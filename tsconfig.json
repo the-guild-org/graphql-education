@@ -13,6 +13,7 @@
     "useUnknownInCatchVariables": false,
     "checkJs": true,
     "paths": {
+      "@schema/*": ["./examples/schema/*"],
       "@database/*": ["./examples/database/*"],
       "@server/*": ["./examples/server/*"]
     }

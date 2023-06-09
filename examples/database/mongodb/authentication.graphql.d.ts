@@ -17,7 +17,6 @@ export type Scalars = {
 };
 
 export type CreateTaskInput = {
-  assigneeUserId?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   status?: TaskStatus;
   title: Scalars['String']['input'];
@@ -84,14 +83,11 @@ export type QueryTaskArgs = {
 
 export type RegisterInput = {
   email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
   password: Scalars['String']['input'];
 };
 
 export type Task = {
   __typename?: 'Task';
-  assignee?: Maybe<User>;
-  assigneeUserId?: Maybe<Scalars['ID']['output']>;
   /** The authenticated user that created this task. */
   createdBy: User;
   createdByUserId: Scalars['ID']['output'];
@@ -107,7 +103,6 @@ export type TaskStatus =
   | 'TODO';
 
 export type UpdateTaskInput = {
-  assigneeUserId?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   status: TaskStatus;
@@ -116,13 +111,11 @@ export type UpdateTaskInput = {
 
 export type User = {
   __typename?: 'User';
-  /** All tasks that have this user set as the assignee. */
-  assignedTasks: Array<Task>;
   /** All tasks that have been created by this user. */
   createdTasks: Array<Task>;
+  /** A unique email address of the user. */
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
 };
 
 
@@ -240,8 +233,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
-  assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   createdBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   createdByUserId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -252,11 +243,9 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  assignedTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
   createdTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

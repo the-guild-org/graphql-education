@@ -17,7 +17,6 @@ export type Scalars = {
 };
 
 export type CreateTaskInput = {
-  assigneeUserId?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   status?: TaskStatus;
   title: Scalars['String']['input'];
@@ -69,8 +68,6 @@ export type QueryTaskArgs = {
 
 export type Task = {
   __typename?: 'Task';
-  assignee?: Maybe<User>;
-  assigneeUserId?: Maybe<Scalars['ID']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   status: TaskStatus;
@@ -83,20 +80,10 @@ export type TaskStatus =
   | 'TODO';
 
 export type UpdateTaskInput = {
-  assigneeUserId?: InputMaybe<Scalars['ID']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['ID']['input'];
   status: TaskStatus;
   title: Scalars['String']['input'];
-};
-
-export type User = {
-  __typename?: 'User';
-  /** All tasks that have this user set as the assignee. */
-  assignedTasks: Array<Task>;
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
 };
 
 
@@ -180,7 +167,6 @@ export type ResolversTypes = {
   Task: ResolverTypeWrapper<Task>;
   TaskStatus: TaskStatus;
   UpdateTaskInput: UpdateTaskInput;
-  User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -194,7 +180,6 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   Task: Task;
   UpdateTaskInput: UpdateTaskInput;
-  User: User;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
@@ -209,8 +194,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type TaskResolvers<ContextType = any, ParentType extends ResolversParentTypes['Task'] = ResolversParentTypes['Task']> = {
-  assignee?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  assigneeUserId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['TaskStatus'], ParentType, ContextType>;
@@ -218,18 +201,9 @@ export type TaskResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  assignedTasks?: Resolver<Array<ResolversTypes['Task']>, ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Task?: TaskResolvers<ContextType>;
-  User?: UserResolvers<ContextType>;
 };
 

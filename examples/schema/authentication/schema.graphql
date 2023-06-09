@@ -10,13 +10,12 @@ extend type Mutation {
   register(input: RegisterInput!): User!
 }
 
-input RegisterInput {
-  name: String!
+type User {
+  id: ID!
+  """
+  A unique email address of the user.
+  """
   email: String!
-  password: String!
-}
-
-extend type User {
   """
   All tasks that have been created by this user.
   """
@@ -29,4 +28,9 @@ extend type Task {
   """
   createdBy: User!
   createdByUserId: ID!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
 }

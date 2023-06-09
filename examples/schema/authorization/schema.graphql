@@ -1,0 +1,6 @@
+extend type Task {
+  """
+  Private tasks can be viewed and modified only by the user who created it.
+  """
+  private: Boolean!
+}
