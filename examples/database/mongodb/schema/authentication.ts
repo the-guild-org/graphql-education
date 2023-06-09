@@ -1,6 +1,6 @@
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import { mongodb, ObjectId } from '../mongodb';
+import { mongodb, ObjectId, MongoServerError } from '../mongodb';
 import * as basic from './basic';
 import { Resolvers } from '../authentication.graphql';
 import {
@@ -72,13 +72,26 @@ const resolvers: Resolvers<Context> = {
       };
     },
     async register(_parent, { input: { email, password } }, ctx) {
-      const { insertedId: userId } = await mongodb
-        .collection<DbUser>('user')
-        .insertOne({
-          email,
-          // TODO: storing plaintext passwords is a BAD IDEA
-          password,
-        });
+      let userId: ObjectId;
+      try {
+        const { insertedId } = await mongodb
+          .collection<DbUser>('user')
+          .insertOne({
+            email,
+            // TODO: storing plaintext passwords is a BAD IDEA
+            password,
+          });
+        userId = insertedId;
+      } catch (err) {
+        if (
+          err instanceof MongoServerError &&
+          // duplicate key error
+          err.code === 11000
+        ) {
+          throw new GraphQLError('User already exists');
+        }
+        throw err;
+      }
       const user = await mongodb
         .collection<DbUser>('user')
         .findOne({ _id: userId });
