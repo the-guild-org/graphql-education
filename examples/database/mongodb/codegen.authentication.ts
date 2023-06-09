@@ -1,6 +1,6 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { schemaFile as basicSchemaFile } from '@schema/basic';
-import { schemaFile as authenticationSchemaFile } from '@schema/authentication';
+import { schemaPath as basicSchemaPath } from '@schema/basic';
+import { schemaPath as authenticationSchemaPath } from '@schema/authentication';
 
 const config: CodegenConfig = {
   config: {
@@ -9,7 +9,7 @@ const config: CodegenConfig = {
   },
   generates: {
     'schema/authentication.graphql.d.ts': {
-      schema: [basicSchemaFile, authenticationSchemaFile],
+      schema: [basicSchemaPath, authenticationSchemaPath],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },

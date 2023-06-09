@@ -1,5 +1,5 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { schemaFile } from '@schema/basic';
+import { schemaPath } from '@schema/basic';
 
 const config: CodegenConfig = {
   config: {
@@ -8,7 +8,7 @@ const config: CodegenConfig = {
   },
   generates: {
     'schema/basic.graphql.d.ts': {
-      schema: schemaFile,
+      schema: schemaPath,
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },

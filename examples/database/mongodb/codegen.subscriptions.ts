@@ -1,6 +1,6 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
-import { schemaFile as basicSchemaFile } from '@schema/basic';
-import { schemaFile as subscriptionsSchemaFile } from '@schema/subscriptions';
+import { schemaPath as basicSchemaPath } from '@schema/basic';
+import { schemaPath as subscriptionsSchemaPath } from '@schema/subscriptions';
 
 const config: CodegenConfig = {
   config: {
@@ -9,7 +9,7 @@ const config: CodegenConfig = {
   },
   generates: {
     'schema/subscriptions.graphql.d.ts': {
-      schema: [basicSchemaFile, subscriptionsSchemaFile],
+      schema: [basicSchemaPath, subscriptionsSchemaPath],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
   },

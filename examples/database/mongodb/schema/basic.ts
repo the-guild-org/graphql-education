@@ -3,7 +3,7 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId } from '../mongodb';
 import { Resolvers, TaskStatus } from './basic.graphql';
 import { GraphQLError } from 'graphql';
-import { schemaFile } from '@schema/basic';
+import { schemaPath } from '@schema/basic';
 
 // Create an index for fulltext search operations on the task collection.
 mongodb
@@ -119,6 +119,6 @@ const resolvers: Resolvers = {
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: loadFilesSync(schemaFile),
+  typeDefs: loadFilesSync(schemaPath),
   resolvers: [resolvers],
 });

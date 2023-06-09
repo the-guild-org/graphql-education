@@ -5,8 +5,8 @@ import * as basic from './basic';
 import { Resolvers, Task } from './subscriptions.graphql';
 import { createPubSub } from '@database/common';
 import { GraphQLError } from 'graphql';
-import { schemaFile as basicSchemaFile } from '@schema/basic';
-import { schemaFile as subscriptionsSchemaFile } from '@schema/subscriptions';
+import { schemaPath as basicSchemaPath } from '@schema/basic';
+import { schemaPath as subscriptionsSchemaPath } from '@schema/subscriptions';
 
 // The tasks wont change from basic schema in terms of their structure.
 export interface DbTask extends basic.DbTask {}
@@ -90,6 +90,6 @@ const resolvers: Resolvers = {
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: loadFilesSync([basicSchemaFile, subscriptionsSchemaFile]),
+  typeDefs: loadFilesSync([basicSchemaPath, subscriptionsSchemaPath]),
   resolvers: [resolvers],
 });

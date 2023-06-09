@@ -4,10 +4,10 @@ import { mongodb, ObjectId, MongoServerError } from '../mongodb';
 import * as basic from './basic';
 import { Resolvers } from './authentication.graphql';
 import {
-  schemaFile as authenticationSchemaFile,
+  schemaPath as authenticationSchemaPath,
   Context,
 } from '@schema/authentication';
-import { schemaFile as basicSchemaFile } from '@schema/basic';
+import { schemaPath as basicSchemaPath } from '@schema/basic';
 import { GraphQLError } from 'graphql';
 
 // Unique index on user email.
@@ -184,6 +184,6 @@ const resolvers: Resolvers<Context> = {
 };
 
 export const schema = makeExecutableSchema({
-  typeDefs: loadFilesSync([basicSchemaFile, authenticationSchemaFile]),
+  typeDefs: loadFilesSync([basicSchemaPath, authenticationSchemaPath]),
   resolvers: [resolvers],
 });
