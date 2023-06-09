@@ -10,6 +10,14 @@ import {
 import { schemaFile as basicSchemaFile } from '@schema/basic';
 import { GraphQLError } from 'graphql';
 
+// Unique index on user email.
+mongodb
+  .collection('user')
+  .createIndex({ email: 1 }, { unique: true })
+  .catch((err) => {
+    console.error('Problem while setting up a MongoDB index', err);
+  });
+
 export interface DbUser {
   email: string;
   // TODO: storing plaintext passwords is a BAD IDEA

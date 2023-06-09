@@ -18,16 +18,3 @@ const client = new MongoClient(
 
 // And use it with the configured database.
 export const mongodb = client.db(process.env.DATABASE_DB);
-
-// The setup function for configuring MongoDB on startup. Failing the setup will fail the startup.
-(async function setup() {
-  // Unique index on user email.
-  mongodb.collection('user').createIndex({ email: 1 }, { unique: true });
-  // Create an index for fulltext search operations on the task collection.
-  mongodb
-    .collection('task')
-    .createIndex({ title: 'text', description: 'text' });
-})().catch((err) => {
-  console.error('Problem while setting up MongoDB', err);
-  process.exit(1);
-});

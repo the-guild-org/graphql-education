@@ -52,3 +52,32 @@ After having configured MongoDB, start the instance by simply running:
 ```sh
 docker compose up
 ```
+
+## Client
+
+Finally, we'll define a MongoDB client using [its Node Driver](https://www.mongodb.com/docs/drivers/node/current/). This same client will be used throught all of the schema chapters.
+
+The configuration options for the database are as described in `.env` file above.
+
+```ts filename="examples/database/mongodb/mongodb.ts"
+import url from 'url';
+import path from 'path';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+
+// Re-export MongoDB for ease of use.
+export * from 'mongodb';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+// TODO: have just one .env
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Create a mongodb client.
+const client = new MongoClient(
+  `mongodb://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:${process.env.DATABASE_PORT}`,
+);
+
+// And use it with the configured database.
+export const mongodb = client.db(process.env.DATABASE_DB);
+```

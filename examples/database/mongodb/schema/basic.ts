@@ -5,6 +5,14 @@ import { Resolvers, TaskStatus } from './basic.graphql';
 import { GraphQLError } from 'graphql';
 import { schemaFile } from '@schema/basic';
 
+// Create an index for fulltext search operations on the task collection.
+mongodb
+  .collection('task')
+  .createIndex({ title: 'text', description: 'text' })
+  .catch((err) => {
+    console.error('Problem while setting up a MongoDB index', err);
+  });
+
 export interface DbTask {
   status: TaskStatus;
   title: string;
