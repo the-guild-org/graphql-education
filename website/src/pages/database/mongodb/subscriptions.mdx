@@ -1,3 +1,15 @@
+{/* TODO: content */}
+
+# Subscriptions
+
+## Prerequisites
+
+- [MongoDB introduction and setup](introduction)
+- [Basic schema implementation](basic)
+
+## Schema
+
+```ts filename="examples/database/mongodb/schema/subscriptions.ts"
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId } from '../mongodb';
@@ -97,3 +109,4 @@ export async function buildSchema() {
     resolvers: [basic.resolvers, resolvers],
   });
 }
+```

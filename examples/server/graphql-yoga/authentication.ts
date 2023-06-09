@@ -2,12 +2,12 @@ import { createServer } from 'node:http';
 import { createYoga, YogaInitialContext } from 'graphql-yoga';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import { Context } from '@schema/authentication';
-import { buildSchema } from '@database/mongodb/schema';
+import { buildSchema } from '@database/mongodb/schema/authentication';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
 const yoga = createYoga<YogaInitialContext, Context>({
-  schema: await buildSchema('authentication'),
+  schema: await buildSchema(),
   context: ({ request }) => ({
     sessionId: sessionIdFromCookie(request.headers.get('cookie')),
     setSessionId(sessionId) {

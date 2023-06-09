@@ -1,9 +1,9 @@
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { buildSchema } from '@database/mongodb/schema';
+import { buildSchema } from '@database/mongodb/schema/basic';
 
 const yoga = createYoga({
-  schema: await buildSchema('basic'),
+  schema: await buildSchema(),
 });
 
 const server = createServer(yoga);

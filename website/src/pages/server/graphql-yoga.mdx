@@ -15,10 +15,10 @@ npm i graphql graphql-yoga
 ```ts filename="examples/server/graphql-yoga/basic.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { buildSchema } from '@database/<database>/schema';
+import { buildSchema } from '@database/<database>/schema/basic';
 
 const yoga = createYoga({
-  schema: await buildSchema('<schema>'),
+  schema: await buildSchema(),
 });
 
 const server = createServer(yoga);
@@ -35,11 +35,11 @@ Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see 
 ```ts filename="examples/server/graphql-yoga/subscriptions.ts"
 import { createServer } from 'node:http';
 import { createYoga } from 'graphql-yoga';
-import { buildSchema } from '@database/<database>/schema';
+import { buildSchema } from '@database/<database>/schema/subscriptions';
 
 // Yoga already uses built-in support for GraphQL over SSE for subscriptions.
 const yoga = createYoga({
-  schema: await buildSchema('<schema>'),
+  schema: await buildSchema(),
 });
 
 const server = createServer(yoga);
@@ -56,12 +56,12 @@ import { createServer } from 'node:http';
 import { createYoga, YogaInitialContext } from 'graphql-yoga';
 import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
 import { Context } from '@schema/authentication';
-import { buildSchema } from '@database/<database>/schema';
+import { buildSchema } from '@database/<database>/schema/authentication';
 
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
 const yoga = createYoga<YogaInitialContext, Context>({
-  schema: await buildSchema('<schema>'),
+  schema: await buildSchema(),
   context: ({ request }) => ({
     sessionId: sessionIdFromCookie(request.headers.get('cookie')),
     setSessionId(sessionId) {

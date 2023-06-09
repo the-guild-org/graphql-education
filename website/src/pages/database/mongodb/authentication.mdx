@@ -1,3 +1,15 @@
+{/* TODO: content */}
+
+# Authentication
+
+## Prerequisites
+
+- [MongoDB introduction and setup](introduction)
+- [Basic schema implementation](basic)
+
+## Schema
+
+```ts filename="examples/database/mongodb/schema/authentication.ts"
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId, MongoServerError } from '../mongodb';
@@ -191,3 +203,4 @@ export async function buildSchema() {
     resolvers: [basic.resolvers, resolvers],
   });
 }
+```
