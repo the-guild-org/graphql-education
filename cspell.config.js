@@ -9,6 +9,7 @@ const config = {
     'fulltext',
     'servCtx',
     'theguild',
+    'INITDB',
   ],
 };
 module.exports = config;
