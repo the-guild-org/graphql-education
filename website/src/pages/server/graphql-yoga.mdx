@@ -18,7 +18,7 @@ import { createYoga } from 'graphql-yoga';
 import { buildSchema } from '@database/<slug>/schema';
 
 const yoga = createYoga({
-  schema: await buildSchema('<get-started>/<schema>'),
+  schema: await buildSchema('<schema>'),
 });
 
 const server = createServer(yoga);
@@ -39,7 +39,7 @@ import { buildSchema } from '@database/<slug>/schema';
 
 // Yoga already uses built-in support for GraphQL over SSE for subscriptions.
 const yoga = createYoga({
-  schema: await buildSchema('<get-started>/<schema>'),
+  schema: await buildSchema('<schema>'),
 });
 
 const server = createServer(yoga);
@@ -60,7 +60,7 @@ import { buildSchema, createContext } from '@database/<slug>/schema';
 const SESSION_REQUEST_TO_ID_MAP = new WeakMap<Request, string>();
 
 const yoga = createYoga({
-  schema: await buildSchema('<get-started>/<schema>'),
+  schema: await buildSchema('<schema>'),
   context: ({ request }) =>
     createContext({
       sessionId: sessionIdFromCookie(request.headers.get('cookie')),
