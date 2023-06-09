@@ -2,7 +2,7 @@ import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId } from '../mongodb';
 import * as basic from './basic';
-import { Resolvers, Task } from '../subscriptions.graphql';
+import { Resolvers, Task } from './subscriptions.graphql';
 import { createPubSub } from '@database/common';
 import { GraphQLError } from 'graphql';
 import { schemaFile as basicSchemaFile } from '@schema/basic';

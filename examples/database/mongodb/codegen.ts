@@ -9,15 +9,15 @@ const config: CodegenConfig = {
     enumsAsTypes: true,
   },
   generates: {
-    'basic.graphql.d.ts': {
+    'schema/basic.graphql.d.ts': {
       schema: basicSchemaFile,
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
-    'subscriptions.graphql.d.ts': {
+    'schema/subscriptions.graphql.d.ts': {
       schema: [basicSchemaFile, subscriptionsSchemaFile],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },
-    'authentication.graphql.d.ts': {
+    'schema/authentication.graphql.d.ts': {
       schema: [basicSchemaFile, authenticationSchemaFile],
       plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
     },

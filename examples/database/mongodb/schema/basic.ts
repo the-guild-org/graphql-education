@@ -1,7 +1,7 @@
 import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId } from '../mongodb';
-import { Resolvers, TaskStatus } from '../basic.graphql';
+import { Resolvers, TaskStatus } from './basic.graphql';
 import { GraphQLError } from 'graphql';
 import { schemaFile } from '@schema/basic';
 

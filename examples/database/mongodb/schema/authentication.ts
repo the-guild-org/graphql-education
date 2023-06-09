@@ -2,7 +2,7 @@ import { loadFilesSync } from '@graphql-tools/load-files';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { mongodb, ObjectId, MongoServerError } from '../mongodb';
 import * as basic from './basic';
-import { Resolvers } from '../authentication.graphql';
+import { Resolvers } from './authentication.graphql';
 import {
   schemaFile as authenticationSchemaFile,
   Context,
