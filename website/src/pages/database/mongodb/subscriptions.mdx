@@ -23,7 +23,7 @@ import { schemaPath as subscriptionsSchemaPath } from '@schema/subscriptions';
 // The tasks wont change from basic schema in terms of their structure.
 export interface DbTask extends basic.DbTask {}
 
-// Pub/sub events map for susbscriptions. You can see them in action below.
+// Pub/sub events map for subscriptions. You can see them in action below.
 const events = {
   taskCreated: createPubSub<{ taskCreated: Task }>(),
   taskChanged: createPubSub<{ taskChanged: Task }>(),
