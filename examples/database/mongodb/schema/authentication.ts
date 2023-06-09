@@ -175,7 +175,7 @@ const resolvers: Resolvers<Context> = {
   },
 };
 
-export const AuthenticationSchema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs: loadFilesSync([basicSchemaFile, authenticationSchemaFile]),
   resolvers: [resolvers],
 });

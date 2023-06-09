@@ -89,7 +89,7 @@ const resolvers: Resolvers = {
   },
 };
 
-export const SubscriptionsSchema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs: loadFilesSync([basicSchemaFile, subscriptionsSchemaFile]),
   resolvers: [resolvers],
 });

@@ -1,18 +1,18 @@
 import { mergeSchemas } from '@graphql-tools/schema';
-import { BasicSchema } from './basic';
-import { SubscriptionsSchema } from './subscriptions';
-import { AuthenticationSchema } from './authentication';
+import { schema as basicSchema } from './basic';
+import { schema as subscriptionsSchema } from './subscriptions';
+import { schema as authenticationSchema } from './authentication';
 
 export async function buildSchema(
   schema: 'basic' | 'subscriptions' | 'authentication',
 ) {
   return {
-    basic: BasicSchema,
+    basic: basicSchema,
     subscriptions: mergeSchemas({
-      schemas: [BasicSchema, SubscriptionsSchema],
+      schemas: [basicSchema, subscriptionsSchema],
     }),
     authentication: mergeSchemas({
-      schemas: [BasicSchema, AuthenticationSchema],
+      schemas: [basicSchema, authenticationSchema],
     }),
   }[schema];
 }

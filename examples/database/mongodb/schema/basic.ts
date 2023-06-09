@@ -110,7 +110,7 @@ const resolvers: Resolvers = {
   },
 };
 
-export const BasicSchema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs: loadFilesSync(schemaFile),
   resolvers: [resolvers],
 });
