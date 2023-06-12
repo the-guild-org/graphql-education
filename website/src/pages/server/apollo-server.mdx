@@ -1,0 +1,59 @@
+# Apollo Server
+
+[Apollo Server](https://www.apollographql.com/docs/apollo-server/) is an open-source, spec-compliant GraphQL server that's compatible with any GraphQL client, including [Apollo Client](https://www.apollographql.com/docs/react).
+
+## Installation
+
+```sh npm2yarn
+npm i graphql @apollo/server
+```
+
+## Schema
+
+### Basic
+
+```ts filename="examples/server/apollo-server/basic.ts"
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { buildSchema } from '@database/<database>/schema/authentication';
+
+const server = new ApolloServer({
+  schema: await buildSchema(),
+});
+
+await startStandaloneServer(server, {
+  listen: { port: 50005 },
+});
+
+console.info('Server is running on http://localhost:50005/graphql');
+```
+
+Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see Yoga in action.
+
+### Authentication
+
+```ts filename="examples/server/apollo-server/authentication.ts"
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { sessionIdFromCookie, sessionIdToCookie } from '@server/common';
+import { Context } from '@schema/authentication';
+import { buildSchema } from '@database/<database>/schema/authentication';
+
+const server = new ApolloServer<Context>({
+  schema: await buildSchema(),
+});
+
+await startStandaloneServer(server, {
+  listen: { port: 50005 },
+  context: async ({ req, res }) => ({
+    sessionId: sessionIdFromCookie(req.headers.cookie),
+    setSessionId(sessionId) {
+      res.setHeader('set-cookie', sessionIdToCookie(sessionId));
+    },
+  }),
+});
+
+console.info('Server is running on http://localhost:50005/graphql');
+```
+
+Visit [`http://localhost:50005/graphql`](http://localhost:50005/graphql) to see Yoga in action.

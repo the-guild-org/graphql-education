@@ -3,5 +3,6 @@
   "common": "Common",
   "graphql-yoga": "GraphQL Yoga",
   "graphql-http": "GraphQL HTTP",
-  "mercurius": "Mercurius"
+  "mercurius": "Mercurius",
+  "apollo-server": "Apollo Server"
 }

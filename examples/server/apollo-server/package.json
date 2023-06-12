@@ -3,7 +3,7 @@
   "name": "@server/apollo-server",
   "type": "module",
   "scripts": {
-    "start": "tsx ."
+    "start": "tsx"
   },
   "dependencies": {
     "@apollo/server": "^4.7.3",
