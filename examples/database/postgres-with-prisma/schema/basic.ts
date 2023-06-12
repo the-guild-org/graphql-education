@@ -4,7 +4,8 @@ import { Resolvers } from './basic.graphql';
 import { schemaPath } from '@schema/basic';
 import { prisma } from '../prisma';
 
-const resolvers: Resolvers = {
+// Using the generated `Resolvers` type definitions, we simply have to implement them to communicate with Postgres through Prisma.
+export const resolvers: Resolvers = {
   Query: {
     task(_parent, args) {
       return prisma.task.findUniqueOrThrow({
@@ -36,8 +37,20 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    async createTask(_parent, { input }) {
-      return await prisma.task.create({
+    createTask(_parent, { input }) {
+      return prisma.task.create({
+        data: {
+          title: input.title,
+          description: input.description,
+          status: input.status || ('TODO' as const),
+        },
+      });
+    },
+    updateTask(_parent, { input }) {
+      return prisma.task.update({
+        where: {
+          id: String(input.id),
+        },
         data: {
           title: input.title,
           description: input.description,
