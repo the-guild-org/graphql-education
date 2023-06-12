@@ -4,22 +4,6 @@ import { Callout } from '@theguild/components';
 
 A collection of server tools/utilities that are in common with all implementations. This module is referred throughout the guides when importing from `@server/common`.
 
-## Server Context
-
-Every [database](/database/introduction) and [server](/server/introduction) implementation uses and provides respectively the given server context to the GraphQL execution.
-
-<Callout>
-  Only relevant when [authentication schema](/get-started#authentication) or
-  [authorization schema](/get-started#authorization) is used.
-</Callout>
-
-```ts filename="examples/server/common/context.ts"
-export type ServerContext = {
-  sessionId: string | null;
-  setSessionId: (sessionId: string) => void;
-};
-```
-
 ## Cookie
 
 When authenticating users coming from the web browsers, we leverage HTTP cookies.
