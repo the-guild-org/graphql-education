@@ -2,5 +2,6 @@
   "introduction": "Introduction",
   "common": "Common",
   "graphql-yoga": "GraphQL Yoga",
-  "graphql-http": "GraphQL HTTP"
+  "graphql-http": "GraphQL HTTP",
+  "mercurius": "Mercurius"
 }
