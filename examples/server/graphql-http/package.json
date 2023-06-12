@@ -3,7 +3,7 @@
   "name": "@server/graphql-http",
   "type": "module",
   "scripts": {
-    "start": "tsx ."
+    "start": "tsx"
   },
   "dependencies": {
     "graphql": "^16.6.0",

@@ -1,5 +1,6 @@
 {
   "introduction": "Introduction",
   "common": "Common",
-  "graphql-yoga": "GraphQL Yoga"
+  "graphql-yoga": "GraphQL Yoga",
+  "graphql-http": "GraphQL HTTP"
 }
