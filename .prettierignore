@@ -3,3 +3,4 @@ pnpm-lock.yaml
 .next
 *.graphql.d.ts
 .yarn
+prisma/

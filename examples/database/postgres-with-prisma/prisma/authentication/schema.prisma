@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./authentication"
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Task {
+  id          String     @id @default(uuid())
+  status      TaskStatus
+  title       String
+  description String?
+
+  createdByUserId String
+  createdBy       User   @relation("createdTasks", fields: [createdByUserId], references: [id])
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+
+  sessions     Session[]
+  createdTasks Task[]    @relation("createdTasks")
+}
+
+model Session {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
