@@ -16,6 +16,7 @@
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/typescript": "^4.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.0",
-    "@graphql-codegen/typescript-resolvers": "^4.0.0"
+    "@graphql-codegen/typescript-resolvers": "^4.0.0",
+    "@graphql-tools/load-files": "^7.0.0"
   }
 }
