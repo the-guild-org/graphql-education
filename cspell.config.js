@@ -10,6 +10,8 @@ const config = {
     'servCtx',
     'theguild',
     'INITDB',
+    'mercurius',
+    'fastify',
   ],
 };
 module.exports = config;
