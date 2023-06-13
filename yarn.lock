@@ -3724,7 +3724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:>=16, @types/react@npm:^18.0.25":
+"@types/react@npm:>=16":
   version: 18.2.6
   resolution: "@types/react@npm:18.2.6"
   dependencies:
@@ -3732,6 +3732,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: dea9d232d8df7ac357367a69dcb557711ab3d5501807ffa77cebeee73d49ee94d095f298e36853c63ed47cce097eee4c7eae2aaa8c02fac3f0171ec1b523a819
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^18.2.12":
+  version: 18.2.12
+  resolution: "@types/react@npm:18.2.12"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: ad85a7eadaf1b35cfeee9f715b39311420ff46d46e0650377d918b3f888c2e47416037da4a765e1dccd3d1916abd54c105a3bee803c971ba56c955a7768ce976
   languageName: node
   linkType: hard
 
@@ -12950,7 +12961,7 @@ __metadata:
   dependencies:
     "@theguild/components": ^5.0.0
     "@theguild/tailwind-config": ^0.2.2
-    "@types/react": ^18.0.25
+    "@types/react": ^18.2.12
     clsx: ^1.2.1
     next: ^13.4.4
     react: ^18.2.0
