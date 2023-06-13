@@ -14,7 +14,7 @@
     "react-icons": "^4.9.0"
   },
   "devDependencies": {
-    "@theguild/tailwind-config": "^0.2.1",
+    "@theguild/tailwind-config": "^0.2.2",
     "@types/react": "^18.0.25"
   }
 }
