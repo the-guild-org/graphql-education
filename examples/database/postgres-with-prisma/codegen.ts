@@ -1,20 +1,16 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import basic from './codegen.basic';
+import authentication from './codegen.authentication';
+import subscriptions from './codegen.subscriptions';
 
 const config: CodegenConfig = {
-  schema: '../../../schema.graphql',
+  ...basic,
+  ...authentication,
+  ...subscriptions,
   generates: {
-    'generated.d.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-      config: {
-        // Prisma Client uses "type" for enums as well
-        enumsAsTypes: true,
-        // expect resolvers to return Prisma generated types
-        mappers: {
-          User: '@prisma/client#User as UserModel',
-          Task: '@prisma/client#Task as TaskModel',
-        },
-      },
-    },
+    ...basic.generates,
+    ...authentication.generates,
+    ...subscriptions.generates,
   },
 };
 

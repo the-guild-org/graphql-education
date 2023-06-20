@@ -1,5 +1,8 @@
 {
   "introduction": "Introduction",
+  "common": "Common",
   "graphql-yoga": "GraphQL Yoga",
-  "graphql-http": "graphql-http"
+  "graphql-http": "GraphQL HTTP",
+  "mercurius": "Mercurius",
+  "apollo-server": "Apollo Server"
 }

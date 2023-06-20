@@ -3,7 +3,7 @@
   "name": "@server/mercurius",
   "type": "module",
   "scripts": {
-    "start": "tsx ."
+    "start": "tsx"
   },
   "dependencies": {
     "fastify": "^4.18.0",

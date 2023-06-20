@@ -20,7 +20,7 @@ export function sessionIdFromCookie(cookieHeader: string | null | undefined) {
 }
 
 /**
- * Serialises and signs the session ID using HMAC that can be directly used in the
+ * Serializes and signs the session ID using HMAC that can be directly used in the
  * `Set-Cookie` header.
  */
 export function sessionIdToCookie(sessionId: string) {
@@ -51,7 +51,7 @@ function validateSignature(signed: string, secret: string): string | null {
     resignedValBuf = Buffer.from(sign(tentativeVal, secret));
 
   // valid if resigned message is equal to the original signed message compared with
-  // an algorithm sutable for HMAC digests (which is what we use for signing)
+  // an algorithm suitable for HMAC digests (which is what we use for signing)
   return resignedValBuf.length === signedBuf.length &&
     timingSafeEqual(resignedValBuf, signedBuf)
     ? tentativeVal

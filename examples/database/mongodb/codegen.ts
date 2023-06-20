@@ -1,20 +1,16 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
+import basic from './codegen.basic';
+import authentication from './codegen.authentication';
+import subscriptions from './codegen.subscriptions';
 
 const config: CodegenConfig = {
-  schema: '../../../schema.graphql',
+  ...basic,
+  ...authentication,
+  ...subscriptions,
   generates: {
-    'generated.d.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typescript-resolvers'],
-      config: {
-        // Types are easier to handle compared to enums.
-        enumsAsTypes: true,
-        // Expect resolvers to return MongoDB types.
-        mappers: {
-          User: './mongodb#User as UserModel',
-          Task: './mongodb#Task as TaskModel',
-        },
-      },
-    },
+    ...basic.generates,
+    ...authentication.generates,
+    ...subscriptions.generates,
   },
 };
 

@@ -1,21 +1,36 @@
+import { Callout } from '@theguild/components';
+
 # Get Started
 
-Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated modules for convenience and efficiency.
+Welcome to the GraphQL Education, the last GraphQL Academy. A different take on learning GraphQL through practical approach. Each module is isolated for convenience and efficiency.
 
-You're expected to have elementary knowledge about [Docker](https://www.docker.com/), [Node.js](https://nodejs.org/), [GraphQL](https://roadmap.sh/graphql) and [TypeScript](https://www.typescriptlang.org/).
+The education modules are split into 3 different parts: the [database](/database/introduction), [server](/server/introduction) and [client](/client/introduction). Furthermore, each of the 3 parts can be further split into chapters implementing each of the [GraphQL schemas below](#schema).
 
-The education modules are split into 3 different parts: the [database](/database/introduction), [server](/server/introduction) and [client](/client/introduction).
+## Code as Content
+
+All code through the education, as well as the each of the examples, is designed to be read and understood. To achieve this, it is kept simple and readable. Every bit that needs context will contain comments with in-depth explanations.
+
+Please read each of the code blocks throughout the education with care.
+
+## Prerequisites
+
+You're expected to have at least elementary knowledge about:
+
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/)
+- [GraphQL](https://roadmap.sh/graphql)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## Schema
 
-All of the education modules are designed to the following data model. The [schema.graphql](https://github.com/the-guild-org/graphql-education/blob/main/schema.graphql) looks like this:
+All of the education modules chapters are based on the following data models.
 
-```graphql filename="schema.graphql"
+### Basic
+
+This schema showcases the basics of GraphQL and is used as the base for each of the following schemas.
+
+```graphql filename="examples/schema/basic/schema.graphql"
 type Query {
-  """
-  The currently authenticated user.
-  """
-  me: User
   """
   Retrieve a task by its ID.
   """
@@ -27,30 +42,9 @@ type Query {
 }
 
 type Mutation {
-  login(email: String!, password: String!): User!
-  register(input: RegisterInput!): User!
   createTask(input: CreateTaskInput!): Task!
   updateTask(input: UpdateTaskInput!): Task!
   deleteTask(input: DeleteTaskInput!): Task!
-}
-
-type Subscription {
-  taskCreated: Task!
-  taskChanged(id: ID!): Task!
-}
-
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  """
-  All tasks that have been created by this user.
-  """
-  createdTasks: [Task!]!
-  """
-  All tasks that have this user set as the assignee.
-  """
-  assignedTasks: [Task!]!
 }
 
 enum TaskStatus {
@@ -61,28 +55,12 @@ enum TaskStatus {
 
 type Task {
   id: ID!
-  createdByUserId: ID!
-  createdBy: User!
-  """
-  Private tasks can be viewed and modified only by the assignee or the user who created it.
-  """
-  private: Boolean!
-  assigneeUserId: ID
-  assignee: User
   status: TaskStatus!
   title: String!
   description: String
 }
 
-input RegisterInput {
-  name: String!
-  email: String!
-  password: String!
-}
-
 input CreateTaskInput {
-  private: Boolean!
-  assignee: ID!
   status: TaskStatus! = TODO
   title: String!
   description: String
@@ -90,8 +68,6 @@ input CreateTaskInput {
 
 input UpdateTaskInput {
   id: ID!
-  private: Boolean!
-  assignee: ID!
   status: TaskStatus!
   title: String!
   description: String
@@ -99,6 +75,83 @@ input UpdateTaskInput {
 
 input DeleteTaskInput {
   id: ID!
+}
+```
+
+### Subscriptions
+
+Allows for real-time communication with the database notifying the consumer about certain changes. In this case, when a task is created or changed/updated.
+
+<Callout>Extends the [basic schema](#basic).</Callout>
+
+```graphql filename="examples/schema/subscriptions/schema.graphql"
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
+}
+```
+
+### Authentication
+
+When developing applications, you'll often be faced with the requirement of authenticating a user. Authentication means identifying who the resource consumer is.
+
+In addition to protecting resources, we can leverage the identity of the user to add more metadata to the database resources, like who created or changed what.
+
+<Callout>Extends the [basic schema](#basic).</Callout>
+
+```graphql filename="examples/schema/authentication/schema.graphql"
+extend type Query {
+  """
+  The currently authenticated user.
+  """
+  me: User
+}
+
+extend type Mutation {
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
+}
+
+type User {
+  id: ID!
+  """
+  A unique email address of the user.
+  """
+  email: String!
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
+}
+
+extend type Task {
+  """
+  The authenticated user that created this task.
+  """
+  createdBy: User!
+  createdByUserId: ID!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}
+```
+
+### Authorization
+
+An authenticated a user can have further authorization requirements. These authorization policies often deal with who can see what and/or who can change what considering the resource details.
+
+In this specific case, a task marked as `private` can only be viewed by the user who created it and the assigned user. While, only the creator can change the task itself.
+
+<Callout>Extends the [authentication schema](#authentication).</Callout>
+
+```graphql filename="examples/schema/authorization/schema.graphql"
+extend type Task {
+  """
+  Private tasks can be viewed and modified only by the user who created it.
+  """
+  private: Boolean!
 }
 ```
 

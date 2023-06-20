@@ -1,0 +1,83 @@
+# Introduction
+
+[MongoDB](https://www.mongodb.com/) is a document database designed for ease of application development and scaling.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) LTS or higher
+- [Docker](https://www.docker.com/)
+- [TypeScript](https://www.typescriptlang.org/) knowledge
+
+## Setup
+
+### Install
+
+In your project, install and provide the necessary fields:
+
+```sh npm2yarn
+npm i mongodb
+```
+
+### Environment
+
+We'll use a dotenv file named `.env` to store the relevant connection and database configuration parameters.
+
+```sh filename="examples/database/mongodb/.env"
+DATABASE_USER=user
+DATABASE_PASSWORD=password
+DATABASE_PORT=50000
+DATABASE_DB=kanban
+```
+
+## Start
+
+Using Docker, we'll create a MongoDB instance that we'll use.
+
+Start by creating a `docker-compose.yaml` file in the same directory as our `.env`.
+
+```yaml filename="examples/database/mongodb/docker-compose.yaml"
+services:
+  mongodb:
+    image: mongo:6.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DATABASE_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$DATABASE_PASSWORD
+      - MONGO_INITDB_DATABASE=$DATABASE_DB
+    ports:
+      - $DATABASE_PORT:27017
+```
+
+After having configured MongoDB, start the instance by simply running:
+
+```sh
+docker compose up
+```
+
+## Client
+
+Finally, we'll define a MongoDB client using [its Node Driver](https://www.mongodb.com/docs/drivers/node/current/). This same client will be used throughout all of the schema chapters.
+
+The configuration options for the database are as described in `.env` file above.
+
+```ts filename="examples/database/mongodb/mongodb.ts"
+import url from 'url';
+import path from 'path';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+
+// Re-export MongoDB for ease of use.
+export * from 'mongodb';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+// TODO: have just one .env
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+// Create a mongodb client.
+const client = new MongoClient(
+  `mongodb://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@localhost:${process.env.DATABASE_PORT}`,
+);
+
+// And use it with the configured database.
+export const mongodb = client.db(process.env.DATABASE_DB);
+```

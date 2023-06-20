@@ -1,0 +1,4 @@
+type Subscription {
+  taskCreated: Task!
+  taskChanged(id: ID!): Task!
+}

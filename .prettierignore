@@ -1,5 +1,6 @@
 tsconfig.tsbuildinfo
 pnpm-lock.yaml
 .next
-generated.d.ts
+*.graphql.d.ts
 .yarn
+prisma/

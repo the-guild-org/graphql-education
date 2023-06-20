@@ -1,0 +1,111 @@
+import { Callout } from '@theguild/components';
+
+# Common
+
+A collection of server tools/utilities that are in common with all implementations. This module is referred throughout the guides when importing from `@server/common`.
+
+## Cookie
+
+When authenticating users coming from the web browsers, we leverage HTTP cookies.
+
+> An HTTP cookie (web cookie, browser cookie) is a small piece of data that a server sends to a user's web browser. The browser may store the cookie and send it back to the same server with later requests. Typically, an HTTP cookie is used to tell if two requests come from the same browser—keeping a user logged in, for example. It remembers stateful information for the stateless HTTP protocol.
+
+[_\*MDN Web Docs_](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+
+The way we will handle sessions is that the cookie will hold a session ID representing an entry in the database session table. In order to make sure that the session is created by a verified provider, we will sign and verify the cookie with HMAC.
+
+> Hash-based message authentication code (or HMAC) is a cryptographic authentication technique that uses a hash function and a secret key.
+>
+> With HMAC, you can achieve authentication and verify that data is correct and authentic with shared secrets, as opposed to approaches that use signatures and asymmetric cryptography.
+
+[_\*Okta Identity 101_](https://www.okta.com/identity-101/hmac/)
+
+To keep things simple and reusable, we will use the `cookie` npm package for parsing and serializing the cookies for HTTP. Install it by running:
+
+```sh npm2yarn
+npm i cookie
+```
+
+<Callout>
+  Only relevant when [authentication schema](/get-started#authentication) or
+  [authorization schema](/get-started#authorization) is used.
+</Callout>
+
+```ts filename="examples/server/common/cookie.ts"
+import { parse, serialize } from 'cookie';
+import { createHmac, timingSafeEqual } from 'crypto';
+
+const SESSION_ID_COOKIE_KEY = 'graphql-education.sid';
+const SESSION_SIGN_SECRET = '🤫';
+
+/**
+ * Extracts the session ID from the provided `Cookie` header and validates
+ * its signature using HMAC.
+ */
+export function sessionIdFromCookie(cookieHeader: string | null | undefined) {
+  if (!cookieHeader) {
+    return null;
+  }
+  const { [SESSION_ID_COOKIE_KEY]: sessionId } = parse(cookieHeader);
+  if (!sessionId) {
+    return null;
+  }
+  return validateSignature(sessionId, SESSION_SIGN_SECRET);
+}
+
+/**
+ * Serializes and signs the session ID using HMAC that can be directly used in the
+ * `Set-Cookie` header.
+ */
+export function sessionIdToCookie(sessionId: string) {
+  return serialize(
+    SESSION_ID_COOKIE_KEY,
+    sign(sessionId, SESSION_SIGN_SECRET),
+    {
+      httpOnly: true, // cannot be accessed through JavaScript by browsers
+      sameSite: 'lax', // sent from same website and when navigating to the website
+      maxAge: 10 * 60, // 10 minutes
+      // make sure to use secure cookies when serving over HTTPS
+      // secure: true,
+    },
+  );
+}
+
+/**
+ * Validate the cookie signature message and return the signed value.
+ * Returns `null` if invalid.
+ *
+ * Reference: https://github.com/tj/node-cookie-signature/blob/7deca8b38110a3bd65841c34359794706cc7c60f/index.js#L36-L47
+ */
+function validateSignature(signed: string, secret: string): string | null {
+  const signedBuf = Buffer.from(signed),
+    // signed message is in format "<value>.<signature>", take the value
+    tentativeVal = signed.slice(0, signed.lastIndexOf('.')),
+    // sign the tentative value again to compare
+    resignedValBuf = Buffer.from(sign(tentativeVal, secret));
+
+  // valid if resigned message is equal to the original signed message compared with
+  // an algorithm suitable for HMAC digests (which is what we use for signing)
+  return resignedValBuf.length === signedBuf.length &&
+    timingSafeEqual(resignedValBuf, signedBuf)
+    ? tentativeVal
+    : null;
+}
+
+/**
+ * Sign the cookie by calculating the HMAC digest in base64
+ * and returning the message in format "<value>.<signature>".
+ *
+ * Reference: https://github.com/tj/node-cookie-signature/blob/7deca8b38110a3bd65841c34359794706cc7c60f/index.js#L16-L24
+ */
+function sign(value: string, secret: string): string {
+  return (
+    value +
+    '.' +
+    createHmac('sha256', secret)
+      .update(value)
+      .digest('base64')
+      .replace(/\=+$/, '') // strip equal signs
+  );
+}
+```

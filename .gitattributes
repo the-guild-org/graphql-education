@@ -1,1 +1,4 @@
 \.yarn/** linguist-vendored
+examples/database/postgres-with-prisma/prisma/basic/** linguist-vendored
+examples/database/postgres-with-prisma/prisma/subscriptions/** linguist-vendored
+examples/database/postgres-with-prisma/prisma/authentication/** linguist-vendored

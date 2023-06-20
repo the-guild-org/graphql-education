@@ -14,7 +14,8 @@
   },
   "workspaces": [
     "website",
-    "examples/**/*"
+    "examples/**/*",
+    "!examples/database/postgres-with-prisma/prisma/**/*"
   ],
   "devDependencies": {
     "@types/node": "^18.11.18",

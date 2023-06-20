@@ -1,12 +1,50 @@
+import { Callout } from '@theguild/components';
+
 # Introduction
 
 Your GraphQL API can connect to any kind of data source, such as a remote REST (or even GraphQL) API or database.
 
 ## Schema
 
-The [same GraphQL schema](/get-started#schema) will be model for each of the database implementation.
+Each of the [GraphQL schemas](/get-started#schema) will be used as chapters for each of the database implementations.
 
-Furthermore, every database implementation that follows has a resulting `schema.ts` file that is used to communicate GraphQL to the data source.
+Furthermore, every database implementation that follows has a resulting `<schema>.ts` file containing an asynchronous `buildSchema()` function that is used to generate the GraphQL executable schema that communicates to the database over GraphQL.
+
+### [Basic](/get-started#basic)
+
+```ts
+import { GraphQLSchema } from 'graphql';
+import { buildSchema } from '@database/<database>/schema/basic';
+
+const BasicSchema: GraphQLSchema = await buildSchema();
+```
+
+### [Subscriptions](/get-started#subscriptions)
+
+```ts
+import { GraphQLSchema } from 'graphql';
+import { buildSchema } from '@database/<database>/schema/subscriptions';
+
+const SubscriptionsSchema: GraphQLSchema = await buildSchema();
+```
+
+### [Authentication](/get-started#authentication)
+
+```ts
+import { GraphQLSchema } from 'graphql';
+import { buildSchema } from '@database/<database>/schema/authentication';
+
+const AuthenticationSchema: GraphQLSchema = await buildSchema();
+```
+
+### [Authorization](/get-started#authorization)
+
+```ts
+import { GraphQLSchema } from 'graphql';
+import { buildSchema } from '@database/<database>/schema/authorization';
+
+const AuthorizationSchema: GraphQLSchema = await buildSchema();
+```
 
 ## Port
 

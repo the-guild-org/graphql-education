@@ -1,0 +1,36 @@
+extend type Query {
+  """
+  The currently authenticated user.
+  """
+  me: User
+}
+
+extend type Mutation {
+  login(email: String!, password: String!): User!
+  register(input: RegisterInput!): User!
+}
+
+type User {
+  id: ID!
+  """
+  A unique email address of the user.
+  """
+  email: String!
+  """
+  All tasks that have been created by this user.
+  """
+  createdTasks: [Task!]!
+}
+
+extend type Task {
+  """
+  The authenticated user that created this task.
+  """
+  createdBy: User!
+  createdByUserId: ID!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+}

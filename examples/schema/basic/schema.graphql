@@ -1,0 +1,46 @@
+type Query {
+  """
+  Retrieve a task by its ID.
+  """
+  task(id: ID!): Task
+  """
+  Retrieve available tasks. Optionally perform a fulltext search using the `searchText` argument.
+  """
+  filterTasks(searchText: String): [Task!]!
+}
+
+type Mutation {
+  createTask(input: CreateTaskInput!): Task!
+  updateTask(input: UpdateTaskInput!): Task!
+  deleteTask(input: DeleteTaskInput!): Task!
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+type Task {
+  id: ID!
+  status: TaskStatus!
+  title: String!
+  description: String
+}
+
+input CreateTaskInput {
+  status: TaskStatus! = TODO
+  title: String!
+  description: String
+}
+
+input UpdateTaskInput {
+  id: ID!
+  status: TaskStatus!
+  title: String!
+  description: String
+}
+
+input DeleteTaskInput {
+  id: ID!
+}

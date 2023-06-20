@@ -4,10 +4,14 @@ const config = {
     'pluggable',
     'kanban',
     'datasource',
-    'PGPORT',
+    'pgport',
     'codegen',
     'fulltext',
-    'servCtx',
+    'servctx',
+    'theguild',
+    'initdb',
+    'mercurius',
+    'fastify',
   ],
 };
 module.exports = config;
