@@ -6,7 +6,7 @@
     "start": "tsx ."
   },
   "dependencies": {
-    "@apollo/server": "^4.7.4",
+    "@apollo/server": "^4.7.5",
     "graphql": "^16.6.0"
   },
   "devDependencies": {
