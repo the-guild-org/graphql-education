@@ -10,7 +10,7 @@
     "@graphql-tools/schema": "^10.0.0",
     "@prisma/client": "^4.16.1",
     "graphql": "^16.6.0",
-    "prisma": "^4.15.0"
+    "prisma": "^4.16.2"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.1",
