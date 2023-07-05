@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.0",
-    "@prisma/client": "^4.16.1",
+    "@prisma/client": "^4.16.2",
     "graphql": "^16.6.0",
     "prisma": "^4.15.0"
   },
