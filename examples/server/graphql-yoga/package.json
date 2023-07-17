@@ -6,7 +6,7 @@
     "start": "tsx ."
   },
   "dependencies": {
-    "graphql": "^16.6.0",
+    "graphql": "^16.7.1",
     "graphql-yoga": "^4.0.3"
   },
   "devDependencies": {
