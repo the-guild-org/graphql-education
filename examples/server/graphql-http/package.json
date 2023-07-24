@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "graphql": "^16.7.1",
-    "graphql-http": "^1.20.0"
+    "graphql-http": "^1.21.0"
   },
   "devDependencies": {
     "tsx": "^3.12.7"
