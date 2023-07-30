@@ -3367,7 +3367,7 @@ __metadata:
   resolution: "@server/graphql-http@workspace:examples/server/graphql-http"
   dependencies:
     graphql: ^16.7.1
-    graphql-http: ^1.20.0
+    graphql-http: ^1.21.0
     tsx: ^3.12.7
   languageName: unknown
   linkType: soft
@@ -7142,12 +7142,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"graphql-http@npm:^1.20.0":
-  version: 1.20.0
-  resolution: "graphql-http@npm:1.20.0"
+"graphql-http@npm:^1.21.0":
+  version: 1.21.0
+  resolution: "graphql-http@npm:1.21.0"
   peerDependencies:
     graphql: ">=0.11 <=16"
-  checksum: 00c96103382815d003f894e9c348ed66e92bf6c64c972437bf87a25c244dcef0827d12eda5229cab1c88acd445aa9cd9ad4c8f2410c67100ec78ce83bd17ded7
+  checksum: 5e76826d4d5fc1f15e23b72753bc0d750b22df39e3bbe0bdd8e5e0fae1df9bbbe0654225de785da783f8f33699b37f7b37c6f068f38363b5e562bbaf88319b90
   languageName: node
   linkType: hard
 
