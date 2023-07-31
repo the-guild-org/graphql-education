@@ -3395,7 +3395,7 @@ __metadata:
   dependencies:
     fastify: ^4.18.0
     graphql: ^16.7.1
-    mercurius: ^13.0.0
+    mercurius: ^13.1.0
     tsx: ^3.12.7
   languageName: unknown
   linkType: soft
@@ -7228,13 +7228,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^16.0.0":
-  version: 16.6.0
-  resolution: "graphql@npm:16.6.0"
-  checksum: bf1d9e3c1938ce3c1a81e909bd3ead1ae4707c577f91cff1ca2eca474bfbc7873d5d7b942e1e9777ff5a8304421dba57a4b76d7a29eb19de8711cb70e3c2415e
-  languageName: node
-  linkType: hard
-
 "graphql@npm:^16.7.1":
   version: 16.7.1
   resolution: "graphql@npm:16.7.1"
@@ -8813,15 +8806,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mercurius@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "mercurius@npm:13.0.0"
+"mercurius@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "mercurius@npm:13.1.0"
   dependencies:
     "@fastify/error": ^3.0.0
     "@fastify/static": ^6.0.0
     "@fastify/websocket": ^8.0.0
     fastify-plugin: ^4.2.0
-    graphql: ^16.0.0
     graphql-jit: ^0.8.0
     mqemitter: ^5.0.0
     p-map: ^4.0.0
@@ -8834,7 +8826,7 @@ __metadata:
     ws: ^8.2.2
   peerDependencies:
     graphql: ^16.0.0
-  checksum: 307d3c4be3fa9fc3e3c44c2d02cb6685c1abb92a990f82c25b77f2e5eb66219844946b917fcbe0350bbf6f382241016204e82e18e7eff6d5398331cd3ba11c78
+  checksum: c4ee6ebdda82e2748bbc60cde922dd73ccdc5f5b329fc9596f04059b52dae46ebaf8f7685b4ee84660bd7c73b44ebc7ff0fd8463c65ef8293a3faa0bf9864865
   languageName: node
   linkType: hard
 
