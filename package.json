@@ -20,7 +20,7 @@
     "@types/node": "^18.11.18",
     "cspell": "^6.31.2",
     "glob": "^10.3.3",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.1",
     "typescript": "^5.1.6"
   }
 }
