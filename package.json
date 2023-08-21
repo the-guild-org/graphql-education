@@ -18,7 +18,7 @@
   ],
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "cspell": "^6.31.2",
+    "cspell": "^7.0.1",
     "glob": "^10.3.3",
     "prettier": "^3.0.1",
     "typescript": "^5.1.6"
