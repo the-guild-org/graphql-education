@@ -3425,7 +3425,7 @@ __metadata:
   resolution: "@server/graphql-yoga@workspace:examples/server/graphql-yoga"
   dependencies:
     graphql: ^16.8.0
-    graphql-yoga: ^4.0.3
+    graphql-yoga: ^4.0.4
     tsx: ^3.12.7
   languageName: unknown
   linkType: soft
@@ -7303,9 +7303,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-yoga@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "graphql-yoga@npm:4.0.3"
+"graphql-yoga@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "graphql-yoga@npm:4.0.4"
   dependencies:
     "@envelop/core": ^4.0.0
     "@graphql-tools/executor": ^1.0.0
@@ -7320,7 +7320,7 @@ __metadata:
     tslib: ^2.5.2
   peerDependencies:
     graphql: ^15.2.0 || ^16.0.0
-  checksum: b4eccbb0b8df5bbadd57df6bc122e4b46c243214c42c71ede23ebfb4751c04bf0fe38c950bf6416a9fe493ebd3da7dd7652b0dbedd2f739db31e4361b556bdaa
+  checksum: d8a91db51a2c67c07540d3db2f2261454d5b759da469b1f8703da4aa742b1b57726ddb1de56566b40d830e37b95016436d0c4306697f25fd16e5c51ab3137e3a
   languageName: node
   linkType: hard
 
