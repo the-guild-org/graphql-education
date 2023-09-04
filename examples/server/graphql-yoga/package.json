@@ -10,6 +10,6 @@
     "graphql-yoga": "^4.0.4"
   },
   "devDependencies": {
-    "tsx": "^3.12.7"
+    "tsx": "^3.12.8"
   }
 }
