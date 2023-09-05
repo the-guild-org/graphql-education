@@ -6,7 +6,7 @@
     "build": "next build && next export -o dist"
   },
   "dependencies": {
-    "@theguild/components": "^5.2.1",
+    "@theguild/components": "^5.2.2",
     "clsx": "^2.0.0",
     "next": "^13.4.12",
     "react": "^18.2.0",
