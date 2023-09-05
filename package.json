@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/node": "^18.17.14",
     "cspell": "^7.0.1",
-    "glob": "^10.3.3",
+    "glob": "^10.3.4",
     "prettier": "^3.0.1",
     "typescript": "^5.2.2"
   }
