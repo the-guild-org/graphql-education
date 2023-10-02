@@ -1597,7 +1597,7 @@ __metadata:
     "@graphql-tools/schema": ^10.0.0
     dotenv: ^16.3.1
     graphql: ^16.8.0
-    mongodb: ^6.0.0
+    mongodb: ^6.1.0
   languageName: unknown
   linkType: soft
 
@@ -4727,10 +4727,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bson@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "bson@npm:6.0.0"
-  checksum: 594ebbfcaef8487741405915977b5d38dcd6e36b08af54faf459a8e8d039d555a2db2bb422c8d25b065ac9b5bb9828bc8cc49aa145194f53f8352d355fd83a77
+"bson@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "bson@npm:6.1.0"
+  checksum: 8250c8158c22d2a0ca0e7677c0cbef9fa6341c176382b835dbf4c7f8aebdfd74d530f7225c6f3b98ca78a68aab4f1ad3d2fad54160a98b3e6ed9823b80db2e48
   languageName: node
   linkType: hard
 
@@ -9899,12 +9899,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "mongodb@npm:6.0.0"
+"mongodb@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "mongodb@npm:6.1.0"
   dependencies:
     "@mongodb-js/saslprep": ^1.1.0
-    bson: ^6.0.0
+    bson: ^6.1.0
     mongodb-connection-string-url: ^2.6.0
   peerDependencies:
     "@aws-sdk/credential-providers": ^3.188.0
@@ -9929,7 +9929,7 @@ __metadata:
       optional: true
     socks:
       optional: true
-  checksum: 0399d1297795eb8b7bc20c2038085a6928fbd43931d831cd4ef00d8d63a55c8e867d5dfa36859fe69a86ae84fd36d9e5fb9eec1411d351cf653a82894c4751d0
+  checksum: ed60c14f0a7e2e9088ba58f29b0425bc5c00d81e3f692938e3bb887b2fdbb411935e845a8bab3faa7609e6e52e94b9705cf60fac61684d21b8bc92a5c3938964
   languageName: node
   linkType: hard
 
