@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.9.2",
-    "graphql": "^16.8.0"
+    "graphql": "^16.8.1"
   },
   "devDependencies": {
     "tsx": "^3.13.0"
