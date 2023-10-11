@@ -3413,7 +3413,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@server/mercurius@workspace:examples/server/mercurius"
   dependencies:
-    fastify: ^4.18.0
+    fastify: ^4.24.0
     graphql: ^16.8.1
     mercurius: ^13.1.0
     tsx: ^3.13.0
@@ -6642,9 +6642,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.18.0":
-  version: 4.18.0
-  resolution: "fastify@npm:4.18.0"
+"fastify@npm:^4.24.0":
+  version: 4.24.0
+  resolution: "fastify@npm:4.24.0"
   dependencies:
     "@fastify/ajv-compiler": ^3.5.0
     "@fastify/error": ^3.2.0
@@ -6653,7 +6653,7 @@ __metadata:
     avvio: ^8.2.1
     fast-content-type-parse: ^1.0.0
     fast-json-stringify: ^5.7.0
-    find-my-way: ^7.6.0
+    find-my-way: ^7.7.0
     light-my-request: ^5.9.1
     pino: ^8.12.0
     process-warning: ^2.2.0
@@ -6661,8 +6661,8 @@ __metadata:
     rfdc: ^1.3.0
     secure-json-parse: ^2.5.0
     semver: ^7.5.0
-    tiny-lru: ^11.0.1
-  checksum: 14dc83e3cc46edf4c0c8874eec2d9e95c96980acd3dfa0114d40cf0b27e09f1c01e4956d5bdb412be955c59e4e1e4a9c28a31659dfb26e8c1d0e2d77af4d926e
+    toad-cache: ^3.2.0
+  checksum: 5af7663a6febadc51314cdadf251283013b69514fb245967b449b269bac8d9a13b089f1835b3d1b1e48aa8852a22e7b7eb8bb6cb2478aa8bffa880ff301613d0
   languageName: node
   linkType: hard
 
@@ -6770,14 +6770,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-my-way@npm:^7.6.0":
-  version: 7.6.2
-  resolution: "find-my-way@npm:7.6.2"
+"find-my-way@npm:^7.7.0":
+  version: 7.7.0
+  resolution: "find-my-way@npm:7.7.0"
   dependencies:
     fast-deep-equal: ^3.1.3
     fast-querystring: ^1.0.0
     safe-regex2: ^2.0.0
-  checksum: 56c02350aba2cc4cff82b3e00171cf4db72756b8ca5f0e41562d21f89cf29512b9e83b6e29ab352303ca9d0dcbfcd8c93f50d52dc92f1eeecc4bc991404ef533
+  checksum: 6cd3fbfd57aa359475658bbc2336b27c561c16a91a1fb6346d025e3d6ff7a127fdc4cf23ac4b6ed8054534ac45f63a5b9421d52834ae1d36c47ccfde2a73a3aa
   languageName: node
   linkType: hard
 
@@ -12423,7 +12423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiny-lru@npm:^11.0.0, tiny-lru@npm:^11.0.1":
+"tiny-lru@npm:^11.0.0":
   version: 11.0.1
   resolution: "tiny-lru@npm:11.0.1"
   checksum: 709ab58a454028eae15dd249518a1e348520e22514e52fd625ef89ba04a42599522e9f6cc89f50f76d3809cc46cac352bd0b63f052d23562e7adafe3e728531a
@@ -12482,6 +12482,13 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
+  languageName: node
+  linkType: hard
+
+"toad-cache@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "toad-cache@npm:3.3.0"
+  checksum: 971bb91e0e3487494b0b7b00ad8614738e1925e536d897da26be36f03edb3298c82b2a5e18155d5323ed6258e7f1d90e99558c11e3610c87fce47b62dd7b167a
   languageName: node
   linkType: hard
 
