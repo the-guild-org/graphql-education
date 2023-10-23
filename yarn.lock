@@ -3413,7 +3413,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@server/mercurius@workspace:examples/server/mercurius"
   dependencies:
-    fastify: ^4.24.2
+    fastify: ^4.24.3
     graphql: ^16.8.1
     mercurius: ^13.1.0
     tsx: ^3.13.0
@@ -6675,9 +6675,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastify@npm:^4.24.2":
-  version: 4.24.2
-  resolution: "fastify@npm:4.24.2"
+"fastify@npm:^4.24.3":
+  version: 4.24.3
+  resolution: "fastify@npm:4.24.3"
   dependencies:
     "@fastify/ajv-compiler": ^3.5.0
     "@fastify/error": ^3.4.0
@@ -6695,7 +6695,7 @@ __metadata:
     secure-json-parse: ^2.7.0
     semver: ^7.5.4
     toad-cache: ^3.3.0
-  checksum: 82c217009ece5eeb41cc7e8ac4b0478e20ce9aeed59bb9a09bdd8409685c7d583c48168a4b64777bd0c9f9caa1cfd6799175919217ea6bb290f1562b0f21b9ce
+  checksum: f953c42aa47a22e69e0f721f4d82a17278dc66c317c0881b04e982cfc738c71bcccd1bcc951e317eb9600cec90840404aa1a04018a5fff909c412950ddf58956
   languageName: node
   linkType: hard
 
