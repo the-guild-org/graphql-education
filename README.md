@@ -1,3 +1,3 @@
-# [graphql.education](https://graphql-education.pages.dev)
+# [graphql.education](https://graphql.education)
 
 🌊
