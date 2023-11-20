@@ -3376,7 +3376,7 @@ __metadata:
   dependencies:
     "@apollo/server": ^4.9.2
     graphql: ^16.8.1
-    tsx: ^3.13.0
+    tsx: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -3395,7 +3395,7 @@ __metadata:
   dependencies:
     graphql: ^16.8.1
     graphql-http: ^1.22.0
-    tsx: ^3.13.0
+    tsx: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -3405,7 +3405,7 @@ __metadata:
   dependencies:
     graphql: ^16.8.1
     graphql-yoga: ^4.0.4
-    tsx: ^3.13.0
+    tsx: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -3416,7 +3416,7 @@ __metadata:
     fastify: ^4.24.2
     graphql: ^16.8.1
     mercurius: ^13.1.0
-    tsx: ^3.13.0
+    tsx: ^4.1.4
   languageName: unknown
   linkType: soft
 
@@ -12729,9 +12729,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "tsx@npm:3.13.0"
+"tsx@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "tsx@npm:4.1.4"
   dependencies:
     esbuild: ~0.18.20
     fsevents: ~2.3.3
@@ -12742,7 +12742,7 @@ __metadata:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: ef858574e110d16a7ca9bbb3a5edeeafd37026ebed6cdd390c4707ad64005024c55fd3142a8f89732c79176196afa7d27073f586966ff0cae0126159ebd58be4
+  checksum: b5f2e2ea84d464b5fcabd263556bdbbdc0c5838b7ee3f8ec5d6eed3dc2721b9377362a052ab5b1d79dc95e17ee6ec20b0141a5420b518aa369d760c27938330a
   languageName: node
   linkType: hard
 
