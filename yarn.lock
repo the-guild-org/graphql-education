@@ -3376,7 +3376,7 @@ __metadata:
   dependencies:
     "@apollo/server": ^4.9.2
     graphql: ^16.8.1
-    tsx: ^3.13.0
+    tsx: ^4.5.0
   languageName: unknown
   linkType: soft
 
@@ -3395,7 +3395,7 @@ __metadata:
   dependencies:
     graphql: ^16.8.1
     graphql-http: ^1.22.0
-    tsx: ^3.13.0
+    tsx: ^4.5.0
   languageName: unknown
   linkType: soft
 
@@ -3405,7 +3405,7 @@ __metadata:
   dependencies:
     graphql: ^16.8.1
     graphql-yoga: ^4.0.4
-    tsx: ^3.13.0
+    tsx: ^4.5.0
   languageName: unknown
   linkType: soft
 
@@ -3416,7 +3416,7 @@ __metadata:
     fastify: ^4.24.2
     graphql: ^16.8.1
     mercurius: ^13.1.0
-    tsx: ^3.13.0
+    tsx: ^4.5.0
   languageName: unknown
   linkType: soft
 
@@ -4554,13 +4554,6 @@ __metadata:
   version: 6.1.0
   resolution: "bson@npm:6.1.0"
   checksum: 8250c8158c22d2a0ca0e7677c0cbef9fa6341c176382b835dbf4c7f8aebdfd74d530f7225c6f3b98ca78a68aab4f1ad3d2fad54160a98b3e6ed9823b80db2e48
-  languageName: node
-  linkType: hard
-
-"buffer-from@npm:^1.0.0":
-  version: 1.1.2
-  resolution: "buffer-from@npm:1.1.2"
-  checksum: 0448524a562b37d4d7ed9efd91685a5b77a50672c556ea254ac9a6d30e3403a517d8981f10e565db24e8339413b43c97ca2951f10e399c6125a0d8911f5679bb
   languageName: node
   linkType: hard
 
@@ -12190,23 +12183,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.21":
-  version: 0.5.21
-  resolution: "source-map-support@npm:0.5.21"
-  dependencies:
-    buffer-from: ^1.0.0
-    source-map: ^0.6.0
-  checksum: 43e98d700d79af1d36f859bdb7318e601dfc918c7ba2e98456118ebc4c4872b327773e5a1df09b0524e9e5063bb18f0934538eace60cca2710d1fa687645d137
-  languageName: node
-  linkType: hard
-
-"source-map@npm:^0.6.0":
-  version: 0.6.1
-  resolution: "source-map@npm:0.6.1"
-  checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
-  languageName: node
-  linkType: hard
-
 "source-map@npm:^0.7.0":
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
@@ -12729,20 +12705,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "tsx@npm:3.13.0"
+"tsx@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "tsx@npm:4.5.0"
   dependencies:
     esbuild: ~0.18.20
     fsevents: ~2.3.3
     get-tsconfig: ^4.7.2
-    source-map-support: ^0.5.21
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     tsx: dist/cli.mjs
-  checksum: ef858574e110d16a7ca9bbb3a5edeeafd37026ebed6cdd390c4707ad64005024c55fd3142a8f89732c79176196afa7d27073f586966ff0cae0126159ebd58be4
+  checksum: c8c87092ac7fd80d9324b804da43f9fbb98663b1ad369db1d678889c70b49e99a4613b5903f9281ec70cc92613bb8fe1e5ab8229bdf5f116ca69c25d0f1a4fd2
   languageName: node
   linkType: hard
 

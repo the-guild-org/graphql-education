@@ -11,6 +11,6 @@
     "mercurius": "^13.1.0"
   },
   "devDependencies": {
-    "tsx": "^3.13.0"
+    "tsx": "^4.5.0"
   }
 }
