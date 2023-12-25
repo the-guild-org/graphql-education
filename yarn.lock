@@ -1616,22 +1616,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@envelop/core@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@envelop/core@npm:4.0.0"
+"@envelop/core@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@envelop/core@npm:5.0.0"
   dependencies:
-    "@envelop/types": 4.0.0
+    "@envelop/types": 5.0.0
     tslib: ^2.5.0
-  checksum: 575039dfebeadaac3ea61fd700dcc806e26f04f045dc4457052b7cc1ca7c9c37bf9a98a8e4d377d20c69a4e7dc62c11b8884b70f2a218944736ee58c588d498b
+  checksum: a3b6ac557c4529aff734bea2181d948c7626903260ebe84e4d9004c16f49b22196855934f7d0b3fcca44252088c4fa6641edc59075a2a3bb586c1fa4805c0990
   languageName: node
   linkType: hard
 
-"@envelop/types@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@envelop/types@npm:4.0.0"
+"@envelop/types@npm:5.0.0":
+  version: 5.0.0
+  resolution: "@envelop/types@npm:5.0.0"
   dependencies:
     tslib: ^2.5.0
-  checksum: cd8bad3ef7d9ee6015e3befbd27a1fb66a560d1397111b0fe22d8a107c7509ab48f183752d514321e35e9c27e9e970e004579867d64105768fce69ccca411ac7
+  checksum: 1098f821981d2b59a453f5f21ac3b2ea9fcf6bd253a564f0317f67b7469ff17e53921ea99a3b528cb5c95e0671460d68b55150836ce635788576500317a8ad9b
   languageName: node
   linkType: hard
 
@@ -2477,34 +2477,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-yoga/logger@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@graphql-yoga/logger@npm:1.0.0"
+"@graphql-yoga/logger@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@graphql-yoga/logger@npm:2.0.0"
   dependencies:
     tslib: ^2.5.2
-  checksum: 6d4e963b1386fbb68716d8b8192533337998e86d7c013e58816d42392a287d2b3b63f92c2cd89155edd936d51c2c1e44fb2d6487359879a85f113e6be7b838a1
+  checksum: 0050dbf6294ab95de9ff9d9ad2a2630278a90449fff138ff996a40dcd652d116aa1abe6748a62ab9a6069a8d609a45c47d60886fbdd573334a3c494872de8fa6
   languageName: node
   linkType: hard
 
-"@graphql-yoga/subscription@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@graphql-yoga/subscription@npm:4.0.0"
+"@graphql-yoga/subscription@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@graphql-yoga/subscription@npm:5.0.0"
   dependencies:
-    "@graphql-yoga/typed-event-target": ^2.0.0
+    "@graphql-yoga/typed-event-target": ^3.0.0
     "@repeaterjs/repeater": ^3.0.4
     "@whatwg-node/events": ^0.1.0
     tslib: ^2.5.2
-  checksum: b0ead0a5e07d8087322b0d426bd8c45218b13e5e7b476a664304ad7836c9eff0f2f71a1698effd6bd3d4703f9d69b7c1e06c89eb892645693dc0ac8dd8f13cc1
+  checksum: 58b494085c5bc54bbade8fa94a2e083b4cd5ca6732c3c3006789e6c9bc1cc88978c11fd6a37267f0da794c3cd30068533a0345c5ae428ccbcb81c23c636b70cd
   languageName: node
   linkType: hard
 
-"@graphql-yoga/typed-event-target@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@graphql-yoga/typed-event-target@npm:2.0.0"
+"@graphql-yoga/typed-event-target@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@graphql-yoga/typed-event-target@npm:3.0.0"
   dependencies:
     "@repeaterjs/repeater": ^3.0.4
     tslib: ^2.5.2
-  checksum: 1d6be24b71892714a1e4894da09d64739db2c817997068c09483b6e42b02a7655ffce8938d252711da7b076057c3ea25a021f8d9ad68fd30811f5e0a0941bf1b
+  checksum: 0101e71658b519e935bcfc439f9a9db401d2ac17cacfa893a5cb15de947f1962ea84c3ebc89a88dc91f7f1030a758595c20903fa1d3b685c854723688f3a4a08
   languageName: node
   linkType: hard
 
@@ -3404,7 +3404,7 @@ __metadata:
   resolution: "@server/graphql-yoga@workspace:examples/server/graphql-yoga"
   dependencies:
     graphql: ^16.8.1
-    graphql-yoga: ^4.0.4
+    graphql-yoga: ^5.1.0
     tsx: ^3.13.0
   languageName: unknown
   linkType: soft
@@ -7338,16 +7338,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-yoga@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "graphql-yoga@npm:4.0.4"
+"graphql-yoga@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "graphql-yoga@npm:5.1.0"
   dependencies:
-    "@envelop/core": ^4.0.0
+    "@envelop/core": ^5.0.0
     "@graphql-tools/executor": ^1.0.0
     "@graphql-tools/schema": ^10.0.0
     "@graphql-tools/utils": ^10.0.0
-    "@graphql-yoga/logger": ^1.0.0
-    "@graphql-yoga/subscription": ^4.0.0
+    "@graphql-yoga/logger": ^2.0.0
+    "@graphql-yoga/subscription": ^5.0.0
     "@whatwg-node/fetch": ^0.9.7
     "@whatwg-node/server": ^0.9.1
     dset: ^3.1.1
@@ -7355,7 +7355,7 @@ __metadata:
     tslib: ^2.5.2
   peerDependencies:
     graphql: ^15.2.0 || ^16.0.0
-  checksum: d8a91db51a2c67c07540d3db2f2261454d5b759da469b1f8703da4aa742b1b57726ddb1de56566b40d830e37b95016436d0c4306697f25fd16e5c51ab3137e3a
+  checksum: c22c6613167177aa1004af5d8ad95c7af9de255ccc9e51c2b617983c31393e26e6efd81369e7d3900f87ce1695a747913023d066df5248902b1c64d3e47da9e1
   languageName: node
   linkType: hard
 
